@@ -21,13 +21,13 @@ liens vers leurs sites officiels**
 Processus d'installation
 ------------------------
 
-### Chacun des cadriciels (EXEMPLE-À RETIRÉ)
+### Chacun des cadriciels (EXEMPLE-À RETIRER)
 
 **TODO: pour chacun des cadriciels, indiquez, étape par étape, comment procéder à
 l'installation sur une machine Linux ( *Pourquoi pas mac ou Windows????* c'est
 sur une machine linux que le serveur sera installé).** 
 
-### Un autre cadriciel (EXEMPLE-À RETIRÉ)
+### Un autre cadriciel (EXEMPLE-À RETIRER)
 
 Etc...
 
