@@ -35,11 +35,16 @@ Protocole de démarrage du site et options
 ========================================
 
 ### Build frontend
+```sh
+npm install
+```
 
-### 
+### Démarrer le frontend
+```sh
+npm start
+```
 
-
-### Installer les dépendances et constuire l'api
+### Installer les dépendances et build api
 
 ```sh
 ./mvnw clean install
