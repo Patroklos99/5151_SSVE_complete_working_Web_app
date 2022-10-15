@@ -16,7 +16,7 @@ export const carsData: ICar[] = [
         score: 98,
         scoreSecurite: 78,
         lienReference: "String",
-        image: "blob"
+        image: "electric-car-1.jpeg"
     },
     {
         id: 1,
@@ -31,7 +31,7 @@ export const carsData: ICar[] = [
         score: 89,
         scoreSecurite: 88,
         lienReference: "String",
-        image: "blob"
+        image: "electric-car-2.jpeg"
     },
     {
         id: 2,
@@ -46,6 +46,21 @@ export const carsData: ICar[] = [
         score: 94,
         scoreSecurite: 92,
         lienReference: "String",
-        image: "blob"
+        image: "electric-car-3.jpeg"
+    },
+    {
+        id: 3,
+        marque: "Tesla",
+        modele: "Mega Trop Cool",
+        nbPortes: 5,
+        type: "VUS",
+        prix: 275000,
+        autonomie: 275,
+        capacite: 210,
+        tempsRecharge: 50000,
+        score: 91,
+        scoreSecurite: 87,
+        lienReference: "String",
+        image: "electric-car-4.jpeg"
     }
 ]
