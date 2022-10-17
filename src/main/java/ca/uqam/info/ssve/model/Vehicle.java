@@ -12,15 +12,118 @@ public class Vehicle {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    private String brand;
     private String modelName;
+    private int nbDoors;
+    private String type;
+    private int price;
+    private int range;
+    private double batteryCapacity;
+    private double score;
+
+    public Vehicle(Long id, String brand, String modelName, int nbDoors, String type, int price, int range, double batteryCapacity, double score, int safetyScore, String refLink, String imgLink) {
+        this.id = id;
+        this.brand = brand;
+        this.modelName = modelName;
+        this.nbDoors = nbDoors;
+        this.type = type;
+        this.price = price;
+        this.range = range;
+        this.batteryCapacity = batteryCapacity;
+        this.score = score;
+        this.safetyScore = safetyScore;
+        this.refLink = refLink;
+        this.imgLink = imgLink;
+    }
+
+    private int safetyScore;
+    private String refLink;
+    private String imgLink;
 
 
     public Vehicle() {
     }
 
-    public Vehicle(Long id, String modelName) {
-        this.id = id;
-        this.modelName = modelName;
+
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public int getNbDoors() {
+        return nbDoors;
+    }
+
+    public void setNbDoors(int nbDoors) {
+        this.nbDoors = nbDoors;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public double getBatteryCapacity() {
+        return batteryCapacity;
+    }
+
+    public void setBatteryCapacity(double batteryCapacity) {
+        this.batteryCapacity = batteryCapacity;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public int getSafetyScore() {
+        return safetyScore;
+    }
+
+    public void setSafetyScore(int safetyScore) {
+        this.safetyScore = safetyScore;
+    }
+
+    public String getRefLink() {
+        return refLink;
+    }
+
+    public void setRefLink(String refLink) {
+        this.refLink = refLink;
+    }
+
+    public String getImgLink() {
+        return imgLink;
+    }
+
+    public void setImgLink(String imgLink) {
+        this.imgLink = imgLink;
     }
 
     public Long getId() {

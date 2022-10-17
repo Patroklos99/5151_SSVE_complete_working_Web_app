@@ -5,6 +5,8 @@ import ca.uqam.info.ssve.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VehicleService {
 
@@ -19,4 +21,26 @@ public class VehicleService {
         return vehicleRepository.save(auto);
     }
 
+    public List<Vehicle> getAllVehicle() {
+        return vehicleRepository.findAll();
+    }
+
+
+    public void deleteVehicle(Long id) {
+        vehicleRepository.deleteById(id);
+    }
+
+    public void deleteAllVehicle() {
+        vehicleRepository.deleteAll();
+    }
+
+    public void modifyVehicule(Long id, Vehicle vehicle) {
+        deleteVehicle(id);
+        saveVehicle(vehicle);
+    }
+
+
+    public void evaluateVehicle() {
+        //algorithme ici
+    }
 }
