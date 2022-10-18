@@ -12,4 +12,5 @@ export interface ICar {
     scoreSecurite: number;
     lienReference: string;
     image: string;
+    desc: string;
 }

@@ -1,12 +1,10 @@
-import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import { Divider, List } from '@mui/material';
 import React, { useEffect } from 'react';
 import {carsData} from '../../../assets/data_exemples/cars';
 import { ICar } from '../../../models/cars';
+import ListItemCar from './listItemCar';
 
 import './style.css';
-
-
-
 
 const ResultsList = () => {
     const [cars, setCars] = React.useState<ICar[]>([]);
@@ -15,30 +13,18 @@ const ResultsList = () => {
         setCars(carsData);
     }, []);
 
-    const getCarsList = () => {
-        return cars.map((car, index) => {
-            const divider = index < cars.length-1 ?<Divider variant="inset" component="li" /> :"";
 
-            return (
+    
+
+    const getCarsList = () => {
+        return cars.map((car: ICar, index: number) => {
+            const divider = index < cars.length-1 ?<Divider variant="inset" component="li" /> :"";
+            return(
                 <div>
-                    <ListItem key={index} alignItems="flex-start">
-                        <ListItemAvatar>
-                            <Avatar alt="img" src={require(`../../../assets/images/${car.image}`)} />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={
-                                <div className="primary">
-                                    <div className='modele'>{car.modele}</div>
-                                    <div className='prix'>{car.prix}$</div>
-                                </div> 
-                              }
-                            secondary={car.marque}
-                            color="black"
-                        />
-                    </ListItem>
+                    {ListItemCar(car, index)}
                     {divider}
                 </div>
-            );
+            )
         });
     }
     
@@ -49,9 +35,9 @@ const ResultsList = () => {
                 <Divider variant="inset" />
             </div>
             
-            <List sx={{ width: '100%',  bgcolor: 'background.paper' }}>
-            {getCarsList()}
-        </List>
+            <List sx={{ width: '100%',  bgcolor: 'background.paper'}}>
+                {getCarsList()}
+            </List>
         </div>
         
     );
