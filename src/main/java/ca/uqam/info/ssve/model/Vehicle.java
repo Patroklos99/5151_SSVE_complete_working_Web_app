@@ -18,10 +18,10 @@ public class Vehicle {
     private String type;
     private int price;
     private int range;
-    private double batteryCapacity;
+    private int batteryCapacity;
     private double score;
 
-    public Vehicle(Long id, String brand, String modelName, int nbDoors, String type, int price, int range, double batteryCapacity, double score, int safetyScore, String refLink, String imgLink) {
+    public Vehicle(Long id, String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, double score, int safetyScore, String refLink, String imgLink) {
         this.id = id;
         this.brand = brand;
         this.modelName = modelName;
@@ -90,7 +90,7 @@ public class Vehicle {
         return batteryCapacity;
     }
 
-    public void setBatteryCapacity(double batteryCapacity) {
+    public void setBatteryCapacity(int batteryCapacity) {
         this.batteryCapacity = batteryCapacity;
     }
 

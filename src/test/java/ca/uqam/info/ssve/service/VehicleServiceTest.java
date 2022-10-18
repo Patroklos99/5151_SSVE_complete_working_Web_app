@@ -45,11 +45,12 @@ public class VehicleServiceTest {
         assertEquals(result.getModelName(), "Ferari");
     }
 
+    /**
     @Test
     public void shouldReturnVehicleSaveVehicule1L() {
         Vehicle result = vehicleService.saveVehicle(new Vehicle(1L, "Ferari"));
         assertThat(result).isNotNull();
         assertEquals(result.getId(), 1L);
         assertEquals(result.getModelName(), "Ferari");
-    }
+    }*/
 }

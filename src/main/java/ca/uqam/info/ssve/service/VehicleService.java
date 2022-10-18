@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class VehicleService {
@@ -25,7 +27,6 @@ public class VehicleService {
         return vehicleRepository.findAll();
     }
 
-
     public void deleteVehicle(Long id) {
         vehicleRepository.deleteById(id);
     }
@@ -34,11 +35,31 @@ public class VehicleService {
         vehicleRepository.deleteAll();
     }
 
-    public void modifyVehicule(Long id, Vehicle vehicle) {
-        deleteVehicle(id);
-        saveVehicle(vehicle);
+    public void modifyVehicule(Long id, String column, String change) {
+       Vehicle vehicle = vehicleRepository.findById(id).get();
+       if (column.toLowerCase().equals("brand")){
+           vehicle.setBrand(change);
+       } else if (column.toLowerCase().equals("batterycapacity")) {
+           vehicle.setBatteryCapacity(Integer.parseInt(change));
+       } else if (column.toLowerCase().equals("imglink")) {
+           vehicle.setImgLink(change);
+       } else if (column.toLowerCase().equals("modelname")) {
+           vehicle.setModelName(change);
+       } else if (column.toLowerCase().equals("nbdoors")) {
+           vehicle.setNbDoors(Integer.parseInt(change));
+       } else if (column.toLowerCase().equals("price")) {
+           vehicle.setPrice(Integer.parseInt(change));
+       } else if (column.toLowerCase().equals("range")) {
+           vehicle.setRange(Integer.parseInt(change));
+       } else if (column.toLowerCase().equals("reflink")) {
+           vehicle.setRefLink(change);
+       } else if (column.toLowerCase().equals("safetyscore")) {
+           vehicle.setSafetyScore(Integer.parseInt(change));
+       } else if (column.toLowerCase().equals("type")) {
+           vehicle.setType(change);
+       }
+       vehicleRepository.save(vehicle);
     }
-
 
     public void evaluateVehicle() {
         //algorithme ici

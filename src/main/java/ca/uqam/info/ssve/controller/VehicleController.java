@@ -15,42 +15,42 @@ public class VehicleController {
 	@Autowired
 	VehicleService vehicleService;
 
-	@GetMapping("/{id}")
+	@GetMapping("{id}")
 	public @ResponseBody
 	Vehicle getVehicle(@PathVariable Long id) {
 		return vehicleService.getVehicle(id);
 	}
 
-	@PostMapping("/postVehicle")
+	@PostMapping("postVehicle")
 	public @ResponseBody
 	Vehicle postVehicle(@RequestBody Vehicle vehicle) {
 		return vehicleService.saveVehicle(vehicle);
 	}
 
-	@GetMapping("/getAll")
+	@GetMapping("getAll")
 	public @ResponseBody
 	List<Vehicle> getAll() {
 		return vehicleService.getAllVehicle();
 	}
 
-	@DeleteMapping("/deleteVehicle")
+	@DeleteMapping("deleteVehicle")
 	public @ResponseBody
 	void deleteVehicle (Long id) {
 		vehicleService.deleteVehicle(id);
 	}
 
-	@DeleteMapping("/deleteAllVehicle")
+	@DeleteMapping("deleteAllVehicle")
 	public @ResponseBody
 	void deleteAllVehicle () {
 		vehicleService.deleteAllVehicle();
 	}
 
-	@PostMapping("/modifyVehicle")
+	@PutMapping("modifyVehicle")
 	public @ResponseBody
-	void modifyVehicle(Long id, @RequestBody Vehicle vehicle) {
-		vehicleService.modifyVehicule(id, vehicle);
+	String modifyVehicle(Long id, String column, String change) {
+		vehicleService.modifyVehicule(id, column, change);
+		return "Change have been save";
 	}
-
 
 	//todo
 	@GetMapping("evaluateVehicle")
