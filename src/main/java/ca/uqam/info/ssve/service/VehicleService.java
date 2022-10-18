@@ -3,7 +3,9 @@ package ca.uqam.info.ssve.service;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,8 +21,9 @@ public class VehicleService {
         return vehicleRepository.findById(id).get();
     }
 
-    public Vehicle saveVehicle(Vehicle auto) {
-        return vehicleRepository.save(auto);
+    public Vehicle addVehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
+        Vehicle vehicle = new Vehicle(brand, modelName, nbDoors, type, price, range, batteryCapacity, safetyScore, refLink, imgLink);
+        return vehicleRepository.save(vehicle);
     }
 
     public List<Vehicle> getAllVehicle() {
@@ -35,7 +38,7 @@ public class VehicleService {
         vehicleRepository.deleteAll();
     }
 
-    public void modifyVehicule(Long id, String column, String change) {
+    public Vehicle modifyVehicule(Long id, String column, String change) {
        Vehicle vehicle = vehicleRepository.findById(id).get();
        if (column.toLowerCase().equals("brand")){
            vehicle.setBrand(change);
@@ -59,6 +62,7 @@ public class VehicleService {
            vehicle.setType(change);
        }
        vehicleRepository.save(vehicle);
+       return vehicle;
     }
 
     public void evaluateVehicle() {

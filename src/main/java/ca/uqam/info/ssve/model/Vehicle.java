@@ -21,8 +21,7 @@ public class Vehicle {
     private int batteryCapacity;
     private double score;
 
-    public Vehicle(Long id, String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, double score, int safetyScore, String refLink, String imgLink) {
-        this.id = id;
+    public Vehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
         this.brand = brand;
         this.modelName = modelName;
         this.nbDoors = nbDoors;
@@ -30,7 +29,6 @@ public class Vehicle {
         this.price = price;
         this.range = range;
         this.batteryCapacity = batteryCapacity;
-        this.score = score;
         this.safetyScore = safetyScore;
         this.refLink = refLink;
         this.imgLink = imgLink;

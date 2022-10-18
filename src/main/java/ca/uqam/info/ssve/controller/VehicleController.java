@@ -3,35 +3,39 @@ package ca.uqam.info.ssve.controller;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000/"})
-@RequestMapping("api/vehicule")
+@RequestMapping("api/vehicle")
 public class VehicleController {
 
 	@Autowired
 	VehicleService vehicleService;
 
-	@GetMapping("{id}")
+
+	@GetMapping("findVehicleById")
 	public @ResponseBody
-	Vehicle getVehicle(@PathVariable Long id) {
+	Vehicle getVehicle(Long id) {
 		return vehicleService.getVehicle(id);
 	}
 
-	@PostMapping("postVehicle")
+	@PostMapping("addVehicle")
 	public @ResponseBody
-	Vehicle postVehicle(@RequestBody Vehicle vehicle) {
-		return vehicleService.saveVehicle(vehicle);
+	Vehicle addVehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
+
+		return vehicleService.addVehicle(brand, modelName, nbDoors, type, price, range, batteryCapacity, safetyScore, refLink, imgLink);
 	}
 
-	@GetMapping("getAll")
+	@GetMapping("getAllVehicle")
 	public @ResponseBody
 	List<Vehicle> getAll() {
 		return vehicleService.getAllVehicle();
 	}
+
 
 	@DeleteMapping("deleteVehicle")
 	public @ResponseBody
@@ -47,9 +51,8 @@ public class VehicleController {
 
 	@PutMapping("modifyVehicle")
 	public @ResponseBody
-	String modifyVehicle(Long id, String column, String change) {
-		vehicleService.modifyVehicule(id, column, change);
-		return "Change have been save";
+	Vehicle modifyVehicle(Long id, String column, String change) {
+		return vehicleService.modifyVehicule(id, column, change);
 	}
 
 	//todo
