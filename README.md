@@ -15,25 +15,28 @@ Cadriciel utilisé et liens
 ---------------------------
 
 - Java : [jdk 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-- Maven : [version 3.8.6](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/) (Installation facultative)
-
+- Maven : [version 3.8.6](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/) 
+(Installation facultative)
+- Docker : [derniere version](https://www.docker.com/products/docker-desktop/)
 
 Processus d'installation
 ------------------------
 
-### Chacun des cadriciels (EXEMPLE-À RETIRER)
-
-**TODO: pour chacun des cadriciels, indiquez, étape par étape, comment procéder à
-l'installation sur une machine Linux ( *Pourquoi pas mac ou Windows????* c'est
-sur une machine linux que le serveur sera installé).**
-
-### Un autre cadriciel (EXEMPLE-À RETIRER)
-
-Etc...
-
 Protocole de démarrage du site et options
 ========================================
 
+### Build de l'image docker
+Note importante: le build initiale peut être assez long en fonction de votre connexion internet.
+```sh
+docker-compose build
+```
+
+### Demarrer l'application a partie de docker
+```sh
+docker-compose up
+```
+
+Note importante: Si vous tentez de build l'application entiere en utilisant le build en 2 étapes, vous allez rencontrer des erreurs ``CORS`` (cross-origins), pour éviter ce genre d'erreur il est nécessaire de démarrer l'application à partir de docker.
 ### Build frontend
 ```sh
 npm install
