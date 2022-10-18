@@ -18,6 +18,7 @@ Cadriciel utilisé et liens
 - Maven : [version 3.8.6](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/) 
 (Installation facultative)
 - Docker : [derniere version](https://www.docker.com/products/docker-desktop/)
+- Postman : [derniere version](https://www.postman.com/downloads/)
 
 Processus d'installation
 ------------------------
