@@ -26,7 +26,6 @@ public class VehicleController {
 	@PostMapping("addVehicle")
 	public @ResponseBody
 	Vehicle addVehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
-
 		return vehicleService.addVehicle(brand, modelName, nbDoors, type, price, range, batteryCapacity, safetyScore, refLink, imgLink);
 	}
 
