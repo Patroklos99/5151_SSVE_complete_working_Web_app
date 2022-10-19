@@ -10,36 +10,6 @@
 }
 
 
-.results-list .MuiAvatar-root{
-    width: 25.5vw;
-    border-radius: 25px;
-    height: auto;
-    margin-right: 20px;
-}
-
-.results-list .modele{
-    color: #1C3D5B;
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.results-list .prix{
-    color: gray;
-    font-weight: 300;
-}
-
-.results-list .MuiListItemText-root .primary{
-    display: inline-flex;
-}
-
-.results-list .desc-text{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* number of lines to show */
-    line-clamp: 3; 
-    -webkit-box-orient: vertical;
-}
 
 
 

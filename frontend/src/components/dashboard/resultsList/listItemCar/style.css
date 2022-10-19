@@ -1,0 +1,63 @@
+.list-item-car .MuiAvatar-root {
+    border-radius: 0;
+}
+
+.list-item-car .MuiPaper-root{
+    margin-bottom: 20px;
+    border-radius: 10px;
+    height: 17vh;
+    overflow: hidden;
+}
+
+.list-item-car .MuiListItem-root{
+    padding: 0px;
+    height: 100%;
+}
+
+.list-item-car .MuiListItemAvatar-root{
+    margin-top: 0px;
+    width: 35%;
+    height: 100%;
+    margin-right: 20px;
+
+}
+
+.list-item-car  .MuiAvatar-root{
+    width: 100%;
+    height: 100%;
+}
+
+
+.list-item-car .MuiListItemText-root{
+    margin-right: 10px;
+}
+
+.list-item-car img{
+    width: 100%;
+    border-radius: 10px 0 0 10px;
+}
+
+
+.list-item-car .modele{
+    color: #1C3D5B;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.list-item-car .prix{
+    color: gray;
+    font-weight: 300;
+}
+
+.list-item-car .MuiListItemText-root .primary{
+    display: inline-flex;
+}
+
+.list-item-car .desc-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    line-clamp: 3; 
+    -webkit-box-orient: vertical;
+}
