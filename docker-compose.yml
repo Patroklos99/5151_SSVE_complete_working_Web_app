@@ -4,7 +4,7 @@ services:
     sprintboot:
       build: 
        context: ./
-       dockerfile: src/DockerfileSpring
+       dockerfile: backend/src/DockerfileSpring
       ports:
         - 8080:8080
     react:
