@@ -14,7 +14,7 @@ const ListItemCar = (car:ICar, index: number) => {
                     <ListItemText
                         primary={
                             <div className="primary">
-                                <div className='modele'>{car.marque + car.modele}</div>
+                                <div className='modele'>{car.marque +" "+ car.modele}</div>
                                 <div className='prix'>{car.prix}$</div>
                             </div> 
                         }

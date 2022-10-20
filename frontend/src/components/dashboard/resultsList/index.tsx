@@ -38,8 +38,8 @@ const ResultsList = () => {
             case 'priceDesc':
                 setCars([...cars.sort((a, b) => b.prix - a.prix)]);
                 break;
-            case 'scoreAsc':
-                setCars([...cars.sort((a, b) => a.score - b.score)]);
+            case 'score':
+                setCars([...cars.sort((a, b) => b.score - a.score)]);
                 break;
             
 
