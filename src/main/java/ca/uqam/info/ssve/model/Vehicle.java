@@ -10,8 +10,8 @@ public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
+    private Long id;
     private String brand;
     private String modelName;
     private int nbDoors;
@@ -20,6 +20,9 @@ public class Vehicle {
     private int range;
     private int batteryCapacity;
     private double score;
+    private int safetyScore;
+    private String refLink;
+    private String imgLink;
 
     public Vehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
         this.brand = brand;
@@ -33,11 +36,6 @@ public class Vehicle {
         this.refLink = refLink;
         this.imgLink = imgLink;
     }
-
-    private int safetyScore;
-    private String refLink;
-    private String imgLink;
-
 
     public Vehicle() {
     }
@@ -72,6 +70,10 @@ public class Vehicle {
 
     public double getBatteryCapacity() {
         return batteryCapacity;
+    }
+
+    public int getSafetyScore() {
+        return safetyScore;
     }
 
     public String getImgLink() {
