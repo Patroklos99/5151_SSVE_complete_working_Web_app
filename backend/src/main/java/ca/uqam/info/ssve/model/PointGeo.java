@@ -1,0 +1,40 @@
+/**
+ * Objet contenant les données d'un point géographique.
+ *
+ * @author David Daoud
+ * Code permanent: DAOD80070006
+ * Courriel: daoud.david@courrier.uqam.ca
+ *
+ * @version 2022-10-22
+ */
+public class PointGeo {
+
+    private final double lat;
+    private final double lgt;
+
+    /**
+     * Constructeur
+     * @param lat Latitude du point géographique
+     * @param lgt Longitude du point géographique
+     */
+    public PointGeo(double lat, double lgt) {
+        this.lat = lat;
+        this.lgt = lgt;
+    }
+
+    /**
+     * Retourne la latitude du point géographique
+     * @return La latitude du point géographique
+     */
+    public double getLat() {
+        return lat;
+    }
+
+    /**
+     * Retourne la longitude du point géographique
+     * @return La longitude du point géographique
+     */
+    public double getLgt() {
+        return lgt;
+    }
+}
