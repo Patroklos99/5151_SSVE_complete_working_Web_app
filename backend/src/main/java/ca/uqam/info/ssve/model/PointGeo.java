@@ -5,6 +5,10 @@
  * Code permanent: DAOD80070006
  * Courriel: daoud.david@courrier.uqam.ca
  *
+ * @author Christopher Chamberland-Rémillard
+ * Code permanent: CHAC29089704
+ * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
+ *
  * @version 2022-10-22
  */
 public class PointGeo {
