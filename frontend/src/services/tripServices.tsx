@@ -1,5 +1,4 @@
 import http from "../http-commons";
-
 import TripData from "../types/trips/trips";
 
 
@@ -42,7 +41,18 @@ const postTrip = (data: TripData) => {
 
 };
 
-
+const postTripJson = (data: TripData) => {
+    return fetch("/trip", {
+        method: "POST",
+        body: JSON.stringify({
+            id: data.id,
+            name: data.name,
+            start: data.start,
+            end: data.end,
+            frequency: data.frequency,  
+        }),
+    });
+}
 
 // Note that update, remove and removeAll aren't typed so be carefull !
 
@@ -72,13 +82,15 @@ const removeAllTrip = () => {
 
 
 
-const ExampleService = {
+const TripService = {
 
     getAllTrip,
 
     getTrip,
 
     postTrip,
+
+    postTripJson,
 
     updateTrip,
 
@@ -90,4 +102,4 @@ const ExampleService = {
 
 
 
-export default ExampleService;
+export default TripService;
