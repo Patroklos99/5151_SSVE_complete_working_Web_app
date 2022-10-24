@@ -1,0 +1,24 @@
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.dashboard_panelResultCars-warp,
+.dashboard_filterPanel-warp,
+.dashboard_resultCars-warp{
+    overflow-y: auto;
+}
+
+.dashboard_panelResultCars-warp{
+    display: flex;
+    flex: 1;
+}
+
+.dashboard_filterPanel-warp{
+    flex-basis: 300px
+}
+
+.dashboard_resultCars-warp{
+    flex: 1;
+}
