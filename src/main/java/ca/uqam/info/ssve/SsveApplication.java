@@ -29,13 +29,20 @@ public class SsveApplication {
 			repository.save(new Vehicle("Kia", "e-Niro", 4, "SUV", 47804, 385, 64, 5, "https://www.kia.ca/en/vehicles/2022/niro-ev", "imgLink"));
 			repository.save(new Vehicle("Kia", "e-Soul", 4, "SUV", 45909, 248, 40, 4, "https://www.kia.ca/en/vehicles/2023/soul-ev", "imgLink"));
 			repository.save(new Vehicle("Nissan", "Leaf", 4, "Hatchback", 41560, 342, 40, 5, "https://www.nissan.ca/vehicles/electric-cars/leaf.html", "imgLink"));
-			repository.save(new Vehicle("Mitsubishi", "i-MIEV", 4, "Hatchback", 32112, 150, 1000, 5, "refLink", "imgLink"));
-			repository.save(new Vehicle("Peugeot", "iOn", 4, "Hatchback", 29426, 100, 1000, 5, "refLink", "imgLink"));
-			repository.save(new Vehicle("Peugeot", "Partner Tepee Electric", 4, "Van", 41129, 170, 1000, 5, "refLink", "imgLink"));
-			repository.save(new Vehicle("Renault", "Zoé", 2, "Hatchback", 46959, 395, 1000, 5, "refLink", "imgLink"));
-			repository.save(new Vehicle("Smart", "ForTwo Electric Drive", 2, "Hatchback", 29050, 169, 1000, 5, "refLink", "imgLink"));
-			repository.save(new Vehicle("Smart", "ForFour Electric Drive", 4, "Hatchback", 25808, 153, 1000, 5, "refLink", "imgLink"));
-			repository.save(new Vehicle("Tesla", "Model", 4, "Sedan", 135000, 604, 1000, 5, "refLink", "imgLink"));
+			repository.save(new Vehicle("Mitsubishi", "i-MIEV", 4, "Hatchback", 32112, 150, 1000, 5, "https://www.mitsubishicars.com/i-miev-electric-car", "imgLink"));
+			repository.save(new Vehicle("Peugeot", "iOn", 4, "Hatchback", 29426, 100, 1000, 5, "https://ev-database.org/car/1095/Peugeot-iOn", "imgLink"));
+			repository.save(new Vehicle("Peugeot", "Partner Tepee Electric", 4, "Van", 41129, 170, 1000, 5, "https://www.rac.co.uk/drive/car-reviews/peugeot/partner/partner-tepee-2015-2018/", "imgLink"));
+			repository.save(new Vehicle("Renault", "Zoé", 2, "Hatchback", 46959, 395, 1000, 5, "https://www.renault.co.uk/electric-vehicles/zoe.html", "imgLink"));
+			repository.save(new Vehicle("Smart", "ForTwo Electric Drive", 2, "Hatchback", 29050, 169, 1000, 5, "https://www.caranddriver.com/smart/eq-fortwo", "imgLink"));
+			repository.save(new Vehicle("Smart", "ForFour Electric Drive", 4, "Hatchback", 25808, 153, 1000, 5, "https://www.smart.mercedes-benz.com/gb/en/models/eq-forfour#intro-smart-eq-forfour", "imgLink"));
+			repository.save(new Vehicle("Tesla", "Model S", 4, "Sedan", 135000, 604, 1000, 5, "https://www.tesla.com/en_ca/models", "imgLink"));
+			repository.save(new Vehicle("Tesla", "Model X", 4, "SUV", 156000, 534, 1000, 5, "https://www.tesla.com/en_ca/modelx", "imgLink"));
+			repository.save(new Vehicle("Tesla", "Model 3", 5, "Sedan", 59990, 430, 1000, 5, "https://www.tesla.com/en_ca/model3", "imgLink"));
+			repository.save(new Vehicle("Toyota", "Mirai", 4, "Sedan", 54990, 647, 1000, 5, "https://www.toyota.com/mirai/", "imgLink"));
+			repository.save(new Vehicle("Toyota", "Mirai", 4, "Sedan", 54990, 647, 1000, 5, "https://www.toyota.com/mirai/", "imgLink"));
+			repository.save(new Vehicle("Volkswagen", "e-up!", 4, "Hatchback", 34892, 256, 1000, 5, "https://www.volkswagen.co.uk/en/new/e-up.html", "imgLink"));
+			repository.save(new Vehicle("Volkswagen", "e-Golf", 4, "Hatchback", 43059, 232, 1000, 5, "https://www.volkswagen.co.uk/en/new/e-golf.html", "imgLink"));
+			repository.save(new Vehicle("Volkswagen", "Golf", 4, "Hatchback", 31495, 588, 1000, 5, "https://www.volkswagen.co.uk/en/new/golf.html", "imgLink"));
 		};
 	}
 
