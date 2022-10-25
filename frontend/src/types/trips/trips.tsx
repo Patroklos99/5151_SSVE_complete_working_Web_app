@@ -12,11 +12,11 @@ export enum Frequency {
 
     tousLesJours = "Tous les jours",
     joursOUvrables = "Jours ouvrables",
-    uneFoisSemaine = "1 fois par semaine",
-    deuxFoisSemaine = "2 fois par semaine",
-    uneFoisMois = "1 fois par mois",
-    deuxFoisMois = "2 fois mois",
-    uneFoisAnnee = "1 fois par année",
-    deuxFoisAnnee = "2 fois année"
+    uneFoisSemaine = "Une fois par semaine",
+    deuxFoisSemaine = "Deux fois par semaine",
+    uneFoisMois = "Une fois par mois",
+    deuxFoisMois = "Deux fois mois",
+    uneFoisAnnee = "Une fois par année",
+    deuxFoisAnnee = "Deux fois par année"
 
 }

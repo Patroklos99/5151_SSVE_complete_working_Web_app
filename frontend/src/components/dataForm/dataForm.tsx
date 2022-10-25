@@ -1,8 +1,11 @@
-import React, {useState, ChangeEvent} from "react";
-import {Link} from 'react-router-dom';
-import TripData, {Frequency} from "../../types/trips/trips";
+import React, { useState, ChangeEvent } from "react";
 import Button from "@mui/material/Button";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import { FormControl } from "@mui/material";
 import TextField from "@mui/material/TextField";
+
+import TripData, { Frequency } from "../../types/trips/trips";
 import TripServices from "../../services/tripServices";
 
 const AddTrip: React.FC = () => {
@@ -17,11 +20,16 @@ const AddTrip: React.FC = () => {
 
     const [Trip, setTrip] = useState<TripData>(initialTripState);
     const [submitted, setSubmitted] = useState<boolean>(false);
+    const [frequency, setFrequency] = useState<Frequency>();
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = event.target;
-        setTrip({...Trip, [name]: value});
+        const { name, value } = event.target;
+        setTrip({ ...Trip, [name]: value });
     };
+
+    const handleFrequencyChange = (event: SelectChangeEvent) => {
+        setFrequency(event.target.value as Frequency);
+    }
 
     const saveTutorial = () => {
         var data = {
@@ -64,67 +72,46 @@ const AddTrip: React.FC = () => {
                 </div>
             ) : (
                 <div>
-                    <div className="form-group">
-                        <table>
-                            <tr>
-                                <TextField
-                                    type="text"
-                                    className="form-control"
-                                    id="name"
-                                    required
-                                    value={Trip.name as string}
-                                    onChange={handleInputChange}
-                                    name="name"
-                                    label="Name"
-                                    variant="filled"
-                                />
-                            </tr>
-                            <tr>
-                                <TextField
-                                    type="text"
-                                    className="form-control"
-                                    id="start"
-                                    required
-                                    value={Trip.start as number}
-                                    onChange={handleInputChange}
-                                    name="start"
-                                    label="Start"
-                                    variant="filled"
-                                />
-                            </tr>
-                            <tr>
-                                <TextField
-                                    type="text"
-                                    className="form-control"
-                                    id="end"
-                                    required
-                                    value={Trip.end as number}
-                                    onChange={handleInputChange}
-                                    name="end"
-                                    label="End"
-                                    variant="filled"
-                                />
-                            </tr>
-                            <tr>
-                                <TextField
-                                    type="text"
-                                    className="form-control"
-                                    id="frequency"
-                                    required
-                                    value={Trip.frequency as Frequency}
-                                    onChange={handleInputChange}
-                                    name="frequency"
-                                    label="Frequency"
-                                    variant="filled"
-                                />
-                            </tr>
-                        </table>
-                    </div>
+                    <FormControl sx={{ minWidth: 300 }}>
+                        <TextField
+                            type="text"
+                            id="name"
+                            required
+                            value={Trip.name as string}
+                            onChange={handleInputChange}
+                            name="name"
+                            label="Nom du trajet"
+                        />
+                        <TextField
+                            type="text"
+                            id="start"
+                            label="Départ"
+                        />
+                        <TextField
+                            type="text"
+                            id="end"
+                            label="Arrivée"
+                        />
+                        <Select
+                            id="frequency"
+                            value={frequency}
+                            onChange={handleFrequencyChange}
+                        >
+                            <MenuItem value={Frequency.tousLesJours}>Tous les jours</MenuItem>
+                            <MenuItem value={Frequency.joursOUvrables}>Jours ouvrables</MenuItem>
+                            <MenuItem value={Frequency.uneFoisSemaine}>Une fois par semaine</MenuItem>
+                            <MenuItem value={Frequency.deuxFoisSemaine}>Deux fois par semaine</MenuItem>
+                            <MenuItem value={Frequency.uneFoisMois}>Une fois par mois</MenuItem>
+                            <MenuItem value={Frequency.deuxFoisMois}>Deux fois mois</MenuItem>
+                            <MenuItem value={Frequency.uneFoisAnnee}>Une fois par année</MenuItem>
+                            <MenuItem value={Frequency.deuxFoisAnnee}>Deux fois par année</MenuItem>
 
-                    <Button onClick={saveTutorial} variant="contained"
-                            style={{display: "flex", alignItems: "center", padding: "0px 20px"}}>
-                        Submit
-                    </Button>
+                        </Select>
+
+                        <Button onClick={saveTutorial} variant="contained">
+                            Soumettre
+                        </Button>
+                    </FormControl>
 
                 </div>
             )}
