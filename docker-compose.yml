@@ -1,0 +1,22 @@
+version: "1.0"
+# Attention: il faut respecter les indentations
+services:
+    sprintboot:
+      build: 
+       context: ./
+       dockerfile: backend/src/DockerfileSpring
+      ports:
+        - 8080:8080
+    react:
+      build:
+       context: ./frontend/
+       dockerfile: DockerfileReact
+      environment:
+        CHOKIDAR_USEPOLLING: "true" # Pour le hot-reloading
+      volumes:
+        - ./frontend:/app
+        - /app/node_modules
+      ports:
+        - 3000:3000
+
+    
