@@ -4,24 +4,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
+
+    @NotEmpty
     private String brand;
+    @NotEmpty
     private String modelName;
+    @NotEmpty
     private int nbDoors;
+    @NotEmpty
     private String type;
+    @NotEmpty
     private int price;
+    @NotEmpty
     private int range;
+    @NotEmpty
     private int batteryCapacity;
-    private double score;
+    @NotEmpty
     private int safetyScore;
+    @NotEmpty
     private String refLink;
+    @NotEmpty
     private String imgLink;
 
     public Vehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
@@ -68,7 +78,7 @@ public class Vehicle {
         return range;
     }
 
-    public double getBatteryCapacity() {
+    public int getBatteryCapacity() {
         return batteryCapacity;
     }
 
@@ -82,10 +92,6 @@ public class Vehicle {
 
     public String getRefLink() {
         return refLink;
-    }
-
-    public double getScore() {
-        return score;
     }
 
     //------------------------------------------------------ ---------------------------------------
@@ -119,10 +125,6 @@ public class Vehicle {
 
     public void setBatteryCapacity(int batteryCapacity) {
             this.batteryCapacity = batteryCapacity;
-    }
-
-    public void setScore(double score) {
-            this.score = score;
     }
 
     public void setSafetyScore(int safetyScore) {

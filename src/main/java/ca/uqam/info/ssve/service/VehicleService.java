@@ -1,10 +1,14 @@
 package ca.uqam.info.ssve.service;
 
+import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehicleService {
@@ -13,32 +17,65 @@ public class VehicleService {
     private VehicleRepository vehicleRepository;
 
     public Vehicle getVehicle(Long id) {
-        if (vehicleRepository.findById(id).isPresent()){
-            return vehicleRepository.findById(id).get();
-        }
-        return new Vehicle();
+        return vehicleRepository.findById(id).get();
     }
 
     public Vehicle addVehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
-        Vehicle vehicle = new Vehicle(brand, modelName, nbDoors, type, price, range, batteryCapacity, safetyScore, refLink, imgLink);
-        return vehicleRepository.save(vehicle);
+        Vehicle vehicle = new Vehicle();
+        if (
+                validateBrand(brand)
+                && validateModelName(modelName)
+                && validatePrice(price)
+                && validateNbDoors(nbDoors)
+                && validateType(type)
+                && validateRange(range)
+                && validateSafetyScore(safetyScore)
+                && validateRefLink(refLink)
+                && validateImgLink(imgLink)
+        ){
+            vehicle.setBrand(brand);
+            vehicle.setModelName(modelName);
+            vehicle.setNbDoors(nbDoors);
+            vehicle.setType(type);
+            vehicle.setPrice(price);
+            vehicle.setRange(range);
+            vehicle.setBatteryCapacity(batteryCapacity);
+            vehicle.setSafetyScore(safetyScore);
+            vehicle.setRefLink(refLink);
+            vehicle.setImgLink(imgLink);
+            vehicleRepository.save(vehicle);
+            return vehicle;
+        }
+        throw new IllegalArgumentException();
     }
 
     public List<Vehicle> getAllVehicle() {
         return vehicleRepository.findAll();
     }
 
-    /* Ne pas ajouté pour le moment
-    public void deleteVehicle(Long id) {
-        vehicleRepository.deleteById(id);
+    public Vehicle modifyVehicle(Vehicle vehicle) {
+        if (
+                validateBrand(vehicle.getBrand())
+                && validateModelName(vehicle.getModelName())
+                && validatePrice(vehicle.getPrice())
+                && validateNbDoors(vehicle.getNbDoors())
+                && validateType(vehicle.getType())
+                && validateRange(vehicle.getRange())
+                && validateBatteryCapacity(vehicle.getBatteryCapacity())
+                && validateSafetyScore(vehicle.getSafetyScore())
+                && validateRefLink(vehicle.getRefLink())
+                && validateImgLink(vehicle.getImgLink())
+                && vehicleRepository.findById(vehicle.getId()).isPresent()
+        ){
+            vehicleRepository.save(vehicle);
+            return vehicleRepository.findById(vehicle.getId()).get();
+        }
+            throw new IllegalArgumentException();
     }
 
-    public void deleteAllVehicle() {
-        vehicleRepository.deleteAll();
-    }
-    */
 
-    public Vehicle modifyVehicule(Long id, String column, String change) {
+    /*
+    public Vehicle modifyVehicle(Long id, String column, String change) {
         Vehicle vehicle;
         if (vehicleRepository.findById(id).isPresent()) {
             vehicle = vehicleRepository.findById(id).get();
@@ -79,7 +116,7 @@ public class VehicleService {
         }
        vehicleRepository.save(vehicle);
        return vehicle;
-    }
+    }*/
 
     // ----------------------------------------------------   ----------------------------------------
     private boolean validateBrand(String brand) {
@@ -87,7 +124,7 @@ public class VehicleService {
     }
 
     private boolean validateModelName(String modelName) {
-        return modelName.matches("[A-Za-z\s0-9]]");
+        return modelName.matches("[A-Za-z\s0-9]+");
     }
 
     private boolean validateNbDoors(int nbDoors) {
@@ -134,7 +171,25 @@ public class VehicleService {
     }
 
 
-    public void evaluateVehicle() {
+    public List<Evaluation> evaluateVehicle() {
         //algorithme ici
+        List<Vehicle> list = getAllVehicle();
+        List<Evaluation> list2 = new ArrayList<>();
+        for (Vehicle vehicle : list) {
+            Evaluation eval = new Evaluation();
+            eval.setId(vehicle.getId());
+            eval.setBrand(vehicle.getBrand());
+            eval.setModelName(vehicle.getModelName());
+            eval.setNbDoors(vehicle.getNbDoors());
+            eval.setType(vehicle.getType());
+            eval.setPrice(vehicle.getPrice());
+            eval.setRange(vehicle.getRange());
+            eval.setBatteryCapacity(vehicle.getBatteryCapacity());
+            eval.setSafetyScore(vehicle.getSafetyScore());
+            eval.setRefLink(vehicle.getRefLink());
+            eval.setImgLink(vehicle.getImgLink());
+            list2.add(eval);
+        }
+        return list2;
     }
 }
