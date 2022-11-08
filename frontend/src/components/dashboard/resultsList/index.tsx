@@ -1,7 +1,7 @@
 import { Button, Divider, FormControl, FormControlLabel, FormLabel, List, Popover, Radio, RadioGroup, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import {carsData} from '../../../assets/data_exemples/cars';
-import { ICar } from '../../../models/cars';
+import { ICar } from '../../../types/Car';
 import ListItemCar from './listItemCar';
 
 import './style.css';

@@ -1,4 +1,4 @@
-import { ICar } from "../../models/cars";
+import { ICar } from "../../types/Car";
 
 
 

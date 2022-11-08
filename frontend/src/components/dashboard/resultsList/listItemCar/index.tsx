@@ -1,5 +1,5 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText, Paper } from "@mui/material"
-import { ICar } from "../../../../models/cars"
+import { ICar } from "../../../../types/Car"
 import { LinearProgressWithLabel } from "../linearProgressWithLabel"
 import './style.css'
 
