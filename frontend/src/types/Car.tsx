@@ -1,16 +1,14 @@
 export interface ICar {
     id: number;
-    marque: string;
-    modele: string;
-    nbPortes: number;
+    brand: string;
+    modelName: string;
+    imgLink: string;
+    price: number;
+    nbDoors: number;
     type: string;
-    prix: number;
-    autonomie: number;
-    capacite: number;
-    tempsRecharge: number;
-    score: number;
-    scoreSecurite: number;
-    lienReference: string;
-    image: string;
-    desc: string;
+    safetyScore: number;
+    batteryCapacity: number;
+    range: number;
+    refLink: string;
+    description: string;
 }

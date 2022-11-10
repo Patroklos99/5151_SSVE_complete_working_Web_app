@@ -9,21 +9,21 @@ const ListItemCar = (car:ICar, index: number) => {
             <Paper elevation={4}>
                 <ListItem key={index} alignItems="flex-start">
                     <ListItemAvatar>
-                        <Avatar alt="img" src={require(`../../../../assets/images/${car.image}`)} />
+                        <Avatar alt="img" src={`car.imgLink`} />
                     </ListItemAvatar>
                     <ListItemText
                         primary={
                             <div className="primary">
-                                <div className='modele'>{car.marque +" "+ car.modele}</div>
-                                <div className='prix'>{car.prix}$</div>
+                                <div className='modele'>{car.brand +" "+ car.modelName}</div>
+                                <div className='prix'>{car.price}$</div>
                             </div> 
                         }
                         secondary={
                             <div>
                                 <div className='desc-text'>
-                                    {car.desc}
+                                    {car.description}
                                 </div>
-                                <LinearProgressWithLabel variant="determinate" value={car.score}/>
+                                {/* <LinearProgressWithLabel variant="determinate" value={car.score}/> */}
                             </div> 
                         }
                         color="black"

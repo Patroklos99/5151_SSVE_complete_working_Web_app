@@ -7,10 +7,24 @@ import {ICar} from "../types/Car";
  * Note that there is no error handling here but axios includes a elegant way to handle errors
  * that should be implemented in services. See https://axios-http.com/docs/handling_errors 
  */
+const url = "http://localhost:8080"
+const getAllCars = async () => {
+  try{
+    const res = await fetch(`${url}/vehicle`,
+    {
+      method: 'GET',
+    });
+  
+    const data = await res.json();
+    //console.log(data);
+    return data;
+  }
+  catch(err){
+    console.log(err);
+  }
 
-const getAllCars = () => {
-  return http.get<Array<ICar>>("/vehicule");
 };
+
 
 const CarServices = {
   getAllCars
