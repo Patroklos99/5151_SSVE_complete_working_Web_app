@@ -1,10 +1,20 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import DataForm from "../dataForm/dataForm";
 
-import Maps from "../maps/maps";
+const UserData1 = () => {
+    useEffect(() => {
+        const script = document.createElement('script');
+      
+        script.src = "maps.js";
+        script.async = true;
+      
+        document.body.appendChild(script);
+      
+        return () => {
+          document.body.removeChild(script);
+        }
+      }, []);
 
-function userData1() {
     return (
         <div style={{
             border: "2px solid #009978",
@@ -19,7 +29,13 @@ function userData1() {
                 width: "50vw",
                 height: "100vh"
             }}>
-                <Maps/>
+
+
+
+            <div id="map" style={{ width: "500px", height: "500px" }}></div>
+            <div id="search-box"></div>
+            <div id="result"></div>
+
             </div>
 
             <div style={{
@@ -33,4 +49,4 @@ function userData1() {
     );
 }
 
-export default userData1;
+export default UserData1;
