@@ -39,21 +39,21 @@ const AddTrip: React.FC = () => {
             frequency: Trip.frequency
         };
 
-        TripServices.postTrip(data)
-            .then((response: any) => {
-                setTrip({
-                    id: response.data.id,
-                    name: response.data.name,
-                    start: response.data.start,
-                    end: response.data.end,
-                    frequency: response.data.frequency,
-                });
-                setSubmitted(true);
-                console.log(response.data);
-            })
-            .catch((e: Error) => {
-                console.log(e);
-            });
+        // TripServices.postTrip(data)
+        //     .then((response: any) => {
+        //         setTrip({
+        //             id: response.data.id,
+        //             name: response.data.name,
+        //             start: response.data.start,
+        //             end: response.data.end,
+        //             frequency: response.data.frequency,
+        //         });
+        //         setSubmitted(true);
+        //         console.log(response.data);
+        //     })
+        //     .catch((e: Error) => {
+        //         console.log(e);
+        //     });
     };
 
     const newTrip = () => {

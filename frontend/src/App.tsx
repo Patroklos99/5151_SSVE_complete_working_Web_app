@@ -20,7 +20,7 @@ function App() {
           <Route path="/add" element={<AddCar />} />
           <Route path="/get" element={<CarList />} />
           <Route path="/user" element={<UserData1 />} />
-          <Route path="/" element={<Form />} />
+          <Route path="/" element={<Trip />} />
         </Routes>
       </div>
     </div>

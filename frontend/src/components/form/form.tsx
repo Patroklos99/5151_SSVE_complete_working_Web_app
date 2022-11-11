@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Trip from '../trip/trip';
 import './form.css'
-import whatever from './trip.js';
+import whatever from '../trip/trip.js';
+
 
 
 const Form: React.FC = () => {
@@ -9,11 +10,11 @@ const Form: React.FC = () => {
 
     useEffect(() => {
         const script = document.createElement('script');
-
+        const index: Number =0;
         script.src = "trip.js";
         script.async = true;
         script.onload = function go() {
-            whatever(0);
+            whatever(index);
         }
 
         document.body.appendChild(script);

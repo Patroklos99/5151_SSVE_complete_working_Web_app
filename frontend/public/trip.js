@@ -1,16 +1,14 @@
-import L from "leaflet";
 
-export default function whatever(index) {
 
-    console.log(index);
-    var map = L.map('map' + index, {
+
+    var map = L.map('map', {
         center: [40.7259, -73.9805], // Map loads with this location as center
         zoom: 12,
         scrollWheelZoom: true,
         zoomControl: false,
         attributionControl: false,
     });
-    var map2 = L.map('map2'+index, {
+    var map2 = L.map('map2', {
         center: [40.7259, -73.9805], // Map loads with this location as center
         zoom: 12,
         scrollWheelZoom: true,
@@ -32,15 +30,17 @@ export default function whatever(index) {
 
     //Initialize the geocoder
     var geocoderControl = new L.control.geocoder('pk.4714636617564cdace4967f9ee10772d', geocoderControlOptions).addTo(map).on('select', function (e) {
+        fillSearch("search1",e.feature.feature.display_name, e.latlng.lat, e.latlng.lng);
         displayLatLon(e.feature.feature.display_name, e.latlng.lat, e.latlng.lng);
     });
     var geocoderControl2 = new L.control.geocoder('pk.4714636617564cdace4967f9ee10772d', geocoderControlOptions).addTo(map2).on('select', function (e) {
+        fillSearch("search2",e.feature.feature.display_name, e.latlng.lat, e.latlng.lng);
         displayLatLon2(e.feature.feature.display_name, e.latlng.lat, e.latlng.lng);
     });
 
     //Get the "search-box" div
-    var searchBoxControl = document.getElementById("search-box"+index);
-    var searchBoxControl2 = document.getElementById("search-box2"+index);
+    var searchBoxControl = document.getElementById("search-box");
+    var searchBoxControl2 = document.getElementById("search-box2");
 
     //Get the geocoder container from the leaflet map
     var geocoderContainer = geocoderControl.getContainer();
@@ -52,11 +52,14 @@ export default function whatever(index) {
     //Displays the geocoding response in the "result" div
     function displayLatLon(display_name, lat, lng) {
         var resultString = "You have selected " + display_name + "<br/>Lat: " + lat + "<br/>Lon: " + lng;
-        document.getElementById("result"+index).innerHTML = resultString;
+        document.getElementById("result").innerHTML = resultString;
     }
     function displayLatLon2(display_name, lat, lng) {
         var resultString = "You have selected " + display_name + "<br/>Lat: " + lat + "<br/>Lon: " + lng;
-        document.getElementById("result2"+index).innerHTML = resultString;
+        document.getElementById("result2").innerHTML = resultString;
     }
-    return;
-}
+
+    function fillSearch(searchid, display_name, lat, lng) {
+        var result = "" + display_name +"\\" + lat + "\\" + lng;
+        document.getElementById(searchid).setAttribute("value", result);
+    }

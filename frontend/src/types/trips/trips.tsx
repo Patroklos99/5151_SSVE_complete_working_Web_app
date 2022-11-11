@@ -8,6 +8,8 @@ export default interface TripData {
 
 }
 
+
+
 export enum Frequency {
 
     tousLesJours = "Tous les jours",

@@ -1,5 +1,5 @@
 import http from "../http-commons";
-import TripData from "../types/trips/trips";
+import TripData from "../types/trip2";
 
 
 
@@ -19,7 +19,7 @@ import TripData from "../types/trips/trips";
 
 const getAllTrip = () => {
 
-    return http.get<Array<TripData>>("/vehicule");
+    return http.get<Array<TripData>>("/trip");
 
 };
 
@@ -29,7 +29,7 @@ const getTrip = (id: any) => {
 
     console.log("getting with id:", id);
 
-    return http.get<TripData>(`/vehicule/${id}`);
+    return http.get<TripData>(`/trip/${id}`);
 
 };
 
@@ -37,22 +37,10 @@ const getTrip = (id: any) => {
 
 const postTrip = (data: TripData) => {
 
-    return http.post<TripData>("/vehicule", data);
+    return http.post<TripData>("/trip", data);
 
 };
 
-const postTripJson = (data: TripData) => {
-    return fetch("/trip", {
-        method: "POST",
-        body: JSON.stringify({
-            id: data.id,
-            name: data.name,
-            start: data.start,
-            end: data.end,
-            frequency: data.frequency,  
-        }),
-    });
-}
 
 // Note that update, remove and removeAll aren't typed so be carefull !
 
@@ -66,7 +54,7 @@ const updateTrip = (id: any, data: TripData) => {
 
 const removeTrip = (id: any) => {
 
-    return http.delete<any>(`/vehicle/${id}`);
+    return http.delete<any>(`/trip/${id}`);
 
 };
 
@@ -76,7 +64,7 @@ const removeTrip = (id: any) => {
 
 const removeAllTrip = () => {
 
-    return http.delete<any>(`/vehicle`);
+    return http.delete<any>(`/trip`);
 
 };
 
@@ -89,8 +77,6 @@ const TripService = {
     getTrip,
 
     postTrip,
-
-    postTripJson,
 
     updateTrip,
 
