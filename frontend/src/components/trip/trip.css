@@ -1,0 +1,24 @@
+  body {
+      margin: 0;
+  }
+  [id^=map] {
+      width: 0;
+      height: 0;
+      background-color:transparent;
+      display: none;
+  }
+  [id^=search-box] {
+      padding-left: 20px;
+      padding-top: 20px;
+      width: 800px;
+      height: 100px;
+  }
+  [id^=result] {
+      padding-left: 20px;
+      padding-top: 20px;
+      width: 800px;
+      height: 100px;
+  }
+  [class^=leaflet-locationiq-results] {
+    padding-top: 45px;
+  }
