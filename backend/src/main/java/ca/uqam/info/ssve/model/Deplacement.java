@@ -1,3 +1,9 @@
+package ca.uqam.info.ssve.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 /**
  * Objet contenant les données de déplacement de l'usager.
  *
@@ -13,6 +19,9 @@
  */
 public class Deplacement {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private final Long id;
     private final PointGeo start;
     private final PointGeo end;
     private final FrequenceDeplacement fd;
@@ -23,7 +32,8 @@ public class Deplacement {
      * @param end Point d'arrivée du déplacement
      * @param fd La frequence du déplacement
      */
-    public Deplacement(PointGeo start, PointGeo end, FrequenceDeplacement fd) {
+    public Deplacement(long id, PointGeo start, PointGeo end, FrequenceDeplacement fd) {
+        this.id = id;
         this.start = start;
         this.end = end;
         this.fd = fd;

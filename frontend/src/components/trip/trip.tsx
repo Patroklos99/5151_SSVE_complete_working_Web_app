@@ -8,6 +8,7 @@ import TripService from '../../services/tripServices';
 const Trip: React.FC = () => {
 
   const tripState = {
+    id: null,
     name: "",
     start_point: "",
     end_point: "",
@@ -19,6 +20,8 @@ const Trip: React.FC = () => {
 
 
   const soumettre = () => {
+  setTrip(tripState);
+
     const nom = document.getElementById('nom') as HTMLInputElement
     const depart = document.getElementById('search1') as HTMLInputElement
     const arrive = document.getElementById('search2') as HTMLInputElement
@@ -37,22 +40,23 @@ const Trip: React.FC = () => {
       vFreq_nb != null && vFreq_nb != "" &&
       vFreq != null && vFreq != "") {
 
-      const data = {
+      var data = {
         name: vNom,
         start_point: vArrive,
         end_point: vDepart,
         freq: vFreq_nb + "\\" + vFreq,
-      }
+      };
 
       const label = document.getElementById('soumis') as HTMLLabelElement;
 
       TripService.postTrip(data)
         .then((response: any) => {
           setTrip({
+            id: response.data.id,
             name: response.data.name,
-            start_point: response.data.start,
-            end_point: response.data.end,
-            freq: response.data.frequency,
+            start_point: response.data.start_point,
+            end_point: response.data.end_point,
+            freq: response.data.freq,
           });
           setSubmitted(true);
           console.log(response.data);

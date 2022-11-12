@@ -1,6 +1,9 @@
+package ca.uqam.info.ssve.model;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 
 /**
  * Objet contenant les données des besoins de déplacement de l'usager.

@@ -1,3 +1,5 @@
+package ca.uqam.info.ssve.model;
+
 /**
  * Objet contenant les données d'un point géographique.
  *

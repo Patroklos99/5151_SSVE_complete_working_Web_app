@@ -1,3 +1,5 @@
+package ca.uqam.info.ssve.model;
+
 /**
  * Enum qui contient les valeurs possible pour la fréquence d'un déplacement
  * @author David Daoud
