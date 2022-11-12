@@ -14,17 +14,17 @@ public class Trip {
 
     private String name;
     private String start;
-    private String end;
+    private String tripEnd;
     private String freq;
 
     public Trip() {
     }
 
-    public Trip(Long id, String name, String start, String end, String freq) {
+    public Trip(Long id, String name, String start, String tripEnd, String freq) {
         this.id = id;
         this.name = name;
         this.start = start;
-        this.end = end;
+        this.tripEnd = tripEnd;
         this.freq = freq;
     }
     
@@ -53,11 +53,11 @@ public class Trip {
     }
 
     public String getEnd() {
-        return end;
+        return tripEnd;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setEnd(String tripEnd) {
+        this.tripEnd = tripEnd;
     }
 
     public String getFreq() {
