@@ -202,8 +202,6 @@ public class VehicleService {
 
 
 
-
-
         List<Vehicle> list = getAllVehicle();
         List<Evaluation> list2 = new ArrayList<>();
         for (Vehicle vehicle : list) {
