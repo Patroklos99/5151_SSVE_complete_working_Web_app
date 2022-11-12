@@ -2,6 +2,7 @@ package ca.uqam.info.ssve.server;
 
 import java.net.*;
 import java.io.*;
+import ca.uqam.info.ssve.model.Deplacement;
 
 public class ADVEConnection {
     private static HttpURLConnection connection;
@@ -39,7 +40,7 @@ public class ADVEConnection {
         clientSocket.close();
     }
 
-    public static void main(String[] args) throws IOException {
+    public String call(Deplacement deplacement) throws IOException {
         try {
             URL url = new URL("https://adve.info.uqam.ca");
             connection = (HttpURLConnection) url.openConnection();

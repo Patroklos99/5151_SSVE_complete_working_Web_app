@@ -1,12 +1,17 @@
 package ca.uqam.info.ssve.service;
 
 import ca.uqam.info.ssve.model.Deplacement;
+import ca.uqam.info.ssve.model.Route;
 import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.repository.VehicleRepository;
+import ca.uqam.info.ssve.server.ADVEConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 
 @Service
@@ -170,30 +175,48 @@ public class VehicleService {
     }
 
 
-    public List<Evaluation> evaluateVehicle() {
+    public List<Evaluation> evaluateVehicle(List<Deplacement> coordinateList) throws IOException {
+        /*
         //algorithme ici
-        ArrayList<Integer> coordinateList = new ArrayList<>(); ///Dummy à effacer une fois ListCoordinate definie.
-        ArrayList<Deplacement> tripsList = new ArrayList<>();
-        ArrayList<Vehicle> vehicleFinalScore = new ArrayList<>();
+        ArrayList<Route> routeList = new ArrayList<>();
+        ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
         int frequenceTotale = 0;
-        for (int x : coordinateList) {
+        ADVEConnection adveConnection = new ADVEConnection("https://adve.info.uqam.ca");
+        for (Deplacement x : coordinateList) {
             //algo utilisation boite noite (serveur)
-            Deplacement dep = new Deplacement(); //creation avec les donnes retournees de la boite noir
-            tripsList.add(dep);
-            frequenceTotale += dep.getFrequence();
+            String info = adveConnection.call(x); //Résultat boite noir voir si String ou JSON
+            Route route = new Route();
+            route.setFrequence(x.getFd().getNb_days());
+            /*
+            route.setDistance();
+            route.setTripTime();          A ajusté selon le type de retour de la boite noire
+            route.setWaitingTime();
+            route.setChargingTime();
+            *//*
+            routeList.add(route);
+            frequenceTotale += route.getFrequence();
         }
-        double poidsDeplacement;
-        for (Deplacement trip : tripsList) {
-            poidsDeplacement = trip.getFrequence() / frequenceTotale;
+        for (Route route : routeList) {
+            route.setWeight((route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
         }
-        for (Vehicle vehicle : getAllVehicle()) {
-            for (Deplacement trip : tripsList)
-                donnerNoteDeplacementSelonAutonomieVoiture(trip, vehicle);
-            //vehicle.setScore = sum(notedeplacement(poidsDeplacement));
-            vehicleFinalScore.add(vehicle);
-        }
-        Collections.sort(vehicleFinalScore); //a modifier
 
+        List <Vehicle> allVehicle = getAllVehicle();
+        allVehicle.sort(Comparator.comparing(Vehicle::getRange));
+        for (int i = 0; i < allVehicle.size(); i++) {
+            double score = 0;
+            for (Route route : routeList) {
+                evaluateRoute(route, allVehicle, i);
+            }
+            for (Route route : routeList) {
+                score = score+(route.getWeight()* route.getScore());
+            }
+            Evaluation evaluation = new Evaluation(allVehicle.get(i));
+            evaluation.setScore(score);
+            vehicleFinalScore.add(evaluation);
+        }
+        vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
+        return vehicleFinalScore;
+        */
 
 
 
@@ -222,7 +245,18 @@ public class VehicleService {
         return list2;
     }
 
-    private void donnerNoteDeplacementSelonAutonomieVoiture(Deplacement trip, Vehicle vehicle) {
-        //to do
+    private void evaluateRoute(Route route, List<Vehicle> vehicle, int i) {
+        double poid1 = 0.75;
+        double poid2 = 0.25;
+        double note1 = (vehicle.get(i).getRange() / route.getDistance()) + (vehicle.get(i).getRange() % route.getDistance()) * 100;
+        if (note1 > 100) {
+            note1 = 100;
+        }
+        int rangeMax = vehicle.get(0).getRange();
+        double note2 = ((vehicle.get(i).getRange()- route.getDistance()) / rangeMax) + (vehicle.get(i).getRange() % rangeMax) * 100;
+
+        route.setScore(poid1*note1 + poid2*note2);
     }
+
+
 }

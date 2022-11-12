@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Vehicle implements Comparable<Vehicle>{
+public class Vehicle{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,6 +36,7 @@ public class Vehicle implements Comparable<Vehicle>{
     private String refLink;
     @NotEmpty
     private String imgLink;
+
 
     public Vehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
         this.brand = brand;
@@ -140,11 +141,5 @@ public class Vehicle implements Comparable<Vehicle>{
 
     public void setImgLink(String imgLink) {
             this.imgLink = imgLink;
-    }
-
-    //a modifier
-    @Override
-    public int compareTo(Vehicle o) {
-        return Integer.compare(this.getSafetyScore(), o.getSafetyScore());
     }
 }
