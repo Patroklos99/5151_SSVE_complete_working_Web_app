@@ -2,8 +2,20 @@
 # Official docker compose image.
 image:
   name: docker/compose:latest
+variables:
+  DOCKER_DRIVER: overlay
+services:
+  - docker:dind
 
 image: maven:3.8.4-openjdk-17
+
+before_script:
+- docker info
+- apk update
+- apk upgrade
+- apk add python python-dev py-pip build-base
+- pip install docker-compose
+
 
 stages:
   - build
