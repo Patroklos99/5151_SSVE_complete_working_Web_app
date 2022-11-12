@@ -1,3 +1,6 @@
+
+image: maven:3.8.4-openjdk-17
+
 stages:
   - build
   - test
@@ -6,13 +9,13 @@ stages:
 build-job:
   stage: build
   script:
-    - ./mvnw clean install
+    - mvn clean install
     - echo "Compile complete."
     
 unit-test-job:
   stage: test
   script:
-    - ./mvnw verify
+    - mvn verify
 
 deploy-job:
   stage: deploy
