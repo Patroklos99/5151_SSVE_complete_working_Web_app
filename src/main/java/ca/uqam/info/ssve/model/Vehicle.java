@@ -1,5 +1,8 @@
 package ca.uqam.info.ssve.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,7 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Vehicle {
+public class Vehicle implements Comparable<Vehicle>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -139,4 +142,9 @@ public class Vehicle {
             this.imgLink = imgLink;
     }
 
+    //a modifier
+    @Override
+    public int compareTo(Vehicle o) {
+        return Integer.compare(this.getSafetyScore(), o.getSafetyScore());
+    }
 }

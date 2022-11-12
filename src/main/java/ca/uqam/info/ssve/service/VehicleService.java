@@ -1,14 +1,13 @@
 package ca.uqam.info.ssve.service;
 
+import ca.uqam.info.ssve.model.Deplacement;
 import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class VehicleService {
@@ -24,15 +23,15 @@ public class VehicleService {
         Vehicle vehicle = new Vehicle();
         if (
                 validateBrand(brand)
-                && validateModelName(modelName)
-                && validatePrice(price)
-                && validateNbDoors(nbDoors)
-                && validateType(type)
-                && validateRange(range)
-                && validateSafetyScore(safetyScore)
-                && validateRefLink(refLink)
-                && validateImgLink(imgLink)
-        ){
+                        && validateModelName(modelName)
+                        && validatePrice(price)
+                        && validateNbDoors(nbDoors)
+                        && validateType(type)
+                        && validateRange(range)
+                        && validateSafetyScore(safetyScore)
+                        && validateRefLink(refLink)
+                        && validateImgLink(imgLink)
+        ) {
             vehicle.setBrand(brand);
             vehicle.setModelName(modelName);
             vehicle.setNbDoors(nbDoors);
@@ -56,21 +55,21 @@ public class VehicleService {
     public Vehicle modifyVehicle(Vehicle vehicle) {
         if (
                 validateBrand(vehicle.getBrand())
-                && validateModelName(vehicle.getModelName())
-                && validatePrice(vehicle.getPrice())
-                && validateNbDoors(vehicle.getNbDoors())
-                && validateType(vehicle.getType())
-                && validateRange(vehicle.getRange())
-                && validateBatteryCapacity(vehicle.getBatteryCapacity())
-                && validateSafetyScore(vehicle.getSafetyScore())
-                && validateRefLink(vehicle.getRefLink())
-                && validateImgLink(vehicle.getImgLink())
-                && vehicleRepository.findById(vehicle.getId()).isPresent()
-        ){
+                        && validateModelName(vehicle.getModelName())
+                        && validatePrice(vehicle.getPrice())
+                        && validateNbDoors(vehicle.getNbDoors())
+                        && validateType(vehicle.getType())
+                        && validateRange(vehicle.getRange())
+                        && validateBatteryCapacity(vehicle.getBatteryCapacity())
+                        && validateSafetyScore(vehicle.getSafetyScore())
+                        && validateRefLink(vehicle.getRefLink())
+                        && validateImgLink(vehicle.getImgLink())
+                        && vehicleRepository.findById(vehicle.getId()).isPresent()
+        ) {
             vehicleRepository.save(vehicle);
             return vehicleRepository.findById(vehicle.getId()).get();
         }
-            throw new IllegalArgumentException();
+        throw new IllegalArgumentException();
     }
 
 
@@ -173,6 +172,38 @@ public class VehicleService {
 
     public List<Evaluation> evaluateVehicle() {
         //algorithme ici
+        ArrayList<Integer> coordinateList = new ArrayList<>(); ///Dummy à effacer une fois ListCoordinate definie.
+        ArrayList<Deplacement> tripsList = new ArrayList<>();
+        ArrayList<Vehicle> vehicleFinalScore = new ArrayList<>();
+        int frequenceTotale = 0;
+        for (int x : coordinateList) {
+            //algo utilisation boite noite (serveur)
+            Deplacement dep = new Deplacement(); //creation avec les donnes retournees de la boite noir
+            tripsList.add(dep);
+            frequenceTotale += dep.getFrequence();
+        }
+        double poidsDeplacement;
+        for (Deplacement trip : tripsList) {
+            poidsDeplacement = trip.getFrequence() / frequenceTotale;
+        }
+        for (Vehicle vehicle : getAllVehicle()) {
+            for (Deplacement trip : tripsList)
+                donnerNoteDeplacementSelonAutonomieVoiture(trip, vehicle);
+            //vehicle.setScore = sum(notedeplacement(poidsDeplacement));
+            vehicleFinalScore.add(vehicle);
+        }
+        Collections.sort(vehicleFinalScore); //a modifier
+
+
+
+
+
+
+
+
+
+
+
         List<Vehicle> list = getAllVehicle();
         List<Evaluation> list2 = new ArrayList<>();
         for (Vehicle vehicle : list) {
@@ -191,5 +222,9 @@ public class VehicleService {
             list2.add(eval);
         }
         return list2;
+    }
+
+    private void donnerNoteDeplacementSelonAutonomieVoiture(Deplacement trip, Vehicle vehicle) {
+        //to do
     }
 }
