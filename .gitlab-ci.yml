@@ -1,4 +1,8 @@
 
+# Official docker compose image.
+image:
+  name: docker/compose:latest
+
 image: maven:3.8.4-openjdk-17
 
 stages:
@@ -23,6 +27,8 @@ postman_tests:
         name: postman/newman:alpine
         entrypoint: [""]
     script:
+        - docker-compose up --detach
+        - sleep 60
         - newman --version
         - newman run postman/SSVE.postman_collection.json
 
