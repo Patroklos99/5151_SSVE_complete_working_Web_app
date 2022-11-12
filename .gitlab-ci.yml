@@ -16,6 +16,15 @@ unit-test-job:
   stage: test
   script:
     - mvn verify
+    
+postman_tests:
+    stage: test
+    image: 
+        name: postman/newman:alpine
+        entrypoint: [""]
+    script:
+        - newman --version
+        - newman run postman/SSVE.postman_collection.json
 
 deploy-job:
   stage: deploy
