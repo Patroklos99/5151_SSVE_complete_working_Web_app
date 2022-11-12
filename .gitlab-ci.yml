@@ -7,6 +7,7 @@ variables:
 services:
   - docker:dind
 
+image: docker:latest
 image: maven:3.8.4-openjdk-17
 
 before_script:
