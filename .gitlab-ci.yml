@@ -1,0 +1,20 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build-job:
+  stage: build
+  script:
+    - ./mvnw clean install
+    - echo "Compile complete."
+    
+unit-test-job:
+  stage: test
+  script:
+    - ./mvnw verify
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "TODO"
