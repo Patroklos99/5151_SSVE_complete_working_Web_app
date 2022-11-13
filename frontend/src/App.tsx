@@ -1,8 +1,8 @@
 import React from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import './App.css';
 
-import logo from './assets/onlycars_old.png';
+import logo from "./assets/onlycars_old.png";
 import { Card } from "./components/example/example";
 import AddCar from "./components/example2/example2";
 import CarList from './components/example3/example3';

@@ -15,25 +15,29 @@ Cadriciel utilisé et liens
 ---------------------------
 
 - Java : [jdk 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-- Maven : [version 3.8.6](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/) (Installation facultative)
-
+- Maven : [version 3.8.6](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/) 
+(Installation facultative)
+- Docker : [derniere version](https://www.docker.com/products/docker-desktop/)
+- Postman : [derniere version](https://www.postman.com/downloads/)
 
 Processus d'installation
 ------------------------
 
-### Chacun des cadriciels (EXEMPLE-À RETIRER)
-
-**TODO: pour chacun des cadriciels, indiquez, étape par étape, comment procéder à
-l'installation sur une machine Linux ( *Pourquoi pas mac ou Windows????* c'est
-sur une machine linux que le serveur sera installé).**
-
-### Un autre cadriciel (EXEMPLE-À RETIRER)
-
-Etc...
-
 Protocole de démarrage du site et options
 ========================================
 
+### Build de l'image Docker
+Note importante: le build initial peut être assez long en fonction de votre connexion internet.
+```sh
+docker-compose build
+```
+
+### Demarrer l'application a partie de docker
+```sh
+docker-compose up
+```
+
+Note importante: Si vous tentez de build l'application entière en utilisant le build en 2 étapes, vous allez rencontrer des erreurs ``CORS`` (cross-origins), pour éviter ce genre d'erreur il est nécessaire de démarrer l'application à partir de Docker.
 ### Build frontend
 ```sh
 npm install
@@ -56,7 +60,9 @@ npm start
 ./mvnw spring-boot:run
 ```
 
-L'applcation démarre par défaut sur `http://localhost:8080`. Une base de données locale h2 est aussi crée lors du démarrage.
+Noter que le `hot-reloading` n'est pas supporté au niveau du backend et donc il faudra le rebuild et le redéployer après des modifications pour qu'elles soient visibles. 
+
+Le frontend démarre par défaut sur `http://localhost:3000` (en interagissant avec la backend sur le port 8080). Une base de données locale h2 est aussi crée lors du démarrage. Noter que cette BD est en mémoire et non persistante pour le moment.
 
 ### Exécuter les tests de l'api
 
