@@ -24,29 +24,24 @@ public class VehicleService {
         return vehicleRepository.findById(id).get();
     }
 
-    public Vehicle addVehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
-        Vehicle vehicle = new Vehicle();
+    /**
+     *
+     * @param vehicle
+     * @return
+     */
+    public Vehicle addVehicle(Vehicle vehicle) {
         if (
-                validateBrand(brand)
-                        && validateModelName(modelName)
-                        && validatePrice(price)
-                        && validateNbDoors(nbDoors)
-                        && validateType(type)
-                        && validateRange(range)
-                        && validateSafetyScore(safetyScore)
-                        && validateRefLink(refLink)
-                        && validateImgLink(imgLink)
+                validateBrand(vehicle.getBrand())
+                && validateModelName(vehicle.getModelName())
+                && validatePrice(vehicle.getPrice())
+                && validateNbDoors(vehicle.getNbDoors())
+                && validateType(vehicle.getType())
+                && validateRange(vehicle.getRange())
+                && validateBatteryCapacity(vehicle.getBatteryCapacity())
+                && validateSafetyScore(vehicle.getSafetyScore())
+                && validateRefLink(vehicle.getRefLink())
+                && validateImgLink(vehicle.getImgLink())
         ) {
-            vehicle.setBrand(brand);
-            vehicle.setModelName(modelName);
-            vehicle.setNbDoors(nbDoors);
-            vehicle.setType(type);
-            vehicle.setPrice(price);
-            vehicle.setRange(range);
-            vehicle.setBatteryCapacity(batteryCapacity);
-            vehicle.setSafetyScore(safetyScore);
-            vehicle.setRefLink(refLink);
-            vehicle.setImgLink(imgLink);
             vehicleRepository.save(vehicle);
             return vehicle;
         }

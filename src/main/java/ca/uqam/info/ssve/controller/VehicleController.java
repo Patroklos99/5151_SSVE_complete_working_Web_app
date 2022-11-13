@@ -40,28 +40,14 @@ public class VehicleController {
     }
 
     /**
-     * @param vehicle
-     * @return
+     * Crée et ajoute une voiture dans la base de données
+     * @param vehicle:  voiture à ajouter
+     * @return Vehicle: retourne la voiture ajouté
      */
     @PostMapping("")
     public @ResponseBody
-    Vehicle addVehicle(Vehicle vehicle) {
-        if (
-                validateBrand(vehicle.getBrand())
-                        && validateModelName(vehicle.getModelName())
-                        && validatePrice(vehicle.getPrice())
-                        && validateNbDoors(vehicle.getNbDoors())
-                        && validateType(vehicle.getType())
-                        && validateRange(vehicle.getRange())
-                        && validateBatteryCapacity(vehicle.getBatteryCapacity())
-                        && validateSafetyScore(vehicle.getSafetyScore())
-                        && validateRefLink(vehicle.getRefLink())
-                        && validateImgLink(vehicle.getImgLink())
-        ) {
-            vehicleRepository.save(vehicle);
-            return vehicle;
-        }
-        throw new IllegalArgumentException();
+    Vehicle addVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleService.addVehicle(vehicle);
     }
 
     /**
