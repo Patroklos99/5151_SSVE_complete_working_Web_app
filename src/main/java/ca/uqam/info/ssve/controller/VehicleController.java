@@ -8,82 +8,78 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000/"})
-@RequestMapping("vehicle")
+@RequestMapping("api/vehicle")
 public class VehicleController {
 
-	@Autowired
-	VehicleService vehicleService;
+    @Autowired
+    VehicleService vehicleService;
 
-	/**
-	 * Retourne la voiture avec l'ID demandé ou toutes les voitures
-	 * @param id: ID de la voiture
-	 * @return Vehicle: voiture ayant l'ID spécifié ou toutes les voitures
-	 */
-	@GetMapping("")
-	public @ResponseBody
-	List<Vehicle> getVehicle(Optional<Long> id) {
-		if (id.isPresent()) {
-			List<Vehicle> list = new ArrayList<>();
-			list.add(vehicleService.getVehicle(id.get()));
-			return list;
-		} else {
-			return vehicleService.getAllVehicle();
-		}
-	}
+    /**
+     * Retourne la voiture avec l'ID demandé ou toutes les voitures
+     *
+     * @param id: ID de la voiture
+     * @return Vehicle: voiture ayant l'ID spécifié ou toutes les voitures
+     */
+    @GetMapping("")
+    public @ResponseBody
+    List<Vehicle> getVehicle(Optional<Long> id) {
+        if (id.isPresent()) {
+            List<Vehicle> list = new ArrayList<>();
+            list.add(vehicleService.getVehicle(id.get()));
+            return list;
+        } else {
+            return vehicleService.getAllVehicle();
+        }
+    }
 
-	/**
-	 * Crée et ajoute une voiture dans la base de données
-	 * @param brand: Marque de la voiture
-	 * @param modelName: Modèle de la voiture
-	 * @param nbDoors: nombre de portes
-	 * @param type: type de voiture
-	 * @param price: Prix de la voiture
-	 * @param range: Autonomie de la voiture
-	 * @param batteryCapacity: Capacité de la batteri de la voiture
-	 * @param safetyScore: Note de sécurité de la voiture
-	 * @param refLink: Lien de référence
-	 * @param imgLink: Lien vers un image de la voiture
-	 * @return Vehicle: retourne la voiture ajouté
-	 */
-	@PostMapping("")
-	public @ResponseBody
-	Vehicle addVehicle(String brand,
-					   String modelName,
-					   int nbDoors,
-					   String type,
-					   int price,
-					   int range,
-					   int batteryCapacity,
-					   int safetyScore,
-					   String refLink,
-					   String imgLink) {
-		return vehicleService.addVehicle(brand, modelName, nbDoors, type, price, range, batteryCapacity, safetyScore, refLink, imgLink);
-	}
+    /**
+     * @param vehicle
+     * @return
+     */
+    @PostMapping("")
+    public @ResponseBody
+    Vehicle addVehicle(Vehicle vehicle) {
+        if (
+                validateBrand(vehicle.getBrand())
+                        && validateModelName(vehicle.getModelName())
+                        && validatePrice(vehicle.getPrice())
+                        && validateNbDoors(vehicle.getNbDoors())
+                        && validateType(vehicle.getType())
+                        && validateRange(vehicle.getRange())
+                        && validateBatteryCapacity(vehicle.getBatteryCapacity())
+                        && validateSafetyScore(vehicle.getSafetyScore())
+                        && validateRefLink(vehicle.getRefLink())
+                        && validateImgLink(vehicle.getImgLink())
+        ) {
+            vehicleRepository.save(vehicle);
+            return vehicle;
+        }
+        throw new IllegalArgumentException();
+    }
 
+    /**
+     * Modifie une voiture dans la base de donnée
+     *
+     * @param vehicle: nouvelle voiture modifié
+     * @return Vehicle: retourne un body avec la voiture modifié
+     */
+    @PutMapping("")
+    public @ResponseBody
+    Vehicle modifyVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleService.modifyVehicle(vehicle);
+    }
 
-
-
-	/**
-	 * Modifie une voiture dans la base de donnée
-	 * @param vehicle: nouvelle voiture modifié
-	 * @return Vehicle: retourne un body avec la voiture modifié
-	 */
-	@PutMapping("")
-	public @ResponseBody
-	Vehicle modifyVehicle(@RequestBody Vehicle vehicle) {
-		return vehicleService.modifyVehicle(vehicle);
-	}
-
-	//todo
-	@GetMapping("evaluateVehicle")
-	public @ResponseBody
-	List<Evaluation> evaluateVehicle() {
-		return vehicleService.evaluateVehicle();
-	}
+    //todo
+    @GetMapping("evaluate")
+    public @ResponseBody
+    List<Evaluation> evaluateVehicle() throws IOException {
+        return vehicleService.evaluateVehicle();
+    }
 }

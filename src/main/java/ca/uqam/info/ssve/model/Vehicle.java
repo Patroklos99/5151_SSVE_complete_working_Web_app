@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Vehicle{
+@Data
+public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,94 +53,6 @@ public class Vehicle{
     }
 
     public Vehicle() {
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getModelName() {
-        return modelName;
-    }
-
-    public int getNbDoors() {
-        return nbDoors;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public int getRange() {
-        return range;
-    }
-
-    public int getBatteryCapacity() {
-        return batteryCapacity;
-    }
-
-    public int getSafetyScore() {
-        return safetyScore;
-    }
-
-    public String getImgLink() {
-        return imgLink;
-    }
-
-    public String getRefLink() {
-        return refLink;
-    }
-
-    //------------------------------------------------------ ---------------------------------------
-    public void setId(Long id) {
-            this.id = id;
-    }
-
-    public void setBrand(String brand) {
-            this.brand = brand;
-    }
-
-    public void setModelName(String modelName) {
-            this.modelName = modelName;
-    }
-
-    public void setNbDoors(int nbDoors) {
-            this.nbDoors = nbDoors;
-    }
-
-    public void setType(String type) {
-            this.type = type;
-    }
-
-    public void setPrice(int price) {
-            this.price = price;
-    }
-
-    public void setRange(int range) {
-            this.range = range;
-    }
-
-    public void setBatteryCapacity(int batteryCapacity) {
-            this.batteryCapacity = batteryCapacity;
-    }
-
-    public void setSafetyScore(int safetyScore) {
-            this.safetyScore = safetyScore;
-    }
-
-    public void setRefLink(String refLink) {
-            this.refLink = refLink;
-    }
-
-    public void setImgLink(String imgLink) {
-            this.imgLink = imgLink;
     }
 }

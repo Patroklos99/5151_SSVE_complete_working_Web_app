@@ -78,50 +78,6 @@ public class VehicleService {
     }
 
 
-    /*
-    public Vehicle modifyVehicle(Long id, String column, String change) {
-        Vehicle vehicle;
-        if (vehicleRepository.findById(id).isPresent()) {
-            vehicle = vehicleRepository.findById(id).get();
-        } else {
-            return new Vehicle();
-        }
-        switch (column.toLowerCase()) {
-            case "brand" -> {
-                if (validateBrand(change))  vehicle.setBrand(change);
-            }
-            case "modelname" -> {
-                if (validateModelName(change))  vehicle.setModelName(change);
-            }
-            case "nbdoors" -> {
-                if (validateNbDoors(Integer.parseInt(change)))  vehicle.setNbDoors(Integer.parseInt(change));
-            }
-            case "type" -> {
-                if (validateType(change))   vehicle.setType(change);
-            }
-            case "price" -> {
-                if (validatePrice(Integer.parseInt(change)))   vehicle.setPrice(Integer.parseInt(change));
-            }
-            case "range" -> {
-                if (validateRange(Integer.parseInt(change)))   vehicle.setRange(Integer.parseInt(change));
-            }
-            case "batterycapacity" -> {
-                if (validateBatteryCapacity(Integer.parseInt(change)))   vehicle.setBatteryCapacity(Integer.parseInt(change));
-            }
-            case "safetyscore" -> {
-                if (validateSafetyScore(Integer.parseInt(change)))   vehicle.setSafetyScore(Integer.parseInt(change));
-            }
-            case "reflink" -> {
-                if (validateRefLink(change))   vehicle.setRefLink(change);
-            }
-            case "imglink" -> {
-                if (validateImgLink(change))   vehicle.setImgLink(change);
-            }
-        }
-       vehicleRepository.save(vehicle);
-       return vehicle;
-    }*/
-
     // ----------------------------------------------------   ----------------------------------------
     private boolean validateBrand(String brand) {
         return brand.matches("[a-zA-Z]+");
@@ -175,9 +131,10 @@ public class VehicleService {
     }
 
 
-    public List<Evaluation> evaluateVehicle(List<Deplacement> coordinateList) throws IOException {
+    public List<Evaluation> evaluateVehicle() throws IOException { //List<Deplacement> coordinateList
+
+        //-------- Algorithme réel
         /*
-        //algorithme ici
         ArrayList<Route> routeList = new ArrayList<>();
         ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
         int frequenceTotale = 0;
@@ -218,13 +175,7 @@ public class VehicleService {
         return vehicleFinalScore;
         */
 
-
-
-
-
-
-
-
+    //Dummy pour FrontEnd    ---------------------------------------------------------
         List<Vehicle> list = getAllVehicle();
         List<Evaluation> list2 = new ArrayList<>();
         for (Vehicle vehicle : list) {
@@ -242,6 +193,7 @@ public class VehicleService {
             eval.setImgLink(vehicle.getImgLink());
             list2.add(eval);
         }
+
         return list2;
     }
 
@@ -257,6 +209,5 @@ public class VehicleService {
 
         route.setScore(poid1*note1 + poid2*note2);
     }
-
 
 }
