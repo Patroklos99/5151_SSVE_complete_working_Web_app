@@ -1,4 +1,4 @@
-package ca.uqam.info.ssve.controller;
+package java.ca.uqam.info.ssve.controller;
 
 import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.Vehicle;
@@ -16,7 +16,6 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000/"})
 @RequestMapping("api/vehicle")
-@RequestMapping("api/vehicule")
 public class VehicleController {
 
     @Autowired
