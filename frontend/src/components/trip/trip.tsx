@@ -3,7 +3,7 @@ import { ScriptTarget } from 'typescript';
 import './trip.css'
 import TripData from "../../types/trip2";
 import TripService from '../../services/tripServices';
-import { Button, FormControl, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 
 
 const Trip: React.FC = () => {
@@ -40,20 +40,20 @@ const Trip: React.FC = () => {
           freq: trip.freq
         };
         TripService.postTrip(trip)
-        .then((response: any) => {
-          setTrip({
-            id: response.data.id,
-            name: response.data.name,
-            start_point: response.data.start_point,
-            end_point: response.data.end_point,
-            freq: response.data.freq,
+          .then((response: any) => {
+            setTrip({
+              id: response.data.id,
+              name: response.data.name,
+              start_point: response.data.start_point,
+              end_point: response.data.end_point,
+              freq: response.data.freq,
+            });
+            setSubmitted(true);
+            console.log(response.data);
+          })
+          .catch((e: Error) => {
+            console.log(e);
           });
-          setSubmitted(true);
-          console.log(response.data);
-        })
-        .catch((e: Error) => {
-          console.log(e);
-        });
       })
       label.innerHTML = "Soumis!";
     }
@@ -107,61 +107,60 @@ const Trip: React.FC = () => {
   }
   return (
     <div>
-    <FormControl variant="filled">
-      <TextField
-        type="text"
-        id="nom"
-        required
-        placeholder={"Nom du trajet"}
-        sx={{ boxShadow: 5 }} 
-      />
-      <div id="map"></div>
-      <div id="map2"></div>
-      <div id='textsup'>Adresse de départ</div>
-      <div id="search-box"></div>
-      <input id='search1' type={"text"} required hidden />
-      <div id="result" hidden></div>
-      <div id='textsup'>Adresse d'arrivé</div>
-      <div id="search-box2"></div>
-      <input id='search2' type={"text"} required hidden />
-      <div id="result2" hidden></div>
-      <div id='textsup'>Je fais ce trajet
-      <TextField
-        type="text"
-        id='freq_nb'
-        placeholder="Fréquence"
-        required
-        sx={{ boxShadow: 5 }} />
+      <FormControl variant="filled">
+        <TextField
+          id="nom"
+          type="text"
+          placeholder={"Nom du trajet"}
+          required
+          sx={{ boxShadow: 5 }}
+        />
+        <div id="map"></div>
+        <div id="map2"></div>
+        <br />
+        <label id="textsup">Adresse de début du trajet</label>
+
+        <div id="search-box"></div>
+        <input id='search1' type={"text"} required hidden />
+        <div id="result" hidden></div>
+        <label id="textsup">Adresse de la destination du trajet</label>
+
+        <div id="search-box2"></div>
+        <input id='search2' type={"text"} required hidden />
+        <div id="result2" hidden></div>
+        
+        <label id="textsup">Je fais ce trajet </label>
+        <TextField
+          type="text"
+          id='freq_nb'
+          placeholder="Fréquence"
+          required
+          sx={{ boxShadow: 5 }} />
+        <label id="textsup"> fois par </label>
+        <select id="frequences" required>
+          <option value="Jour">Jour</option>
+          <option value="Semaine">Semaine</option>
+          <option value="Mois">Mois</option>
+          <option value="Année">Année</option>
+        </select>
+        <br></br>
+        <input onClick={() => handleTripAdd()} type={"submit"} value={"Ajouter trajet"} />
+        <br />
+        <label id='soumis'>NON-SOUMIS</label>
+        <div>
+          {TripList.map((trip, index) => (
+            <div style={{
+              "border": "2px solid red"
+            }}>
+              <label >{trip.name}  </label>
+              <button onClick={() => handleTripRemove(index)}>Retirer</button>
+              <br></br>
+            </div>
+          ))}
         </div>
-      <div id='textsup'>fois par</div>
-      <Select labelId='frequences' required sx={{ boxShadow: 5 }} >
-        <MenuItem value="Jour">Jour</MenuItem>
-        <MenuItem value="Semaine">Semaine</MenuItem>
-        <MenuItem value="Mois">Mois</MenuItem>
-        <MenuItem value="Année">Année</MenuItem>
-      </Select>
-      <Button
-        onClick={handleTripAdd}
-        variant="contained"
-        type={"submit"}
-        value={"Ajouter trajet"}>
-        Soumettre
-      </Button>
-      <label id='soumis'>NON-SOUMIS</label>
-      <div>
-      {TripList.map((trip, index) => (
-        <div style={{
-          "border": "2px solid red"
-        }}>
-          <label >{trip.name}  </label>
-          <button onClick={() => handleTripRemove(index)}>Retirer</button>
-          <br></br>
-        </div>
-      ))}
+        <input onClick={() => soumettre()} type={"submit"} value={"Soumettre"} />
+      </FormControl>
     </div>
-    <input onClick={() => soumettre()} type={"submit"} value={"Soumettre"} />
-    </FormControl>
-  </div>
   );
 };
 
