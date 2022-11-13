@@ -1,17 +1,13 @@
 package ca.uqam.info.ssve.service;
 
-import ca.uqam.info.ssve.model.Deplacement;
 import ca.uqam.info.ssve.model.Route;
 import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.repository.VehicleRepository;
-import ca.uqam.info.ssve.server.ADVEConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 
 @Service

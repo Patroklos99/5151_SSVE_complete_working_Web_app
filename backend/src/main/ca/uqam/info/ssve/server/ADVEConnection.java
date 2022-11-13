@@ -3,7 +3,6 @@ package ca.uqam.info.ssve.server;
 import java.net.*;
 import java.io.*;
 
-import ca.uqam.info.ssve.model.Deplacement;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
