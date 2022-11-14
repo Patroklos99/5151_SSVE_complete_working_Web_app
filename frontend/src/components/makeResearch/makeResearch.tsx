@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './makeResearch.css';
 import icone1 from "../../assets/developpementIcone.png";
 import formIcone from "../../assets/former.png"
@@ -12,16 +12,22 @@ interface MakeResearchProps {
 
 const MakeResearch: FC<MakeResearchProps> = () => (
         <div className="makeResearch">
+            <div>
+                <h2>Effectuer une recherche de véhicules:</h2>
+            </div>
+
+
             {/*** 3 columns **/}
             <div className="row">
-
                 <div className="column column1">
                     <div className="card-overlay2">
-                        <img src={formIcone}  className="filter-image"/>
+                        <img src={formIcone} className="filter-image"/>
 
-                        <Link to="/researchMan">  <button
-                            style={{width: "auto", position: "relative"}} className="btn btn-dark">Manuellement
-                        </button></Link>
+                        <Link to="/researchMan">
+                            <button
+                                style={{width: "auto", position: "relative"}}>Manuellement
+                            </button>
+                        </Link>
 
 
                     </div>
@@ -31,7 +37,7 @@ const MakeResearch: FC<MakeResearchProps> = () => (
                     <div className=" card-overlay2">
                         <img src={mapIcone} alt=" formation-icone" className=" filter-image"/>
                         <button
-                            style={{width:"auto", position: "relative"}} className="btn btn-dark">Par Google Maps Timeline
+                            style={{width: "auto", position: "relative"}}>Par Google Maps Timeline
                         </button>
                     </div>
                 </div>
@@ -39,7 +45,7 @@ const MakeResearch: FC<MakeResearchProps> = () => (
                 <div className="column column3">
                     <div className="card-overlay2">
                         <img src={jsonIcone} alt="inventaire-icone" className="filter-image"/>
-                        <button style={{width:"auto", position: "relative"}} className="btn btn-dark">Par liste préformatée
+                        <button style={{width: "auto", position: "relative"}}>Par liste préformatée
                         </button>
 
                     </div>
