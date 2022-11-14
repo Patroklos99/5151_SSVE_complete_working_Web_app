@@ -1,5 +1,6 @@
 package ca.uqam.info.ssve.controller;
 
+import ca.uqam.info.ssve.model.Deplacement;
 import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.service.VehicleService;
@@ -60,10 +61,23 @@ public class VehicleController {
         return vehicleService.modifyVehicle(vehicle);
     }
 
-    //todo
+
     @GetMapping("evaluate")
     public @ResponseBody
-    List<Evaluation> evaluateVehicle() throws IOException {
-        return vehicleService.evaluateVehicle();
+    List<Evaluation> evaluateVehicle(@RequestBody List<Deplacement> listCoord) throws IOException {
+        return vehicleService.evaluateVehicle(listCoord);
     }
+
+    @GetMapping("evaluateTest")
+    public @ResponseBody
+    List<Evaluation> evaluateVehicle() throws IOException {
+        return vehicleService.evaluateVehicleTest();
+    }
+
+    @GetMapping("tempDummy")
+    public @ResponseBody
+    List<Evaluation> tempDummy() throws IOException {
+        return vehicleService.dummyScore();
+    }
+
 }
