@@ -3,6 +3,7 @@ package ca.uqam.info.ssve.service;
 import ca.uqam.info.ssve.model.*;
 import ca.uqam.info.ssve.repository.VehicleRepository;
 import ca.uqam.info.ssve.server.ADVEConnection;
+import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class VehicleService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
+    private ADVEConnection adveConnection = new ADVEConnection();
 
     public Vehicle getVehicle(Long id) {
         return vehicleRepository.findById(id).get();
@@ -38,8 +40,8 @@ public class VehicleService {
         ) {
             long size = vehicleRepository.count();
             vehicleRepository.save(vehicle);
-            Optional<Vehicle> voiture = vehicleRepository.findById(size+1);
-            if (voiture.isPresent()){
+            Optional<Vehicle> voiture = vehicleRepository.findById(size + 1);
+            if (voiture.isPresent()) {
                 return voiture.get();
             }
             throw new IllegalArgumentException();
@@ -125,7 +127,7 @@ public class VehicleService {
     }
 
 
-    public List<Evaluation> evaluateVehicle(List<Deplacement> coordinateList) throws IOException { //List<Deplacement> coordinateList
+    public List<Evaluation> evaluateVehicle(List<Deplacement> coordinateList) throws IOException, JSchException, InterruptedException {
         //-------- DÉBUT ALGO RÉEL---------
         ArrayList<Route> routeList = new ArrayList<>();
         ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
@@ -140,9 +142,8 @@ public class VehicleService {
             frequenceTotale += route.getFrequence();
             routeList.add(route);
         }
-        for (Route route : routeList) {
-            route.setWeight(((double)route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
-        }
+        for (Route route : routeList)
+            route.setWeight(((double) route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
 
         //--------Évaluation de chaque route pour chaque voiture et calcule de la note final
         List<Vehicle> allVehicle = getAllVehicle();
@@ -151,8 +152,7 @@ public class VehicleService {
             double score = 0;
             for (Route route : routeList) {
                 //--------Obtien les infos du déplacement avec la boite noir
-                System.out.println(route.getDeplacement());
-                String data = adveConnection.call(requeteString(route) + allVehicle.get(i).getRange());
+                String data = adveConnection.doRequest(requeteString(route) + allVehicle.get(i).getRange());
                 stringToRoute(route, data);
                 //--------Donne une note au déplacement pour la voiture i
                 evaluateRoute(route, allVehicle, i);
@@ -184,9 +184,8 @@ public class VehicleService {
         double poid1 = 0.75;
         double poid2 = 0.25;
         double note1 = (vehicle.get(i).getRange() / route.getDistance()) + (vehicle.get(i).getRange() % route.getDistance()) * 100;
-        if (note1 > 100) {
+        if (note1 > 100)
             note1 = 100;
-        }
         int rangeMax = vehicle.get(0).getRange();
         double note2 = ((vehicle.get(i).getRange() - route.getDistance()) / rangeMax) + (vehicle.get(i).getRange() % rangeMax) * 100;
 
@@ -228,10 +227,10 @@ public class VehicleService {
         int start = 0;
         int end = 0;
         for (int i = 0; i < data.length(); i++) {
-            if(data.charAt(i) == '<'){
-                start = i+1;
-            } else if (data.charAt(i) == '>'){
-                end = i-1;
+            if (data.charAt(i) == '<') {
+                start = i + 1;
+            } else if (data.charAt(i) == '>') {
+                end = i - 1;
                 switch (valueNum) {
                     case 0 -> {
                         route.setDistance(Double.parseDouble(data.substring(start, end)));
@@ -263,10 +262,10 @@ public class VehicleService {
     }
 
 
+    //Dummy pour FrontEnd    ------------------------------------------------------------------------------
     public List<Evaluation> dummyScore() {
-        //Dummy pour FrontEnd    ---------------------------------------------------------
         List<Vehicle> list = getAllVehicle();
-         List<Evaluation> list2 = new ArrayList<>();
+        List<Evaluation> list2 = new ArrayList<>();
         for (Vehicle vehicle : list) {
             Evaluation eval = new Evaluation();
             eval.setId(vehicle.getId());
@@ -286,14 +285,14 @@ public class VehicleService {
         return list2;
     }
 
-    public List<Evaluation> evaluateVehicleTest() throws IOException { //List<Deplacement> coordinateList
+    public List<Evaluation> evaluateVehicleTest() throws IOException, JSchException, InterruptedException {
         List<Deplacement> coordinateList = createDeplacementList(); //DummyList erase when real ones comes
-
+        adveConnection.connectServer();
         //-------- DÉBUT ALGO RÉEL---------
         ArrayList<Route> routeList = new ArrayList<>();
         ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
+        List<String> req = createCoordinateList();
         int frequenceTotale = 0;
-        ADVEConnection adveConnection = new ADVEConnection();
 
         //--------Détermination de la fréquence total et du poid de chaque route
         for (Deplacement x : coordinateList) {
@@ -304,7 +303,7 @@ public class VehicleService {
             routeList.add(route);
         }
         for (Route route : routeList) {
-            route.setWeight(((double)route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
+            route.setWeight(((double) route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
         }
 
         //--------Évaluation de chaque route pour chaque voiture et calcule de la note final
@@ -314,8 +313,8 @@ public class VehicleService {
             double score = 0;
             for (Route route : routeList) {
                 //--------Obtien les infos du déplacement avec la boite noir
-                System.out.println(route.getDeplacement());
-                String data = adveConnection.call(requeteString(route) + allVehicle.get(i).getRange());
+                String data = adveConnection.doRequest(requeteString(route) + allVehicle.get(i).getRange());
+                System.out.println(data);
                 stringToRoute(route, data);
                 //--------Donne une note au déplacement pour la voiture i
                 evaluateRoute(route, allVehicle, i);
@@ -323,12 +322,12 @@ public class VehicleService {
             //-------- Calcule la note final de la voiture selon la note de chaque déplacement
             for (Route route : routeList)
                 score = score + (route.getWeight() * route.getScore());
-
             //--------Ajoute le score final a la voiture et l'ajoute dans la liste a retourné
             Evaluation evaluation = new Evaluation(allVehicle.get(i));
             evaluation.setScore(score);
             vehicleFinalScore.add(evaluation);
         }
+        adveConnection.closeServer();
         //--------Sort les voitures par score
         vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
         return vehicleFinalScore;
