@@ -12,4 +12,6 @@ export const Card = ({ title, paragraph }: CardProps) => <aside>
   <p>
     { paragraph }
   </p>
+  <Link to="/add">add</Link>
+  <Link to="/get">get</Link>
 </aside>
