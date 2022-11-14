@@ -1,5 +1,3 @@
-// code d'Alexis Brouillette
-
 import { ICar } from "../../models/cars";
 
 
@@ -9,7 +7,7 @@ export const carsData: ICar[] = [
         id: 0,
         marque: "Bmw",
         modele: "Cool",
-        nbPortes: 2,
+        nbPortes: 3,
         type: "VUS",
         prix: 75000,
         autonomie: 250,
@@ -41,7 +39,7 @@ export const carsData: ICar[] = [
         id: 2,
         marque: "Porsche",
         modele: "Mega Cool",
-        nbPortes: 2,
+        nbPortes: 3,
         type: "berline",
         prix: 175000,
         autonomie: 350,
@@ -57,7 +55,7 @@ export const carsData: ICar[] = [
         id: 3,
         marque: "Tesla",
         modele: "Mega Trop Cool",
-        nbPortes: 4,
+        nbPortes: 5,
         type: "VUS",
         prix: 275000,
         autonomie: 275,

@@ -1,5 +1,3 @@
-// code d'Alexis Brouillette
-
 export interface ICar {
     id: number;
     marque: string;

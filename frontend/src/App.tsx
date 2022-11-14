@@ -1,27 +1,26 @@
-import React from 'react';
-import { Routes, Route, Link } from "react-router-dom";
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import Contact from "./components/contact/Contact";
 
-import Dashboard from './pages/Dashboard';
-/*import logo from './assets/onlycars_old.png';
-import { Card } from "./components/example/example";
-import AddCar from "./components/example2/example2";
-import CarList from './components/example3/example3';*/
+import Dashboard from "./components/dashboard";
+import Homepage from "./components/homepage/Homepage";
+import Input from "./components/input/Input";
+import Header from "./components/shared/Header";
 
 function App() {
   return (
     <div className="App">
-      <div className="App-header">
-        
-        <div className="App-body">
-          <Routes>
-            <Route path="/" element={<Dashboard/>}/>
-          </Routes>
-        </div>
+      <Header />
+      <div className="App-body">
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/Input" element={<Input />} />
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+        </Routes>
       </div>
 
     </div>
-    
   );
 }
 
