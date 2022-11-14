@@ -14,7 +14,7 @@ build-job:
   stage: build
   script:
     - exit_code=0
-    - docker container ls | grep -q pipelinereact || exit_code=$? 
+    - docker container ls -a | grep -q pipelinereact || exit_code=$? 
     - if [ $exit_code -ne 1 ]; then docker container rm -f pipelinereact; fi; # supprimer le container du frontend s'il existe ; nécessaire considérant le patch à la ligne 26
     - TZ=Canada/Eastern
     - ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone # définir le timezone pour éviter qu'il soit demandé et que ça stall pendant l'install de docker
