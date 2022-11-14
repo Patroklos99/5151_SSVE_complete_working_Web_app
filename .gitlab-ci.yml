@@ -1,51 +1,46 @@
-
-# Official docker compose image.
 image:
-  name: docker/compose:latest
-variables:
-  DOCKER_DRIVER: overlay
-services:
-  - docker:dind
-
-image: docker:latest
-image: maven:3.8.4-openjdk-17
+  name: docker:dind
 
 before_script:
-- docker info
-- apk update
-- apk upgrade
-- apk add python python-dev py-pip build-base
-- pip install docker-compose
-
+  - apk update
+  - apk upgrade
 
 stages:
   - build
   - test
   - deploy
-
+#
 build-job:
   stage: build
   script:
-    - mvn clean install
-    - echo "Compile complete."
+    - exit_code=0
+    - docker container ls | grep -q pipelinereact || exit_code=$? 
+    - if [ $exit_code -ne 1 ]; then docker container rm -f pipelinereact; fi; # supprimer le container du frontend s'il existe ; nécessaire considérant le patch à la ligne 26
+    - TZ=Canada/Eastern
+    - ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone # définir le timezone pour éviter qu'il soit demandé et que ça stall pendant l'install de docker
+    - apk add openjdk17 docker-compose grep
+    - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+    - ./mvnw clean install # on n'a besoin de rouler ça qu'une seule fois puisque les artéfacts (ici un jar) sont partagés entre les stages par défaut
+    - docker-compose --verbose up --detach # TODO ; le frontend n'est pas déployé correctement, d'où la nécessité de la ligne suivante
+    - sleep 2
+    - docker run -itd -p 3000:3000 --name pipelinereact ssve-react # god please forgive me for this line
     
 unit-test-job:
   stage: test
   script:
-    - mvn verify
+    - apk add openjdk17
+    - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::") # smort
+    - ./mvnw verify
     
 postman_tests:
     stage: test
-    image: 
-        name: postman/newman:alpine
-        entrypoint: [""]
     script:
-        - docker-compose up --detach
-        - sleep 60
-        - newman --version
-        - newman run postman/SSVE.postman_collection.json
+      - apk add curl
+      - curl -X POST -d '{"modelName":"test"}' -H 'Content-Type:application/json' 132.208.138.126:8080/api/vehicule 
+      - curl -X GET 132.208.138.126:3000 # les requêtes doivent être faites de l'extérieur car le runner est un container en parallèle
 
+        
 deploy-job:
   stage: deploy
   script:
-    - echo "TODO"
+    - echo "TODO ; peut-être juste runner docker-compose à nouveau ici mais sur le port de déploiement"
