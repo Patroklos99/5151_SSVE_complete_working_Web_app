@@ -54,6 +54,104 @@
 					"response": []
 				},
 				{
+					"name": "get Vehicle #1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Nombre de véhicules = ' + pm.response.json().length, function () {\r",
+									"    pm.expect(pm.response.json().length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test('Vehicule correct', function () {\r",
+									"    pm.expect(pm.response.json()[0].id).to.equal(1);\r",
+									"    pm.expect(pm.response.json()[0].modelName).to.equal(\"e-tron\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicle?id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Vehicle Inexistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('Response 404', function () {\r",
+									"    pm.expect(pm.response.json().code).to.equal(404);\r",
+									"    pm.expect(pm.response.json().status).to.equal(\"NOT_FOUND\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicle?id=1000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1000000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "modify Vehicle",
 					"event": [
 						{
@@ -118,6 +216,60 @@
 					"response": []
 				},
 				{
+					"name": "modify Vehicule - bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Reponse BAD_REQUEST\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(\"BAD_REQUEST\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"batteryCapacity\": 10,\n  \"brand\": \"Ferari\",\n  \"imgLink\": \"qui\",\n  \"modelName\": \"dolore\",\n  \"nbDoors\": 3,\n  \"price\": -1000,\n  \"range\": 3,\n  \"refLink\": \"https://abca\",\n  \"safetyScore\": 4,\n  \"type\": \"VUS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicle",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "add Vehicle",
 					"event": [
 						{
@@ -158,6 +310,56 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"batteryCapacity\": 10,\r\n  \"brand\": \"Ferari\",\r\n  \"imgLink\": \"qui\",\r\n  \"modelName\": \"dolore\",\r\n  \"nbDoors\": 3,\r\n  \"price\": 2,\r\n  \"range\": 3,\r\n  \"refLink\": \"https://abca\",\r\n  \"safetyScore\": 4,\r\n  \"type\": \"VUS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicle",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Vehicle - bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Reponse BAD_REQUEST\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(\"BAD_REQUEST\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"batteryCapacity\": 10,\r\n  \"brand\": \"Ferari\",\r\n  \"imgLink\": \"qui\",\r\n  \"modelName\": \"dolore\",\r\n  \"nbDoors\": 3,\r\n  \"price\": -1000,\r\n  \"range\": 3,\r\n  \"refLink\": \"https://abca\",\r\n  \"safetyScore\": 4,\r\n  \"type\": \"VUS\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
