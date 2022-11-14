@@ -1,5 +1,6 @@
 import React from 'react'; // we need this to make JSX compile
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
+import AddCar from '../example2/example2';
 
 type CardProps = {
   title: string;
@@ -11,12 +12,4 @@ export const Card = ({ title, paragraph }: CardProps) => <aside>
   <p>
     { paragraph }
   </p>
-  <ul>
-    <li>
-        <Link to="/add"> Add a car</Link>
-    </li>
-    <li>
-        <Link to="/get"> Retrieve a car</Link>
-    </li>
-  </ul>
 </aside>

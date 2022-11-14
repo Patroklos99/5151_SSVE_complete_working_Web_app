@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import './App.css';
+import '/App.css';
 
 import logo from "./assets/onlycars_old.png";
 import { Card } from "./components/example/example";
