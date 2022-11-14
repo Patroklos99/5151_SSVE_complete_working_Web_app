@@ -36,8 +36,13 @@ public class VehicleService {
                         && validateRefLink(vehicle.getRefLink())
                         && validateImgLink(vehicle.getImgLink())
         ) {
+            long size = vehicleRepository.count();
             vehicleRepository.save(vehicle);
-            return vehicle;
+            Optional<Vehicle> voiture = vehicleRepository.findById(size+1);
+            if (voiture.isPresent()){
+                return voiture.get();
+            }
+            throw new IllegalArgumentException();
         }
         throw new IllegalArgumentException();
     }
