@@ -1,0 +1,22 @@
+image: maven:3.8.4-openjdk-17
+
+stages:
+  - build
+  - test
+  - deploy
+
+build-job:
+  stage: build
+  script:
+    - mvn clean install
+    - echo "Compile complete."
+    
+unit-test-job:
+  stage: test
+  script:
+    - mvn verify
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "TODO"
