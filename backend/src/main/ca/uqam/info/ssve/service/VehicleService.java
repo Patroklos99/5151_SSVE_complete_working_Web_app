@@ -1,9 +1,11 @@
 package ca.uqam.info.ssve.service;
 
+import ca.uqam.info.ssve.model.Deplacement;
 import ca.uqam.info.ssve.model.Route;
 import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.repository.VehicleRepository;
+import ca.uqam.info.ssve.server.ADVEConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,22 +23,21 @@ public class VehicleService {
     }
 
     /**
-     *
      * @param vehicle
      * @return
      */
     public Vehicle addVehicle(Vehicle vehicle) {
         if (
                 validateBrand(vehicle.getBrand())
-                && validateModelName(vehicle.getModelName())
-                && validatePrice(vehicle.getPrice())
-                && validateNbDoors(vehicle.getNbDoors())
-                && validateType(vehicle.getType())
-                && validateRange(vehicle.getRange())
-                && validateBatteryCapacity(vehicle.getBatteryCapacity())
-                && validateSafetyScore(vehicle.getSafetyScore())
-                && validateRefLink(vehicle.getRefLink())
-                && validateImgLink(vehicle.getImgLink())
+                        && validateModelName(vehicle.getModelName())
+                        && validatePrice(vehicle.getPrice())
+                        && validateNbDoors(vehicle.getNbDoors())
+                        && validateType(vehicle.getType())
+                        && validateRange(vehicle.getRange())
+                        && validateBatteryCapacity(vehicle.getBatteryCapacity())
+                        && validateSafetyScore(vehicle.getSafetyScore())
+                        && validateRefLink(vehicle.getRefLink())
+                        && validateImgLink(vehicle.getImgLink())
         ) {
             vehicleRepository.save(vehicle);
             return vehicle;
@@ -125,13 +126,12 @@ public class VehicleService {
     public List<Evaluation> evaluateVehicle() throws IOException { //List<Deplacement> coordinateList
 
         //-------- Algorithme réel
-        /*
+        List<String> coordinateList = createCoordinateList();
         ArrayList<Route> routeList = new ArrayList<>();
         ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
         int frequenceTotale = 0;
-        ADVEConnection adveConnection = new ADVEConnection("https://adve.info.uqam.ca");
+        ADVEConnection adveConnection = new ADVEConnection();
         for (Deplacement x : coordinateList) {
-            //algo utilisation boite noite (serveur)
             String info = adveConnection.call(x); //Résultat boite noir voir si String ou JSON
             Route route = new Route();
             route.setFrequence(x.getFd().getNb_days());
@@ -140,7 +140,7 @@ public class VehicleService {
             route.setTripTime();          A ajusté selon le type de retour de la boite noire
             route.setWaitingTime();
             route.setChargingTime();
-            *//*
+            */
             routeList.add(route);
             frequenceTotale += route.getFrequence();
         }
@@ -148,7 +148,7 @@ public class VehicleService {
             route.setWeight((route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
         }
 
-        List <Vehicle> allVehicle = getAllVehicle();
+        List<Vehicle> allVehicle = getAllVehicle();
         allVehicle.sort(Comparator.comparing(Vehicle::getRange));
         for (int i = 0; i < allVehicle.size(); i++) {
             double score = 0;
@@ -156,7 +156,7 @@ public class VehicleService {
                 evaluateRoute(route, allVehicle, i);
             }
             for (Route route : routeList) {
-                score = score+(route.getWeight()* route.getScore());
+                score = score + (route.getWeight() * route.getScore());
             }
             Evaluation evaluation = new Evaluation(allVehicle.get(i));
             evaluation.setScore(score);
@@ -164,26 +164,25 @@ public class VehicleService {
         }
         vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
         return vehicleFinalScore;
-        */
 
-    //Dummy pour FrontEnd    ---------------------------------------------------------
-        List<Vehicle> list = getAllVehicle();
-        List<Evaluation> list2 = new ArrayList<>();
-        for (Vehicle vehicle : list) {
-            Evaluation eval = new Evaluation();
-            eval.setId(vehicle.getId());
-            eval.setBrand(vehicle.getBrand());
-            eval.setModelName(vehicle.getModelName());
-            eval.setNbDoors(vehicle.getNbDoors());
-            eval.setType(vehicle.getType());
-            eval.setPrice(vehicle.getPrice());
-            eval.setRange(vehicle.getRange());
-            eval.setBatteryCapacity(vehicle.getBatteryCapacity());
-            eval.setSafetyScore(vehicle.getSafetyScore());
-            eval.setRefLink(vehicle.getRefLink());
-            eval.setImgLink(vehicle.getImgLink());
-            list2.add(eval);
-        }
+        //Dummy pour FrontEnd    ---------------------------------------------------------
+//        List<Vehicle> list = getAllVehicle();
+//        List<Evaluation> list2 = new ArrayList<>();
+//        for (Vehicle vehicle : list) {
+//            Evaluation eval = new Evaluation();
+//            eval.setId(vehicle.getId());
+//            eval.setBrand(vehicle.getBrand());
+//            eval.setModelName(vehicle.getModelName());
+//            eval.setNbDoors(vehicle.getNbDoors());
+//            eval.setType(vehicle.getType());
+//            eval.setPrice(vehicle.getPrice());
+//            eval.setRange(vehicle.getRange());
+//            eval.setBatteryCapacity(vehicle.getBatteryCapacity());
+//            eval.setSafetyScore(vehicle.getSafetyScore());
+//            eval.setRefLink(vehicle.getRefLink());
+//            eval.setImgLink(vehicle.getImgLink());
+//            list2.add(eval);
+//        }
 
         return list2;
     }
@@ -196,9 +195,24 @@ public class VehicleService {
             note1 = 100;
         }
         int rangeMax = vehicle.get(0).getRange();
-        double note2 = ((vehicle.get(i).getRange()- route.getDistance()) / rangeMax) + (vehicle.get(i).getRange() % rangeMax) * 100;
+        double note2 = ((vehicle.get(i).getRange() - route.getDistance()) / rangeMax) + (vehicle.get(i).getRange() % rangeMax) * 100;
 
-        route.setScore(poid1*note1 + poid2*note2);
+        route.setScore(poid1 * note1 + poid2 * note2);
+    }
+
+    private List<String> createCoordinateList() {
+        List<String> coordinateList = new ArrayList<>();
+        coordinateList.add("(45.1138,-72.3623)      (45.5382,-73.9159)      125162");
+        coordinateList.add("(48.0293,-71.7262)      (45.0393,-72.5376)      135982");
+        coordinateList.add("(47.6861,-70.3343)      (48.2191,-68.9323)      162139");
+        coordinateList.add("(46.2825,-76.1005)      (46.9882,-71.7642)      433260");
+        coordinateList.add("(47.5552,-75.4722)      (48.7095,-65.8653)      282048");
+        coordinateList.add("(48.1702,-68.2585)      (47.3529,-72.3948)      172035");
+        coordinateList.add("(48.7013,-69.1475)      (45.758,-75.8012)       484741");
+        coordinateList.add("(48.2694,-68.1651)      (48.3162,-70.9388)      354968");
+        coordinateList.add("(45.4755,-73.8757)      (47.3163,-69.8303)      169796");
+        coordinateList.add("(46.1248,-75.6846)      (45.1296,-71.5386)      394615");
+        return coordinateList;
     }
 
 }

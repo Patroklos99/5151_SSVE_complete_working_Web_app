@@ -16,36 +16,8 @@ public class ADVEConnection {
     private String ip;
     private int port;
 
-    public ADVEConnection(String _ip) {
-        ip = _ip;
-    }
-
-    public void startConnection(int _port, ADVEConnection adve) {
-        try {
-            port = _port;
-            clientSocket = new Socket(InetAddress.getLocalHost(), Integer.parseInt(adve.ip));
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public String sendMessage(String msg) throws IOException {
-        out.println(msg);
-        String resp = in.readLine();
-        return resp;
-    }
-
-    public void stopConnection() throws IOException {
-        in.close();
-        out.close();
-        clientSocket.close();
-    }
-
-    //    public String call(Deplacement deplacement) throws IOException {
-    public static void main(String[] args) {
+    public String call(String requete) throws IOException {
+        //public static void main(String[] args) {
         Session session = null;
         ChannelExec channel = null;
         try {
@@ -53,9 +25,9 @@ public class ADVEConnection {
             session.setPassword("vn-t4=~_fger");
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
-
             channel = (ChannelExec) session.openChannel("exec");
-            channel.setCommand("timeout 45 nc -q 5000 127.0.0.1 8008  <  /opt/veplan/requetes/qc_10.txt");
+            channel.setCommand("timeout 2 nc 127.0.0.1 8008 <<< '(45.5254,-73.5555) (45.6243,-73.7378) " +
+                    "355418'");
             ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
             channel.setOutputStream(responseStream);
             channel.connect();
@@ -111,7 +83,6 @@ public class ADVEConnection {
 //        }
 //    }
         }
-
-        //return "hi";
+        return "hi";
     }
 }
