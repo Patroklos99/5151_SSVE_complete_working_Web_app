@@ -1,4 +1,3 @@
-version: "1.0"
 # Attention: il faut respecter les indentations
 services:
     sprintboot:
