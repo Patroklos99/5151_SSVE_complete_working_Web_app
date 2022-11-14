@@ -5,9 +5,11 @@ import "./Header.css";
 
 const NavBar: React.FC = () => {
   return (
-    <nav>
+    <nav data-testid="nav">
       <div className="nav-left">
-        <Link to="/">Logo</Link>
+        <Link to="/" data-testid="test">
+          Logo
+        </Link>
       </div>
       <div className="nav-right">
         <Link to="/Contact">Contact</Link>
@@ -15,8 +17,8 @@ const NavBar: React.FC = () => {
         <Button
           className="start"
           sx={{
-            "text-transform": "inherit",
-            "font-size": "calc(10px + 2vmin)",
+            textTransform: "inherit",
+            fontSize: "calc(10px + 2vmin)",
           }}
           variant="contained"
           color="success"
@@ -34,7 +36,7 @@ const NavBar: React.FC = () => {
 
 const Header: React.FC = () => {
   return (
-    <header className="App-header">
+    <header className="App-header" data-testid="header">
       <NavBar />
     </header>
   );

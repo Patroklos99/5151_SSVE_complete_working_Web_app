@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
 import Contact from "./components/contact/Contact";
 
 import Dashboard from "./components/dashboard";
@@ -9,7 +8,7 @@ import Header from "./components/shared/Header";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" data-testid="app">
       <Header />
       <div className="App-body">
         <Routes>
