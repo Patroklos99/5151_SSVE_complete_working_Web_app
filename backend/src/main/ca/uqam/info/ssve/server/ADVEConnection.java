@@ -29,11 +29,10 @@ public class ADVEConnection {
     public String doRequest(String request) throws JSchException, InterruptedException {
         channel = (ChannelExec) session.openChannel("exec");
         String responseString;
-        channel.setCommand("timeout 6 nc 127.0.0.1 8008 <<< " + "'" + request + "'");
+        channel.setCommand("nc -q 1 127.0.0.1 8008 <<< " + "'" + request + "'");
         ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
         channel.setOutputStream(responseStream);
         channel.connect();
-
         while (channel.isConnected()) {
             Thread.sleep(100);
         }
