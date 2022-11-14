@@ -22,7 +22,6 @@ build-job:
     - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
     - ./mvnw clean install # on n'a besoin de rouler ça qu'une seule fois puisque les artéfacts (ici un jar) sont partagés entre les stages par défaut
     - docker-compose --verbose up --detach # TODO ; le frontend n'est pas déployé correctement, d'où la nécessité de la ligne suivante
-    - sleep 2
     - docker run -itd -p 3000:3000 --name pipelinereact ssve-react # god please forgive me for this line
     
 unit-test-job:
