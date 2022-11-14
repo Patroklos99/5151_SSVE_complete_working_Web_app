@@ -20,14 +20,19 @@ public class ADVEConnection {
         //public static void main(String[] args) {
         Session session = null;
         ChannelExec channel = null;
+        String responseString;
         try {
             session = new JSch().getSession("minimechazawa", "adve.info.uqam.ca", 22);
             session.setPassword("vn-t4=~_fger");
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
             channel = (ChannelExec) session.openChannel("exec");
-            channel.setCommand("timeout 2 nc 127.0.0.1 8008 <<< '(45.5254,-73.5555) (45.6243,-73.7378) " +
-                    "355418'");
+            String req = "'" + requete + "'";
+            String req2 = "timeout 10 nc 127.0.0.1 8008 <<< " + req;
+            //channel.setCommand("timeout 10 nc 127.0.0.1 8008 <<< " + req);
+            System.out.println(req2);
+            channel.setCommand(req2);
+            //channel.setCommand("timeout 1 nc 127.0.0.1 8008 <<< '(45.5254,-73.5555) (45.6243,-73.7378) 355418'");
             ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
             channel.setOutputStream(responseStream);
             channel.connect();
@@ -36,7 +41,7 @@ public class ADVEConnection {
                 Thread.sleep(100);
                 //channel.sendSignal("INT");
             }
-            String responseString = responseStream.toString();
+            responseString = responseStream.toString();
             System.out.println(responseString);
 
         } catch (JSchException e) {
@@ -50,7 +55,6 @@ public class ADVEConnection {
             if (channel != null) {
                 channel.disconnect();
             }
-
 
 //
 //            String msg;
@@ -83,6 +87,6 @@ public class ADVEConnection {
 //        }
 //    }
         }
-        return "hi";
+        return responseString;
     }
 }

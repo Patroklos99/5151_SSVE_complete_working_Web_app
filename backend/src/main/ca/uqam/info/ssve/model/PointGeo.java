@@ -1,5 +1,7 @@
 package ca.uqam.info.ssve.model;
 
+import lombok.Data;
+
 /**
  * Objet contenant les données d'un point géographique.
  *
@@ -13,6 +15,7 @@ package ca.uqam.info.ssve.model;
  *
  * @version 2022-10-22
  */
+@Data
 public class PointGeo {
 
     private final double lat;

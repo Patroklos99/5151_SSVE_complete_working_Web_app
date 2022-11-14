@@ -1,9 +1,6 @@
 package ca.uqam.info.ssve.service;
 
-import ca.uqam.info.ssve.model.Deplacement;
-import ca.uqam.info.ssve.model.Route;
-import ca.uqam.info.ssve.model.Evaluation;
-import ca.uqam.info.ssve.model.Vehicle;
+import ca.uqam.info.ssve.model.*;
 import ca.uqam.info.ssve.repository.VehicleRepository;
 import ca.uqam.info.ssve.server.ADVEConnection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,46 +121,94 @@ public class VehicleService {
 
 
     public List<Evaluation> evaluateVehicle() throws IOException { //List<Deplacement> coordinateList
+        List<Deplacement> coordinateList = createDeplacementList(); //DummyList erase when real ones comes
 
-        //-------- Algorithme réel
-        List<String> coordinateList = createCoordinateList();
+        //-------- DÉBUT ALGO RÉEL---------
         ArrayList<Route> routeList = new ArrayList<>();
         ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
         int frequenceTotale = 0;
         ADVEConnection adveConnection = new ADVEConnection();
+
+        //--------Détermination de la fréquence total et du poid de chaque route
         for (Deplacement x : coordinateList) {
-            String info = adveConnection.call(x); //Résultat boite noir voir si String ou JSON
             Route route = new Route();
             route.setFrequence(x.getFd().getNb_days());
-            /*
-            route.setDistance();
-            route.setTripTime();          A ajusté selon le type de retour de la boite noire
-            route.setWaitingTime();
-            route.setChargingTime();
-            */
-            routeList.add(route);
+            route.setDeplacement(x);
             frequenceTotale += route.getFrequence();
+            routeList.add(route);
         }
         for (Route route : routeList) {
-            route.setWeight((route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
+            route.setWeight(((double)route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
         }
 
+        //--------Évaluation de chaque route pour chaque voiture et calcule de la note final
         List<Vehicle> allVehicle = getAllVehicle();
         allVehicle.sort(Comparator.comparing(Vehicle::getRange));
         for (int i = 0; i < allVehicle.size(); i++) {
             double score = 0;
             for (Route route : routeList) {
+                //--------Obtien les infos du déplacement avec la boite noir
+                System.out.println(route.getDeplacement());
+                String data = adveConnection.call(requeteString(route) + allVehicle.get(i).getRange());
+                stringToRoute(route, data);
+                //--------Donne une note au déplacement pour la voiture i
                 evaluateRoute(route, allVehicle, i);
             }
-            for (Route route : routeList) {
+            //-------- Calcule la note final de la voiture selon la note de chaque déplacement
+            for (Route route : routeList)
                 score = score + (route.getWeight() * route.getScore());
-            }
+
+            //--------Ajoute le score final a la voiture et l'ajoute dans la liste a retourné
             Evaluation evaluation = new Evaluation(allVehicle.get(i));
             evaluation.setScore(score);
             vehicleFinalScore.add(evaluation);
         }
+        //--------Sort les voitures par score
         vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
         return vehicleFinalScore;
+
+        //public static void main(String[] args){
+        //-------- Algorithme réel
+//        List<String> coordinateList = createCoordinateList();
+//        ArrayList<Route> routeList = new ArrayList<>();
+//        ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
+//        int frequenceTotale = 0;
+//        ADVEConnection adveConnection = new ADVEConnection();
+//        for (String x : coordinateList) {
+//            String info = adveConnection.call(x); //Résultat boite noir voir si String ou JSON
+//            Route route = new Route();
+//            route.setFrequence(10);
+//            ArrayList<String> vec;
+//            String [] test = info.split("\\s+");
+//
+//            route.setDistance(Double.parseDouble(test[0]));
+//            route.setTripTime(Double.parseDouble(test[1])); //A ajusté selon le type de retour de la boite noire
+//            route.setWaitingTime(Double.parseDouble(test[2]));
+//            route.setChargingTime(Double.parseDouble(test[3]));
+//
+//            routeList.add(route);
+//            frequenceTotale += route.getFrequence();
+//        }
+//        for (Route route : routeList) {
+//            route.setWeight((route.getFrequence() / frequenceTotale) + (route.getFrequence() % frequenceTotale));
+//        }
+//
+//        List<Vehicle> allVehicle = getAllVehicle();
+//        allVehicle.sort(Comparator.comparing(Vehicle::getRange));
+//        for (int i = 0; i < allVehicle.size(); i++) {
+//            double score = 0;
+//            for (Route route : routeList) {
+//                evaluateRoute(route, allVehicle, i);
+//            }
+//            for (Route route : routeList) {
+//                score = score + (route.getWeight() * route.getScore());
+//            }
+//            Evaluation evaluation = new Evaluation(allVehicle.get(i));
+//            evaluation.setScore(score);
+//            vehicleFinalScore.add(evaluation);
+//        }
+//        vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
+//        return vehicleFinalScore;
 
         //Dummy pour FrontEnd    ---------------------------------------------------------
 //        List<Vehicle> list = getAllVehicle();
@@ -184,8 +229,17 @@ public class VehicleService {
 //            list2.add(eval);
 //        }
 
-        return list2;
+        //return list2;
     }
+
+    private String requeteString(Route route) {
+        String start =
+                "(" + route.getDeplacement().getStart().getLat() + "," + route.getDeplacement().getStart().getLgt() + ")";
+        String end =
+                "(" + route.getDeplacement().getEnd().getLat() + "," + route.getDeplacement().getEnd().getLgt() + ")";
+        return start + " " + end + " ";
+    }
+
 
     private void evaluateRoute(Route route, List<Vehicle> vehicle, int i) {
         double poid1 = 0.75;
@@ -213,6 +267,60 @@ public class VehicleService {
         coordinateList.add("(45.4755,-73.8757)      (47.3163,-69.8303)      169796");
         coordinateList.add("(46.1248,-75.6846)      (45.1296,-71.5386)      394615");
         return coordinateList;
+    }
+
+    private List<Deplacement> createDeplacementList() {
+        List<Deplacement> deplacementList = new ArrayList<>();
+        deplacementList.add(new Deplacement(1, new PointGeo(45.1138, -72.3623), new PointGeo(45.5382, -73.9159), FrequenceDeplacement.WORKING_DAYS));
+        deplacementList.add(new Deplacement(1, new PointGeo(48.0293, -71.7262), new PointGeo(45.0393, -72.5376), FrequenceDeplacement.EVERYDAY));
+        deplacementList.add(new Deplacement(1, new PointGeo(47.6861, -70.3343), new PointGeo(48.2191, -68.9323), FrequenceDeplacement.ONCE_A_WEEK));
+        deplacementList.add(new Deplacement(1, new PointGeo(46.2825, -76.1005), new PointGeo(46.9882, -71.7642), FrequenceDeplacement.TWICE_A_WEEK));
+        deplacementList.add(new Deplacement(1, new PointGeo(47.5552, -75.4722), new PointGeo(48.7095, -65.8653), FrequenceDeplacement.ONCE_A_MONTH));
+        deplacementList.add(new Deplacement(1, new PointGeo(48.1702, -68.2585), new PointGeo(47.3529, -72.3948), FrequenceDeplacement.TWICE_A_MONTH));
+        deplacementList.add(new Deplacement(1, new PointGeo(48.7013, 69.1475), new PointGeo(45.758, -75.8012), FrequenceDeplacement.ONCE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(48.2694, -68.1651), new PointGeo(48.3162, -70.9388), FrequenceDeplacement.TWICE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(45.4755, -73.8757), new PointGeo(47.3163, -69.8303), FrequenceDeplacement.ONCE_A_WEEK));
+        deplacementList.add(new Deplacement(1, new PointGeo(46.1248, -75.6846), new PointGeo(45.1296, -71.5386), FrequenceDeplacement.TWICE_A_WEEK));
+        return deplacementList;
+    }
+
+    private void stringToRoute(Route route, String data) {
+        int valueNum = 0;
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < data.length(); i++) {
+            if(data.charAt(i) == '<'){
+                start = i+1;
+            } else if (data.charAt(i) == '>'){
+                end = i-1;
+                switch (valueNum) {
+                    case 0 -> {
+                        route.setDistance(Double.parseDouble(data.substring(start, end)));
+                        valueNum++;
+                        start = 0;
+                        end = 0;
+                    }
+                    case 1 -> {
+                        route.setTripTime(Double.parseDouble(data.substring(start, end)));
+                        valueNum++;
+                        start = 0;
+                        end = 0;
+                    }
+                    case 2 -> {
+                        route.setWaitingTime(Double.parseDouble(data.substring(start, end)));
+                        valueNum++;
+                        start = 0;
+                        end = 0;
+                    }
+                    case 3 -> {
+                        route.setChargingTime(Double.parseDouble(data.substring(start, end)));
+                        valueNum++;
+                        start = 0;
+                        end = 0;
+                    }
+                }
+            }
+        }
     }
 
 }
