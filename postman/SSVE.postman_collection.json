@@ -20,7 +20,7 @@
 									"});\r",
 									"\r",
 									"pm.test('Nombre de véhicules = ' + pm.response.json().length, function () {\r",
-									"    pm.expect(pm.response.json().length).to.equal(24);\r",
+									"    pm.expect(pm.response.json().length).greaterThan(23);\r",
 									"});\r",
 									"\r",
 									"pm.test('Id corrects', function () {\r",
@@ -70,7 +70,7 @@
 									"\r",
 									"pm.test('Vehicule correct', function () {\r",
 									"    pm.expect(pm.response.json()[0].id).to.equal(1);\r",
-									"    pm.expect(pm.response.json()[0].modelName).to.equal(\"e-tron\");\r",
+									"    pm.expect(pm.response.json()[0].modelName).to.equal(\"dolore\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -152,7 +152,7 @@
 					"response": []
 				},
 				{
-					"name": "modify Vehicle",
+					"name": "modify Vehicle #2",
 					"event": [
 						{
 							"listen": "test",
@@ -164,7 +164,7 @@
 									"\r",
 									"pm.test(\"Reponse OK\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.id).to.eql(1);\r",
+									"    pm.expect(jsonData.id).to.eql(2);\r",
 									"    pm.expect(jsonData.brand).to.eql(\"Ferari\");\r",
 									"    pm.expect(jsonData.modelName).to.eql(\"dolore\");\r",
 									"    pm.expect(jsonData.nbDoors).to.eql(3);\r",
@@ -195,7 +195,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"batteryCapacity\": 10,\n  \"brand\": \"Ferari\",\n  \"imgLink\": \"qui\",\n  \"modelName\": \"dolore\",\n  \"nbDoors\": 3,\n  \"price\": 2,\n  \"range\": 3,\n  \"refLink\": \"https://abca\",\n  \"safetyScore\": 4,\n  \"type\": \"VUS\"\n}",
+							"raw": "{\n  \"id\": 2,\n  \"batteryCapacity\": 10,\n  \"brand\": \"Ferari\",\n  \"imgLink\": \"qui\",\n  \"modelName\": \"dolore\",\n  \"nbDoors\": 3,\n  \"price\": 2,\n  \"range\": 3,\n  \"refLink\": \"https://abca\",\n  \"safetyScore\": 4,\n  \"type\": \"VUS\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -280,9 +280,13 @@
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
+									"pm.test(\"Id is present\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).is.not.null;\r",
+									"});\r",
+									"\r",
 									"pm.test(\"Reponse OK\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.id).to.eql(25);\r",
 									"    pm.expect(jsonData.brand).to.eql(\"Ferari\");\r",
 									"    pm.expect(jsonData.modelName).to.eql(\"dolore\");\r",
 									"    pm.expect(jsonData.nbDoors).to.eql(3);\r",
