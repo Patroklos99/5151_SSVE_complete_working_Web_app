@@ -9,7 +9,6 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 public class ADVEConnection {
-    //private static HttpURLConnection connection;
     private static Session session;
     private ChannelExec channel;
 
@@ -46,7 +45,6 @@ public class ADVEConnection {
             session.setPassword("vn-t4=~_fger");
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
-
         } catch (JSchException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
