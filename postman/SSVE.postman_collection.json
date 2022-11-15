@@ -9,149 +9,6 @@
 			"name": "vehicle",
 			"item": [
 				{
-					"name": "get Vehicle",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test('Nombre de véhicules = ' + pm.response.json().length, function () {\r",
-									"    pm.expect(pm.response.json().length).greaterThan(23);\r",
-									"});\r",
-									"\r",
-									"pm.test('Id corrects', function () {\r",
-									"    pm.expect(pm.response.json()[0].id).to.equal(1);\r",
-									"    pm.expect(pm.response.json()[23].id).to.equal(24);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/api/vehicle",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"vehicle"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Vehicle #1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test('Nombre de véhicules = ' + pm.response.json().length, function () {\r",
-									"    pm.expect(pm.response.json().length).to.equal(1);\r",
-									"});\r",
-									"\r",
-									"pm.test('Vehicule correct', function () {\r",
-									"    pm.expect(pm.response.json()[0].id).to.equal(1);\r",
-									"    pm.expect(pm.response.json()[0].modelName).to.equal(\"dolore\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/api/vehicle?id=1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"vehicle"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Vehicle Inexistant",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 404\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test('Response 404', function () {\r",
-									"    pm.expect(pm.response.json().code).to.equal(404);\r",
-									"    pm.expect(pm.response.json().status).to.equal(\"NOT_FOUND\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/api/vehicle?id=1000000",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"vehicle"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1000000"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "modify Vehicle #2",
 					"event": [
 						{
@@ -264,6 +121,149 @@
 							"path": [
 								"api",
 								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Vehicle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Nombre de véhicules = ' + pm.response.json().length, function () {\r",
+									"    pm.expect(pm.response.json().length).greaterThan(23);\r",
+									"});\r",
+									"\r",
+									"pm.test('Id corrects', function () {\r",
+									"    pm.expect(pm.response.json()[0].id).to.equal(1);\r",
+									"    pm.expect(pm.response.json()[23].id).to.equal(24);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicle",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Vehicle #2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Nombre de véhicules = ' + pm.response.json().length, function () {\r",
+									"    pm.expect(pm.response.json().length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test('Vehicule correct', function () {\r",
+									"    pm.expect(pm.response.json()[0].id).to.equal(2);\r",
+									"    pm.expect(pm.response.json()[0].modelName).to.equal(\"dolore\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicle?id=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Vehicle Inexistant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('Response 404', function () {\r",
+									"    pm.expect(pm.response.json().code).to.equal(404);\r",
+									"    pm.expect(pm.response.json().status).to.equal(\"NOT_FOUND\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicle?id=1000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1000000"
+								}
 							]
 						}
 					},
