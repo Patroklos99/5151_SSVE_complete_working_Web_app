@@ -1,6 +1,6 @@
 import { Container, SvgIcon, SvgIconProps, Typography } from "@mui/material";
 import React from "react";
-import "./Contact.css";
+import "./HomePage.css";
 
 function CustomIcon(props: SvgIconProps) {
   return (
@@ -9,10 +9,10 @@ function CustomIcon(props: SvgIconProps) {
     </SvgIcon>
   );
 }
-const Contact = () => {
+const HomePage = () => {
   return (
     <Container maxWidth="xl">
-      <h1>Contact</h1>
+      <h1>Accueil</h1>
       <Typography color="inherit" variant="h5">
         <CustomIcon
           sx={{
@@ -34,4 +34,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default HomePage;
