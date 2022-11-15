@@ -284,10 +284,11 @@ public class VehicleService {
         allVehicle.sort(Comparator.comparing(Vehicle::getRange));
         for (int i = 0; i < allVehicle.size(); i++) {
             double score = 0;
+            int position = i + 1;
             for (Route route : routeList) {
                 //--------Obtien les infos du déplacement avec la boite noir
                 String data = adveConnection.doRequest(requeteString(route) + allVehicle.get(i).getRange()*1000);
-                System.out.println("Call -> data: " + data);
+                System.out.println("Call Vehicle[" + position + "] -> return data: " + data);
                 //--------Donne une note au déplacement pour la voiture i
                 if (data.contains("Impossible")){
                     route.setScore(0);
@@ -308,6 +309,7 @@ public class VehicleService {
         adveConnection.closeServer();
         //--------Sort les voitures par score
         vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
+        Collections.reverse(vehicleFinalScore);
         return vehicleFinalScore;
     }
 
