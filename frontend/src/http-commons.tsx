@@ -4,7 +4,7 @@ import axios from "axios";
  * This is the configuration file for axios
  * modify it at your own risk
  */
-export default axios.create({
+export const http = axios.create({
   baseURL: "http://localhost:8080/api",
   headers: {
     "Content-Type": "application/json"
