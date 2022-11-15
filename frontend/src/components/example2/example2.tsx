@@ -32,10 +32,8 @@ const AddCar: React.FC = () => {
           modelName: response.data.modelName,
         });
         setSubmitted(true);
-        console.log(response.data);
       })
       .catch((e: Error) => {
-        console.log(e);
       });
   };
 
@@ -48,7 +46,7 @@ const AddCar: React.FC = () => {
   <div className="submit-form">
   {submitted ? (
     <div>
-      <h4>You submitted successfully!</h4>
+      <h4 aria-label="post-success">You submitted successfully!</h4>
       <button className="btn btn-success" onClick={newCar}>
         Add
       </button>
@@ -56,7 +54,7 @@ const AddCar: React.FC = () => {
   ) : (
     <div>
       <div className="form-group">
-        <TextField
+        <input
           type="text"
           className="form-control"
           id="modelName"
@@ -64,12 +62,11 @@ const AddCar: React.FC = () => {
           value={Car.modelName as string}
           onChange={handleInputChange}
           name="modelName"
-          label="Model"
-          variant="filled"
+          aria-label="Model"
         />
       </div>
 
-      <Button onClick={saveTutorial} variant="contained">
+      <Button onClick={saveTutorial} variant="contained" aria-label="post-button">
         Submit
       </Button>
       <div>
