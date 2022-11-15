@@ -23,12 +23,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --watchAll=false --maxWorkers=4",
     "test:watch": "react-scripts test",
-    "eject": "react-scripts eject",
-    "cypress:open": "cypress open",
-    "cy:run": "cypress run",
-    "jest:test": "jest"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

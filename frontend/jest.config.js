@@ -17,4 +17,9 @@ module.exports = {
   },
   transformIgnorePatterns: ['./node_modules/',"node_modules/(?!axios)"],
   setupFilesAfterEnv: ['./src/setupTests.ts'],
+  "coveragePathIgnorePatterns": [
+    'tests',
+    'setupTests.ts',
+    'reportWebVitals.ts',
+  ]
 };
