@@ -308,7 +308,7 @@ public class VehicleService {
         adveConnection.closeServer();
 
         //--------Sort les voitures par score
-        vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
+        vehicleFinalScore.sort(Collections.reverseOrder(Comparator.comparing(Evaluation::getScore)));
         return vehicleFinalScore;
     }
 
@@ -331,7 +331,6 @@ public class VehicleService {
         deplacementList.add(new Deplacement(1, new PointGeo(61.59780702431485, -71.9571001824064), new PointGeo(45.461830145587854, -75.69938395612203), FrequenceDeplacement.ONCE_A_WEEK));
         *///Impossible pour le minimum seulement 48.098557266958686, -77.77749506611988 -> 46.55002722055268, -75.5000386258611
         deplacementList.add(new Deplacement(1, new PointGeo(48.098557266958686, -77.77749506611988), new PointGeo(46.55002722055268, -75.5000386258611), FrequenceDeplacement.ONCE_A_WEEK));
-
         return deplacementList;
     }
 }
