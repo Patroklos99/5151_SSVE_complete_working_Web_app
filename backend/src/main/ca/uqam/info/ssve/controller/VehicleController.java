@@ -71,7 +71,7 @@ public class VehicleController {
 
     @GetMapping("evaluateTest")
     public @ResponseBody
-    List<Evaluation> evaluateVehicle() throws IOException, JSchException, InterruptedException {
+    List<Evaluation> evaluateVehicleTest() throws IOException, JSchException, InterruptedException {
         return vehicleService.evaluateVehicleTest();
     }
 
