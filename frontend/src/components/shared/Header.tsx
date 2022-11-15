@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
       </div>
       <div className="nav-right">
         <Link to="/Contact">Contact</Link>
-        <Link to="#">À propos</Link>
+        <Link to="/about">À propos</Link>
         <Button
           className="start"
           sx={{
