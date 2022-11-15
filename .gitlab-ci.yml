@@ -8,10 +8,11 @@ before_script:
 stages:
   - build
   - test
-  - deploy
-#
+
 build-job:
   stage: build
+  only:
+    - feature/ajoutPipeline
   script:
     - TZ=Canada/Eastern
     - ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone # définir le timezone pour éviter qu'il soit demandé et que ça stall pendant l'install de docker
@@ -32,21 +33,20 @@ build-job:
     
 unit-test-job:
   stage: test
+  only:
+    - feature/ajoutPipeline
   script:
     - apk add openjdk17
     - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::") # smort
     - ./mvnw verify
     
 postman_tests:
-    stage: test
-    image:
-        name: postman/newman:alpine
-        entrypoint: [""]
-    script:
-      - newman --version
-      - newman run postman/SSVE.postman_collection.json -e postman/serveurADVE.postman_environment.json
-        
-deploy-job:
-  stage: deploy
+  stage: test
+  only:
+    - feature/ajoutPipeline
+  image:
+      name: postman/newman:alpine
+      entrypoint: [""]
   script:
-    - echo "TODO ; peut-être juste runner docker-compose à nouveau ici mais sur le port de déploiement"
+    - newman --version
+    - newman run postman/SSVE.postman_collection.json -e postman/serveurADVE.postman_environment.json
