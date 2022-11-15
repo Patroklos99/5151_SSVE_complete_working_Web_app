@@ -48,5 +48,6 @@ postman_tests:
       name: postman/newman:alpine
       entrypoint: [""]
   script:
+    - sleep 10
     - newman --version
     - newman run postman/SSVE.postman_collection.json -e postman/serveurADVE.postman_environment.json
