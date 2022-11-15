@@ -1,5 +1,4 @@
 import { rest } from 'msw';
-import { axiosInstance } from '../../http-commons';
 export const handlers = [
     // Handles a POST /vehicle request
     rest.post('http://localhost:8080/api/vehicule', (req, res, ctx) => {
@@ -11,7 +10,7 @@ export const handlers = [
     }),
 
     // Handles a GET /vehicle request
-    rest.get('/vehicle', (req, res, ctx) => {
+    rest.get('/http://localhost:8080/api/vehicule', (req, res, ctx) => {
 
         const { carId } = req.params
 
