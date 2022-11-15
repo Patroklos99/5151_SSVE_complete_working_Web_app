@@ -20,7 +20,6 @@ build-job:
     - ./mvnw clean install # on n'a besoin de rouler ça qu'une seule fois puisque les artéfacts (ici un jar) sont partagés entre les stages par défaut
     - |-
       for containerName in pipelinereact pipelinespring; do
-        echo $containerName
         exit_code=0
         docker container ls -a | grep -q $containerName || exit_code=$?
         if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
