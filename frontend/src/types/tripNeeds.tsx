@@ -1,8 +1,6 @@
-import TripData from "./trip2";
+import TripData from "./trip";
 
 export default interface TripNeeds {
     id?: number | null,
-    autonomy: number | null,
-    charge_time: number | null,
     trips: TripData[] 
 }

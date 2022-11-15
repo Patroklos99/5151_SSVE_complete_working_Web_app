@@ -1,5 +1,5 @@
 import http from "../http-commons";
-import TripData from "../types/trip2";
+import TripData from "../types/trip";
 import TripNeeds from "../types/tripNeeds";
 
 

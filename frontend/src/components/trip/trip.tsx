@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ScriptTarget } from 'typescript';
 import './trip.css'
-import TripData from "../../types/trip2";
+import TripData from "../../types/trip";
 import TripService from '../../services/tripServices';
 import TripNeeds from '../../types/tripNeeds';
-import { FormControl, TextField } from '@mui/material';
-
+import { FormControl, IconButton, NativeSelect, Select, Table, TableCell, TableRow, TextField } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Trip: React.FC = () => {
 
@@ -19,8 +19,6 @@ const Trip: React.FC = () => {
 
   const tripNeedsState = {
     id: null,
-    autonomy: 0,
-    charge_time: 0,
     trips: []
   };
 
@@ -29,20 +27,13 @@ const Trip: React.FC = () => {
   const [TripList, setTripList] = useState<TripData[]>([]);
   const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
 
-  const soumettre = () => {
+  const submitForm = () => {
 
     if (TripList.length > 0) {
-      const label = document.getElementById('soumis') as HTMLLabelElement;
-      const autonomy_input = document.getElementById('autonomy') as HTMLInputElement
-      const charge_time_input = document.getElementById('charge_time') as HTMLInputElement
-
-      let autonomy: number = +autonomy_input?.value;
-      let charge_time: number = +charge_time_input?.value;
+      const label = document.getElementById('submitted') as HTMLLabelElement;
 
       var dataTripNeeds = {
         id: null,
-        autonomy: autonomy, //PASSER VALEUR DE L'ELEMENT
-        charge_time: charge_time, //PASSER VALEUR DE L'ELEMENT
         trips: tripNeeds.trips
       };
 
@@ -50,8 +41,6 @@ const Trip: React.FC = () => {
         .then((response: any) => {
           setTripNeeds({
             id: response.id,
-            autonomy: response.autonomy,
-            charge_time: response.charge_time,
             trips: response.trips
           });
           setSubmitted(true);
@@ -86,30 +75,30 @@ const Trip: React.FC = () => {
   }, []);
 
   const handleTripAdd = () => {
-    const nom = document.getElementById('nom') as HTMLInputElement
-    const depart = document.getElementById('search1') as HTMLInputElement
-    const arrive = document.getElementById('search2') as HTMLInputElement
-    const freq_nb = document.getElementById('freq_nb') as HTMLInputElement
+    const name = document.getElementById('name') as HTMLInputElement
+    const start = document.getElementById('search1') as HTMLInputElement
+    const end = document.getElementById('search2') as HTMLInputElement
+    const freqNb = document.getElementById('freqNb') as HTMLInputElement
     const freq = document.getElementById('frequences') as HTMLInputElement
 
-    const vNom = nom?.value;
-    const vDepart = depart?.value;
-    const vArrive = arrive?.value;
-    const vFreq_nb = freq_nb?.value;
+    const vName = name?.value;
+    const vStart = start?.value;
+    const vEnd = end?.value;
+    const vFreqNb = freqNb?.value;
     const vFreq = freq?.value;
 
-    if (vNom != null && vNom != "" &&
-      vDepart != null && vDepart != "" &&
-      vArrive != null && vArrive != "" &&
-      vFreq_nb != null && vFreq_nb != "" &&
+    if (vName != null && vName != "" &&
+      vStart != null && vStart != "" &&
+      vEnd != null && vEnd != "" &&
+      vFreqNb != null && vFreqNb != "" &&
       vFreq != null && vFreq != "") {
 
       var data = {
         id: null,
-        name: vNom,
-        start_point: vArrive,
-        end_point: vDepart,
-        freq: vFreq_nb + "\\" + vFreq,
+        name: vName,
+        start_point: vStart,
+        end_point: vEnd,
+        freq: vFreqNb + "\\" + vFreq,
       };
       setTripList([...TripList, data])
       setTripNeeds({ ...tripNeeds, trips: [...tripNeeds.trips, data] });
@@ -121,31 +110,14 @@ const Trip: React.FC = () => {
     const list = [...TripList]
     list.splice(index, 1)
     setTripList(list)
+    setTripNeeds({ ...tripNeeds, trips: [...list] });
   }
   return (
     <div>
-      <FormControl variant="filled">
-        <label id="textsup">Automie souhaitée pour le véhicule (km)</label>
-        <TextField
-          id="autonomy"
-          type="number"
-          placeholder={"Automomie"}
-          required
-          sx={{ boxShadow: 5 }}
-        />
-        <br />
-        <label id="textsup">Temps de recharge souhaité (min)</label>
-        <TextField
-          id="charge_time"
-          type="number"
-          placeholder={"Temps de recharge"}
-          required
-          sx={{ boxShadow: 5 }}
-        />
-        <br />
+       <FormControl variant="filled">
         <label id="textsup">Nom du trajet</label>
         <TextField
-          id="nom"
+          id="name"
           type="text"
           placeholder={"Nom du trajet"}
           required
@@ -165,38 +137,58 @@ const Trip: React.FC = () => {
         <input id='search2' type={"text"} required hidden />
         <div id="result2" hidden></div>
 
-        <label id="textsup">Je fais ce trajet </label>
-        <TextField
-          type="number"
-          id='freq_nb'
-          placeholder="Fréquence"
-          required
-          sx={{ boxShadow: 5 }} />
-        <label id="textsup"> fois par </label>
-        <select id="frequences" required>
-          <option value="Jour">Jour</option>
-          <option value="Semaine">Semaine</option>
-          <option value="Mois">Mois</option>
-          <option value="Année">Année</option>
-        </select>
-        <br></br>
-        <input onClick={() => handleTripAdd()} type={"submit"} value={"Ajouter trajet"} />
-        <br />
-        <label id='soumis'>NON-SOUMIS</label>
+        <Table size="small">
+          <TableRow>
+            <TableCell>
+              Je fais ce trajet
+            </TableCell>
+            <TableCell>
+              <TextField
+                type="number"
+                id='freqNb'
+                placeholder="Fréquence"
+                required
+                sx={{ boxShadow: 5, width: 150 }} />
+            </TableCell>
+            <TableCell>
+              fois par
+            </TableCell>
+            <TableCell>
+              <NativeSelect id="frequences" required>
+                <option value="Jour">Jour</option>
+                <option value="Semaine">Semaine</option>
+                <option value="Mois">Mois</option>
+                <option value="Année">Année</option>
+              </NativeSelect>
+            </TableCell>
+          </TableRow>
+        </Table>
+        <button onClick={() => handleTripAdd()} type={"submit"}>Ajouter trajet</button>
         <div>
           {TripList.map((trip, index) => (
-            <div style={{
-              "border": "2px solid red"
-            }}>
-              <label >{trip.name}  </label>
-              <button onClick={() => handleTripRemove(index)}>Retirer</button>
-              <br></br>
+            <div>
+              <Table size="small">
+                <TableRow >
+                  <div>
+                    <TableCell sx={{ width: "100%" }}>{trip.name}</TableCell>
+                    <TableCell >
+                      <IconButton aria-label="delete">
+                        <DeleteIcon
+                          onClick={() => handleTripRemove(index)} />
+                      </IconButton>
+
+                    </TableCell>
+                  </div>
+                </TableRow>
+              </Table>
             </div>
-          ))}
-        </div>
-        <input onClick={() => soumettre()} type={"submit"} value={"Soumettre"} />
-      </FormControl>
-    </div>
+          ))
+          }
+        </div >
+        < button onClick={() => submitForm()} type={"submit"} >Soumettre</button >
+        <label id='submitted'>NON-SOUMIS</label>
+      </FormControl >
+    </div >
   );
 };
 
