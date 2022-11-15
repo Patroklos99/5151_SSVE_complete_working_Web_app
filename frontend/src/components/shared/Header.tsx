@@ -12,7 +12,7 @@ const NavBar: React.FC = () => {
         </Link>
       </div>
       <div className="nav-right">
-        <Link to="/Contact">Contact</Link>
+        <Link to="/contact">Contact</Link>
         <Link to="/about">À propos</Link>
         <Button
           className="start"
@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
           size="small"
           disableElevation
           component={Link}
-          to="/Dashboard"
+          to="/dashboard"
         >
           Faire le test
         </Button>

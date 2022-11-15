@@ -13,9 +13,9 @@ function App() {
       <div className="App-body">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/Contact" element={<Contact />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </div>
