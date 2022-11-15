@@ -27,7 +27,7 @@ public class SsveApplication {
 					".ca/en/all-models/bmw-i/i4/2021/bmw-i4-highlights.html", "src/main/resources/images/bmwI4.png"));
 			repository.save(new Vehicle("Citroen", "e-C4", 4, "SUV", 34252, 352, 50, 4, "https://www.citroen.co" +
 					".uk/models/c4-e-c4.html", "src/main/resources/images/chevreletBoltEV.png"));
-			repository.save(new Vehicle("Chevrolet", "Bolt EV", 4, "Hatchback", 256, 417000, 65, 5, "https://www" +
+			repository.save(new Vehicle("Chevrolet", "Bolt EV", 4, "Hatchback", 25600, 417, 65, 5, "https://www" +
 					".chevrolet.com/electric/bolt-ev", "src/main/resources/images/citroenEC4.png"));
 			repository.save(new Vehicle("Ford Mustang", "Mach-E", 4, "SUV", 51495, 418, 70, -1, "https://www.ford" +
 					".ca/suvs/mach-e/?gnav=header-electrified-vhp", "src/main/resources/images/fordMustangMachE.png"));
