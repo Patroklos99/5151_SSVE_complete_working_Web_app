@@ -1,4 +1,4 @@
-import { Button, Divider, FormControl, FormControlLabel, FormLabel, List, Popover, Radio, RadioGroup, Typography } from '@mui/material';
+import { Button, Divider, FormControl, FormControlLabel, FormLabel, List, Popover, Radio, RadioGroup} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CarServices from '../../../services/CarServices';
 import ICar from '../../../types/Car';
