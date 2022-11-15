@@ -185,31 +185,24 @@ public class VehicleService {
 
 
     private void evaluateRoute(Route route, List<Vehicle> vehicle, int i) {
-        System.out.println("voiture: " + vehicle.get(i).getModelName() + " / range: " + vehicle.get(i).getRange());
         double poid1 = 0.75;
         double poid2 = 0.25;
-        System.out.println("Distance route: " + route.getDistance());
         double note1 = getPercentage(vehicle.get(i).getRange(), route.getDistance());
         if (note1 > 100)
             note1 = 100;
-        System.out.println("note1: " + note1);
         int rangeMax = 0;
         for (int j = 0; j<vehicle.size(); j++) {
             if (vehicle.get(j).getRange() > rangeMax) {
                 rangeMax = vehicle.get(j).getRange();
             }
         }
-        System.out.println("note2 = getPercentage((" + vehicle.get(i).getRange() + " - " + route.getDistance()+", (" + rangeMax + " - " + route.getDistance() + "));");
         double note2 = getPercentage((vehicle.get(i).getRange()- route.getDistance()),(rangeMax - route.getDistance()));
         if (note2 > 100) {
             note2 = 100;
         } else if (note2 < 0 ) {
             note2 = 0;
         }
-        System.out.println("note2: " + note2);
         route.setScore(poid1 * note1 + poid2 * note2);
-        System.out.println("note trajet: " + route.getScore());
-        System.out.println("--------------------------------------------------------------");
     }
 
     public static double getPercentage(double part, double whole) {
@@ -342,14 +335,14 @@ public class VehicleService {
         deplacementList.add(new Deplacement(1, new PointGeo(48.0293, -71.7262), new PointGeo(45.0393, -72.5376), FrequenceDeplacement.ONCE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(47.6861, -70.3343), new PointGeo(48.2191, -68.9323), FrequenceDeplacement.ONCE_A_YEAR));
 
-        /*//Min --------------------------------------------------------------
+        //Min --------------------------------------------------------------
         deplacementList.add(new Deplacement(1, new PointGeo(45.51963513223519, -73.64121842695846), new PointGeo(45.51934642873574, -73.64017685359295), FrequenceDeplacement.ONCE_A_YEAR));
-       deplacementList.add(new Deplacement(1, new PointGeo(45.568363215529445, -73.57952489894289), new PointGeo(45.56722615890229, -73.57574873076257), FrequenceDeplacement.ONCE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(45.568363215529445, -73.57952489894289), new PointGeo(45.56722615890229, -73.57574873076257), FrequenceDeplacement.ONCE_A_YEAR));
 
         //Max --------------------------------------------------------------
         deplacementList.add(new Deplacement(1, new PointGeo(45.404567768292274, -73.9545708308814), new PointGeo(45.7016485378072, -73.47982044062513), FrequenceDeplacement.TWICE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(45.701810104949196, -73.47925907001209), new PointGeo(45.40608420341184, -73.93127599467023), FrequenceDeplacement.ONCE_A_YEAR));
-
+        /*
         //Max Quebec -------------------------------------------------------
         deplacementList.add(new Deplacement(1, new PointGeo(45.406849308752534, -73.95165370074388), new PointGeo(48.416104487551735, -71.070981205327), FrequenceDeplacement.TWICE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(48.829245888782516, -64.48377519433731), new PointGeo(45.461830145587854, -75.69938395612203), FrequenceDeplacement.ONCE_A_WEEK));
