@@ -186,17 +186,22 @@ public class VehicleService {
 
 
     private void evaluateRoute(Route route, List<Vehicle> vehicle, int i) {
+        System.out.println("Voiture: " + vehicle.get(i).getId() + " / range: " + vehicle.get(i).getRange());
         double poid1 = 0.75;
         double poid2 = 0.25;
+        System.out.println("distance route: " + route.getDistance());
         double note1 = getPercentage(vehicle.get(i).getRange(), route.getDistance());
         if (note1 > 100)
             note1 = 100;
         int rangeMax = vehicle.get(0).getRange();
+        System.out.println("rangeMax: " + rangeMax);
         double note2 = getPercentage((vehicle.get(i).getRange()- route.getDistance()),(rangeMax- route.getDistance()));
         if (note2 > 100) {
             note2 = 100;
         }
         route.setScore(poid1 * note1 + poid2 * note2);
+        System.out.println(route.getScore());
+        System.out.println("------------------------------------");
     }
 
     public static double getPercentage(double part, double whole) {
@@ -304,16 +309,19 @@ public class VehicleService {
 
     private List<Deplacement> createDeplacementList() {
         List<Deplacement> deplacementList = new ArrayList<>();
-        deplacementList.add(new Deplacement(1, new PointGeo(45.1138, -72.3623), new PointGeo(45.5382, -73.9159), FrequenceDeplacement.WORKING_DAYS));
-        deplacementList.add(new Deplacement(1, new PointGeo(48.0293, -71.7262), new PointGeo(45.0393, -72.5376), FrequenceDeplacement.EVERYDAY));
-        /*deplacementList.add(new Deplacement(1, new PointGeo(47.6861, -70.3343), new PointGeo(48.2191, -68.9323), FrequenceDeplacement.ONCE_A_WEEK));
-        deplacementList.add(new Deplacement(1, new PointGeo(46.2825, -76.1005), new PointGeo(46.9882, -71.7642), FrequenceDeplacement.TWICE_A_WEEK));
-        deplacementList.add(new Deplacement(1, new PointGeo(47.5552, -75.4722), new PointGeo(48.7095, -65.8653), FrequenceDeplacement.ONCE_A_MONTH));
-        deplacementList.add(new Deplacement(1, new PointGeo(48.1702, -68.2585), new PointGeo(47.3529, -72.3948), FrequenceDeplacement.TWICE_A_MONTH));
-        deplacementList.add(new Deplacement(1, new PointGeo(48.7013, 69.1475), new PointGeo(45.758, -75.8012), FrequenceDeplacement.ONCE_A_YEAR));
-        deplacementList.add(new Deplacement(1, new PointGeo(48.2694, -68.1651), new PointGeo(48.3162, -70.9388), FrequenceDeplacement.TWICE_A_YEAR));
-        deplacementList.add(new Deplacement(1, new PointGeo(45.4755, -73.8757), new PointGeo(47.3163, -69.8303), FrequenceDeplacement.ONCE_A_WEEK));
-        deplacementList.add(new Deplacement(1, new PointGeo(46.1248, -75.6846), new PointGeo(45.1296, -71.5386), FrequenceDeplacement.TWICE_A_WEEK));*/
+        /*//normal
+        deplacementList.add(new Deplacement(1, new PointGeo(45.1138, -72.3623), new PointGeo(45.5382, -73.9159), FrequenceDeplacement.TWICE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(48.0293, -71.7262), new PointGeo(45.0393, -72.5376), FrequenceDeplacement.ONCE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(47.6861, -70.3343), new PointGeo(48.2191, -68.9323), FrequenceDeplacement.ONCE_A_YEAR));
+        //Min
+        deplacementList.add(new Deplacement(1, new PointGeo(45.51963513223519, -73.64121842695846), new PointGeo(45.51934642873574, -73.64017685359295), FrequenceDeplacement.ONCE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(45.568363215529445, -73.57952489894289), new PointGeo(45.56722615890229, -73.57574873076257), FrequenceDeplacement.ONCE_A_YEAR));
+        //Max
+        deplacementList.add(new Deplacement(1, new PointGeo(45.404567768292274, -73.9545708308814), new PointGeo(45.7016485378072, -73.47982044062513), FrequenceDeplacement.TWICE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(45.701810104949196, -73.47925907001209), new PointGeo(45.40608420341184, -73.93127599467023), FrequenceDeplacement.ONCE_A_YEAR));
+        *///Max Quebec 48.829245888782516, -64.48377519433731 -> 45.461830145587854, -75.69938395612203
+        deplacementList.add(new Deplacement(1, new PointGeo(45.406849308752534, -73.95165370074388), new PointGeo(48.416104487551735, -71.070981205327), FrequenceDeplacement.TWICE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(48.829245888782516, -64.48377519433731), new PointGeo(45.461830145587854, -75.69938395612203), FrequenceDeplacement.ONCE_A_WEEK));
         return deplacementList;
     }
 }
