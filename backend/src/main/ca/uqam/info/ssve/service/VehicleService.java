@@ -305,7 +305,7 @@ public class VehicleService {
             for (Route route : routeList) {
                 //--------Obtien les infos du déplacement avec la boite noir
                 String data = adveConnection.doRequest(requeteString(route) + allVehicle.get(i).getRange()*1000);
-                System.out.println("Call -> data: " + data);
+                System.out.println("Call Vehicle[" + (i+1) + "] -> data: " + data);
                 //--------Donne une note au déplacement pour la voiture i
                 if (data.contains("Impossible")){
                     route.setScore(0);
@@ -334,7 +334,7 @@ public class VehicleService {
         deplacementList.add(new Deplacement(1, new PointGeo(45.1138, -72.3623), new PointGeo(45.5382, -73.9159), FrequenceDeplacement.TWICE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(48.0293, -71.7262), new PointGeo(45.0393, -72.5376), FrequenceDeplacement.ONCE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(47.6861, -70.3343), new PointGeo(48.2191, -68.9323), FrequenceDeplacement.ONCE_A_YEAR));
-
+        /*
         //Min --------------------------------------------------------------
         deplacementList.add(new Deplacement(1, new PointGeo(45.51963513223519, -73.64121842695846), new PointGeo(45.51934642873574, -73.64017685359295), FrequenceDeplacement.ONCE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(45.568363215529445, -73.57952489894289), new PointGeo(45.56722615890229, -73.57574873076257), FrequenceDeplacement.ONCE_A_YEAR));
@@ -342,7 +342,7 @@ public class VehicleService {
         //Max --------------------------------------------------------------
         deplacementList.add(new Deplacement(1, new PointGeo(45.404567768292274, -73.9545708308814), new PointGeo(45.7016485378072, -73.47982044062513), FrequenceDeplacement.TWICE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(45.701810104949196, -73.47925907001209), new PointGeo(45.40608420341184, -73.93127599467023), FrequenceDeplacement.ONCE_A_YEAR));
-        /*
+
         //Max Quebec -------------------------------------------------------
         deplacementList.add(new Deplacement(1, new PointGeo(45.406849308752534, -73.95165370074388), new PointGeo(48.416104487551735, -71.070981205327), FrequenceDeplacement.TWICE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(48.829245888782516, -64.48377519433731), new PointGeo(45.461830145587854, -75.69938395612203), FrequenceDeplacement.ONCE_A_WEEK));
