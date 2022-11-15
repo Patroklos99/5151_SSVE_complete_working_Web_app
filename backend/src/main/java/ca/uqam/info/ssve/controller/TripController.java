@@ -5,7 +5,8 @@
  */
 package ca.uqam.info.ssve.controller;
 
-import ca.uqam.info.ssve.model.Trip;
+import ca.uqam.info.ssve.model.TripNeedsDummy;
+import ca.uqam.info.ssve.model.TripNeeds;
 import ca.uqam.info.ssve.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/trip")
+@RequestMapping("api/tripneeds")
 public class TripController {
 
 	@Autowired
@@ -22,13 +23,16 @@ public class TripController {
 
 	@GetMapping("/{id}")
 	public @ResponseBody
-	Trip getTrip(@PathVariable Long id) {
+	TripNeeds getTrip(@PathVariable Long id) {
 		return tripService.getTrip(id);
 	}
 
 	@PostMapping("")
 	public @ResponseBody
-	Trip postTrip(@RequestBody Trip trip) {
-		return tripService.saveTrip(trip);
+	TripNeeds postTrip(@RequestBody TripNeedsDummy tripNeedsDummy) {
+		TripNeeds bd = new TripNeeds(tripNeedsDummy);
+		TripNeeds bd2 = tripService.saveTripNeeds(bd);
+		System.out.println(bd2.toString());
+		return bd2;
 	}
 }

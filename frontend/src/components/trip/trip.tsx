@@ -3,6 +3,7 @@ import { ScriptTarget } from 'typescript';
 import './trip.css'
 import TripData from "../../types/trip2";
 import TripService from '../../services/tripServices';
+import TripNeeds from '../../types/tripNeeds';
 import { FormControl, TextField } from '@mui/material';
 
 
@@ -16,47 +17,62 @@ const Trip: React.FC = () => {
     freq: "",
   };
 
-  const listState = {
+  const tripNeedsState = {
     id: null,
-    name: "",
-    start_point: "",
-    end_point: "",
-    freq: "",
+    autonomy: 0,
+    charge_time: 0,
+    trips: []
   };
 
-  const [Trip, setTrip] = useState<TripData>(tripState);
+  const [trip, setTrip] = useState<TripData>(tripState);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [TripList, setTripList] = useState<TripData[]>([]);
+  const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
 
   const soumettre = () => {
 
     if (TripList.length > 0) {
       const label = document.getElementById('soumis') as HTMLLabelElement;
-      TripList.map(trip => {
-        var data = {
-          name: trip.name,
-          start_point: trip.start_point,
-          end_point: trip.end_point,
-          freq: trip.freq
-        };
-        TripService.postTrip(trip)
-          .then((response: any) => {
-            setTrip({
-              id: response.data.id,
-              name: response.data.name,
-              start_point: response.data.start_point,
-              end_point: response.data.end_point,
-              freq: response.data.freq,
-            });
-            setSubmitted(true);
-            console.log(response.data);
-          })
-          .catch((e: Error) => {
-            console.log(e);
+      const autonomy_input = document.getElementById('autonomy') as HTMLInputElement
+      const charge_time_input = document.getElementById('charge_time') as HTMLInputElement
+
+      let autonomy: number = +autonomy_input?.value;
+      let charge_time: number = +charge_time_input?.value;
+
+      var dataTripNeeds = {
+        id: null,
+        autonomy: autonomy, //PASSER VALEUR DE L'ELEMENT
+        charge_time: charge_time, //PASSER VALEUR DE L'ELEMENT
+        trips: tripNeeds.trips
+      };
+
+      TripService.postTripNeeds(dataTripNeeds)
+        .then((response: any) => {
+          setTripNeeds({
+            id: response.id,
+            autonomy: response.autonomy,
+            charge_time: response.charge_time,
+            trips: response.trips
           });
-      })
-      label.innerHTML = "Soumis!";
+          setSubmitted(true);
+          console.log(response.data);
+          label.innerHTML = "Soumis!";
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
     }
+  }
+
+  const getData = () => {
+    TripService.getTrip(1)
+      .then((response: any) => {
+        setTripNeeds(response.data);
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
   }
 
   useEffect(() => {
@@ -96,6 +112,7 @@ const Trip: React.FC = () => {
         freq: vFreq_nb + "\\" + vFreq,
       };
       setTripList([...TripList, data])
+      setTripNeeds({ ...tripNeeds, trips: [...tripNeeds.trips, data] });
     }
 
   }
@@ -108,6 +125,25 @@ const Trip: React.FC = () => {
   return (
     <div>
       <FormControl variant="filled">
+        <label id="textsup">Automie souhaitée pour le véhicule (km)</label>
+        <TextField
+          id="autonomy"
+          type="number"
+          placeholder={"Automomie"}
+          required
+          sx={{ boxShadow: 5 }}
+        />
+        <br />
+        <label id="textsup">Temps de recharge souhaité (min)</label>
+        <TextField
+          id="charge_time"
+          type="number"
+          placeholder={"Temps de recharge"}
+          required
+          sx={{ boxShadow: 5 }}
+        />
+        <br />
+        <label id="textsup">Nom du trajet</label>
         <TextField
           id="nom"
           type="text"
@@ -128,10 +164,10 @@ const Trip: React.FC = () => {
         <div id="search-box2"></div>
         <input id='search2' type={"text"} required hidden />
         <div id="result2" hidden></div>
-        
+
         <label id="textsup">Je fais ce trajet </label>
         <TextField
-          type="text"
+          type="number"
           id='freq_nb'
           placeholder="Fréquence"
           required

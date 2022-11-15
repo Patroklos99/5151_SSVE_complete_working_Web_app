@@ -1,5 +1,6 @@
 import http from "../http-commons";
 import TripData from "../types/trip2";
+import TripNeeds from "../types/tripNeeds";
 
 
 
@@ -29,7 +30,7 @@ const getTrip = (id: any) => {
 
     console.log("getting with id:", id);
 
-    return http.get<TripData>(`/trip/${id}`);
+    return http.get<TripNeeds>(`/tripneeds/${id}`);
 
 };
 
@@ -38,6 +39,12 @@ const getTrip = (id: any) => {
 const postTrip = (data: TripData) => {
 
     return http.post<TripData>("/trip", data);
+
+};
+
+const postTripNeeds = (data: TripNeeds) => {
+
+    return http.post<TripNeeds>("/tripneeds", data);
 
 };
 
@@ -75,6 +82,8 @@ const TripService = {
     getAllTrip,
 
     getTrip,
+
+    postTripNeeds,
 
     postTrip,
 

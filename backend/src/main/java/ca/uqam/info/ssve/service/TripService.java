@@ -1,7 +1,10 @@
 package ca.uqam.info.ssve.service;
 
-import ca.uqam.info.ssve.model.Trip;
+import ca.uqam.info.ssve.model.TripNeedsDummy;
+import ca.uqam.info.ssve.model.TripNeeds;
+import ca.uqam.info.ssve.model.TripDummy;
 import ca.uqam.info.ssve.repository.TripRepository;
+import ca.uqam.info.ssve.repository.TripNeedsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +13,18 @@ public class TripService {
 
     @Autowired
     private TripRepository tripRepository;
+    @Autowired
+    private TripNeedsRepository tripNeedsRepository;
 
-    public Trip getTrip(Long id) {
-        return tripRepository.findById(id).get();
+    public TripNeeds getTrip(Long id) {
+        TripNeeds tn = tripNeedsRepository.findById(id).get();
+        System.out.println(tn.toString());
+        return tn;
     }
 
-    public Trip saveTrip(Trip trip) {
-        return tripRepository.save(trip);
+    public TripNeeds saveTripNeeds(TripNeeds tripNeeds) {
+        TripNeeds bd = tripNeedsRepository.save(tripNeeds);
+        return bd;
     }
 
 }
