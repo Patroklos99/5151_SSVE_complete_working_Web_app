@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Contact from "./components/contact/Contact";
 
 import Dashboard from "./components/dashboard";
-import Homepage from "./components/homepage/Homepage";
+import HomePage from "./components/homepage/HomePage";
 import Input from "./components/input/Input";
 import Header from "./components/shared/Header";
 
@@ -12,7 +12,7 @@ function App() {
       <Header />
       <div className="App-body">
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/Input" element={<Input />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Dashboard" element={<Dashboard />} />
