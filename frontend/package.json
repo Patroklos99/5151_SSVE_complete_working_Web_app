@@ -23,8 +23,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false --maxWorkers=4",
-    "test:watch": "react-scripts test",
+    "test": "npx jest --watchAll=false --maxWorkers=4 --coverage",
+    "test:watch": "npx jest --watch",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
