@@ -1,15 +1,16 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText, Paper } from "@mui/material"
-import { ICar } from "../../../../types/Car"
+import ICar from "../../../../types/Car"
 import { LinearProgressWithLabel } from "../linearProgressWithLabel"
 import './style.css'
 
 const ListItemCar = (car:ICar, index: number) => {
+
     return (
         <div className="list-item-car">
             <Paper elevation={4}>
                 <ListItem key={index} alignItems="flex-start">
                     <ListItemAvatar>
-                        <Avatar alt="img" src={`car.imgLink`} />
+                        <Avatar alt="img" src={require(`../../../../assets/images/${car.imgLink}`)} />
                     </ListItemAvatar>
                     <ListItemText
                         primary={
@@ -23,7 +24,7 @@ const ListItemCar = (car:ICar, index: number) => {
                                 <div className='desc-text'>
                                     {car.description}
                                 </div>
-                                {/* <LinearProgressWithLabel variant="determinate" value={car.score}/> */}
+                                <LinearProgressWithLabel variant="determinate" value={car.score *10}/>
                             </div> 
                         }
                         color="black"

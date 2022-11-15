@@ -1,21 +1,22 @@
 import { Button, Divider, FormControl, FormControlLabel, FormLabel, List, Popover, Radio, RadioGroup, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CarServices from '../../../services/CarServices';
-import { ICar } from '../../../types/Car';
+import ICar from '../../../types/Car';
+
 import ListItemCar from './listItemCar';
 
 import './style.css';
 
 
 const ResultsList = () => {
-    //const [cars, setCars] = React.useState<ICar[]>([]);
     const [orderByAnchorEl, setOrderByAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [orderBy, setOrderBy] = useState<string>('score');
     const [carsList, setCarsList] = useState<ICar[]>([]);
 
     useEffect(() => {
         const getCars = async()=> {
             const data = await CarServices.getAllCars();
-            setCarsList(data);
+            setCarsList([...data.sort((a: ICar, b: ICar) => b.score - a.score)]);
         }
         getCars();
       }, []);
@@ -38,16 +39,18 @@ const ResultsList = () => {
         switch (orderBy) {
             case 'priceAsc':
                 setCarsList([...carsList.sort((a, b) => a.price - b.price)]);
+                
                 break;
             case 'priceDesc':
                 setCarsList([...carsList.sort((a, b) => b.price - a.price)]);
                 break;
-            // case 'score':
-            //     setCarsList([...carsList.sort((a, b) => b.score - a.score)]);
-            //     break;
+            case 'score':
+                setCarsList([...carsList.sort((a, b) => b.score - a.score)]);
+                break;
             
 
         }
+        setOrderBy(orderBy);
     }
 
     const orderByChoices = (
@@ -58,6 +61,7 @@ const ResultsList = () => {
                 defaultValue="score"
                 name="radio-buttons-group"
                 onChange={handleOrderByChange}
+                value={orderBy}
             >
                 <FormControlLabel value="score" control={<Radio />} label="Score" />
                 <FormControlLabel value="priceAsc" control={<Radio />} label="Prix Ascendant" />

@@ -1,4 +1,4 @@
-export interface ICar {
+export default interface ICar {
     id: number;
     brand: string;
     modelName: string;
@@ -11,4 +11,5 @@ export interface ICar {
     range: number;
     refLink: string;
     description: string;
+    score: number;
 }
