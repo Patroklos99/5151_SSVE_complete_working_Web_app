@@ -1,20 +1,25 @@
-import { Button, Divider, FormControl, FormControlLabel, FormLabel, List, Popover, Radio, RadioGroup} from '@mui/material';
-import React, { useEffect } from 'react';
-import {carsData} from '../../../assets/data_exemples/cars';
-import { ICar } from '../../../models/cars';
+import { Button, Divider, FormControl, FormControlLabel, FormLabel, List, Popover, Radio, RadioGroup, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import CarServices from '../../../services/CarServices';
+import ICar from '../../../types/Car';
+
 import ListItemCar from './listItemCar';
 
 import './style.css';
 
-const ResultsList = () => {
-    const [cars, setCars] = React.useState<ICar[]>([]);
-    const [orderByAnchorEl, setOrderByAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
+const ResultsList = () => {
+    const [orderByAnchorEl, setOrderByAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [orderBy, setOrderBy] = useState<string>('score');
+    const [carsList, setCarsList] = useState<ICar[]>([]);
 
     useEffect(() => {
-        //shoud load data from BE, but use local data for now
-        setCars(carsData);
-    }, []);
+        const getCars = async()=> {
+            const data = await CarServices.getAllCars();
+            setCarsList([...data.sort((a: ICar, b: ICar) => b.score - a.score)]);
+        }
+        getCars();
+      }, []);
 
 
     const handleOrderByClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -25,7 +30,7 @@ const ResultsList = () => {
         setOrderByAnchorEl(null);
     };
 
-    const getCarsList = () => cars.map((car: ICar, index: number) => ListItemCar(car, index));
+    const getCarsList = () => carsList.map((car: ICar, index: number) => ListItemCar(car, index));
 
     const openOrderBy = Boolean(orderByAnchorEl);
 
@@ -33,17 +38,19 @@ const ResultsList = () => {
         const orderBy = (event.target as HTMLInputElement).value;
         switch (orderBy) {
             case 'priceAsc':
-                setCars([...cars.sort((a, b) => a.prix - b.prix)]);
+                setCarsList([...carsList.sort((a, b) => a.price - b.price)]);
+                
                 break;
             case 'priceDesc':
-                setCars([...cars.sort((a, b) => b.prix - a.prix)]);
+                setCarsList([...carsList.sort((a, b) => b.price - a.price)]);
                 break;
             case 'score':
-                setCars([...cars.sort((a, b) => b.score - a.score)]);
+                setCarsList([...carsList.sort((a, b) => b.score - a.score)]);
                 break;
             
 
         }
+        setOrderBy(orderBy);
     }
 
     const orderByChoices = (
@@ -54,6 +61,7 @@ const ResultsList = () => {
                 defaultValue="score"
                 name="radio-buttons-group"
                 onChange={handleOrderByChange}
+                value={orderBy}
             >
                 <FormControlLabel value="score" control={<Radio />} label="Score" />
                 <FormControlLabel value="priceAsc" control={<Radio />} label="Prix Ascendant" />
