@@ -1,5 +1,5 @@
 import { http } from "../http-commons";
-import CarData from "../types/Car";
+import CarData from "../types/CarExemple";
 
 /**
  * These are all examples of services, if you need more complex

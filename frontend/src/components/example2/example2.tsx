@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from "react";
 import { Link } from 'react-router-dom';
 import ExampleService from "../../services/ExampleServices";
-import CarData from "../../types/Car";
+import CarData from "../../types/CarExemple";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
