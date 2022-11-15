@@ -21,7 +21,7 @@ public class SsveApplication {
 		return args -> {
 			//repository.save(new Vehicle( "brand", "modelName", nbDoors, "type", price, range, batteryCapacity,
 					//safetyScore, "refLink", "imgLink"));
-			repository.save(new Vehicle("Audi", "e-tron", 4, "SUV", 87342, 364,95, 5, "https://www.audi" +
+			/*repository.save(new Vehicle("Audi", "e-tron", 4, "SUV", 87342, 364,95, 5, "https://www.audi" +
 					".ca/ca/web/en/models/etron/e-tron-quattro.html", "src/main/resources/images/audiETron.png"));
 			repository.save(new Vehicle("BMW", "i4", 4, "Sedan", 54990, 484, 84, 4, "https://www.bmw" +
 					".ca/en/all-models/bmw-i/i4/2021/bmw-i4-highlights.html", "src/main/resources/images/bmwI4.png"));
@@ -31,7 +31,7 @@ public class SsveApplication {
 					".chevrolet.com/electric/bolt-ev", "src/main/resources/images/citroenEC4.png"));
 			repository.save(new Vehicle("Ford Mustang", "Mach-E", 4, "SUV", 51495, 418, 70, -1, "https://www.ford" +
 					".ca/suvs/mach-e/?gnav=header-electrified-vhp", "src/main/resources/images/fordMustangMachE.png"));
-			/*repository.save(new Vehicle("Hyundai", "Ioniq 5", 4, "SUV", 47650, 354000, 58, -1, "https://www" +
+			repository.save(new Vehicle("Hyundai", "Ioniq 5", 4, "SUV", 47650, 354000, 58, -1, "https://www" +
 					".hyundaicanada.com/en/showroom/2022/ioniq-5", "src/main/resources/images/hyundaiIoniq5.png"));
 			repository.save(new Vehicle("Hyundai", "Kona Electric", 4, "SUV", 46550, 415000, 64, 5, "https://www" +
 					".hyundaicanada.com/en/showroom/2022/kona-n", "src/main/resources/images/hyundaiKonaElectric.png"));
@@ -75,6 +75,12 @@ public class SsveApplication {
 //					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));
 //			repository.save(new Vehicle("Voiture", "Max", 4, "Hatchback", 31495, 550, 1000, 5, "https://www" +
 //					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));
+			repository.save(new Vehicle("voiture", "Min", 4, "Hatchback", 31495, 90, 1000, 5, "https://www" +
+					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));
+			repository.save(new Vehicle("Voiture", "Moyen", 4, "Hatchback", 31495, 320, 1000, 5, "https://www" +
+					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));
+			repository.save(new Vehicle("Voiture", "Max", 4, "Hatchback", 31495, 550, 1000, 5, "https://www" +
+					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));
 		};
 	}
 
