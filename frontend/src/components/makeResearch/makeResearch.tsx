@@ -13,7 +13,7 @@ interface MakeResearchProps {
 const MakeResearch: FC<MakeResearchProps> = () => (
         <div className="makeResearch">
             <div>
-                <h2>Effectuer une recherche de véhicules:</h2>
+                <h2>Veuillez saisir vos données de déplacement:</h2>
             </div>
 
 

@@ -180,7 +180,7 @@ const Trip: React.FC = () => {
           <option value="Année">Année</option>
         </select>
         <br></br>
-        <input onClick={() => handleTripAdd()} type={"submit"} value={"Ajouter trajet"} />
+        <input className="btn" onClick={() => handleTripAdd()} type={"submit"} value={"Ajouter trajet"} />
         <br />
         <label id='soumis'>NON-SOUMIS</label>
         <div>
@@ -189,12 +189,12 @@ const Trip: React.FC = () => {
               "border": "2px solid red"
             }}>
               <label >{trip.name}  </label>
-              <button onClick={() => handleTripRemove(index)}>Retirer</button>
+              <button className="btn" onClick={() => handleTripRemove(index)}>Retirer</button>
               <br></br>
             </div>
           ))}
         </div>
-        <input onClick={() => soumettre()} type={"submit"} value={"Soumettre"} />
+        <input className="btn" onClick={() => soumettre()} type={"submit"} value={"Soumettre"} />
       </FormControl>
     </div>
   );

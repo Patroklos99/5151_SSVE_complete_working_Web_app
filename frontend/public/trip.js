@@ -2,14 +2,14 @@
 
 
     var map = L.map('map', {
-        center: [40.7259, -73.9805], // Map loads with this location as center
+        center: [52.4760892,-71.8258668], // Map loads with this location as center
         zoom: 12,
         scrollWheelZoom: true,
         zoomControl: false,
         attributionControl: false,
     });
     var map2 = L.map('map2', {
-        center: [40.7259, -73.9805], // Map loads with this location as center
+        center: [52.4760892,-71.8258668], // Map loads with this location as center
         zoom: 12,
         scrollWheelZoom: true,
         zoomControl: false,
