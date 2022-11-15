@@ -145,7 +145,6 @@ public class VehicleService {
         }
         for (Route route : routeList){
             route.setWeight(getPercentage(route.getFrequence(), frequenceTotale));
-            System.out.println("weight: " + route.getWeight());
         }
 
         //--------Évaluation de chaque route pour chaque voiture et calcule de la note final
@@ -186,22 +185,17 @@ public class VehicleService {
 
 
     private void evaluateRoute(Route route, List<Vehicle> vehicle, int i) {
-        System.out.println("Voiture: " + vehicle.get(i).getId() + " / range: " + vehicle.get(i).getRange());
         double poid1 = 0.75;
         double poid2 = 0.25;
-        System.out.println("distance route: " + route.getDistance());
         double note1 = getPercentage(vehicle.get(i).getRange(), route.getDistance());
         if (note1 > 100)
             note1 = 100;
         int rangeMax = vehicle.get(0).getRange();
-        System.out.println("rangeMax: " + rangeMax);
         double note2 = getPercentage((vehicle.get(i).getRange()- route.getDistance()),(rangeMax- route.getDistance()));
         if (note2 > 100) {
             note2 = 100;
         }
         route.setScore(poid1 * note1 + poid2 * note2);
-        System.out.println(route.getScore());
-        System.out.println("------------------------------------");
     }
 
     public static double getPercentage(double part, double whole) {
@@ -213,14 +207,20 @@ public class VehicleService {
         int space1 = 0;
         int space2 = 0;
         int space3 = 0;
-        if (data.contains("impossible")){
-            return;
-        }
         String[] splited = data.split(" ");
         route.setDistance(Double.parseDouble(splited[0]));
         route.setTripTime(Double.parseDouble(splited[1]));
         route.setWaitingTime(Double.parseDouble(splited[2]));
         route.setChargingTime(Double.parseDouble(splited[3]));
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
 
@@ -286,18 +286,23 @@ public class VehicleService {
             double score = 0;
             for (Route route : routeList) {
                 //--------Obtien les infos du déplacement avec la boite noir
+                System.out.println("call:");
                 String data = adveConnection.doRequest(requeteString(route) + allVehicle.get(i).getRange()*1000);
-                System.out.println(data);
-                stringToRoute(route, data);
+                System.out.println("data: " + data);
                 //--------Donne une note au déplacement pour la voiture i
-                evaluateRoute(route, allVehicle, i);
+                if (data.contains("Impossible")){
+                    route.setScore(0);
+                }else {
+                    stringToRoute(route, data);
+                    evaluateRoute(route, allVehicle, i);
+                }
             }
             //-------- Calcule la note final de la voiture selon la note de chaque déplacement
             for (Route route : routeList)
                 score = score + ((route.getWeight()/100) * route.getScore());
             //--------Ajoute le score final a la voiture et l'ajoute dans la liste a retourné
             Evaluation evaluation = new Evaluation(allVehicle.get(i));
-            evaluation.setScore(score);
+            evaluation.setScore(round(score, 2));
             vehicleFinalScore.add(evaluation);
         }
         adveConnection.closeServer();
@@ -319,9 +324,11 @@ public class VehicleService {
         //Max
         deplacementList.add(new Deplacement(1, new PointGeo(45.404567768292274, -73.9545708308814), new PointGeo(45.7016485378072, -73.47982044062513), FrequenceDeplacement.TWICE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(45.701810104949196, -73.47925907001209), new PointGeo(45.40608420341184, -73.93127599467023), FrequenceDeplacement.ONCE_A_YEAR));
-        *///Max Quebec 48.829245888782516, -64.48377519433731 -> 45.461830145587854, -75.69938395612203
+        //Max Quebec 48.829245888782516, -64.48377519433731 -> 45.461830145587854, -75.69938395612203
         deplacementList.add(new Deplacement(1, new PointGeo(45.406849308752534, -73.95165370074388), new PointGeo(48.416104487551735, -71.070981205327), FrequenceDeplacement.TWICE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(48.829245888782516, -64.48377519433731), new PointGeo(45.461830145587854, -75.69938395612203), FrequenceDeplacement.ONCE_A_WEEK));
+        *///Impossible pour tous 61.59780702431485, -71.9571001824064 -> 45.461830145587854, -75.69938395612203
+        deplacementList.add(new Deplacement(1, new PointGeo(61.59780702431485, -71.9571001824064), new PointGeo(45.461830145587854, -75.69938395612203), FrequenceDeplacement.ONCE_A_WEEK));
         return deplacementList;
     }
 }

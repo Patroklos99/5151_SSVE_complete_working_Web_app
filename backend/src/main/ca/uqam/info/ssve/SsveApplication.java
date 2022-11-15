@@ -20,11 +20,11 @@ public class SsveApplication {
 	CommandLineRunner commandLineRunner(VehicleRepository repository) {
 		return args -> {
 			//repository.save(new Vehicle( "brand", "modelName", nbDoors, "type", price, range, batteryCapacity, safetyScore, "refLink", "imgLink"));
-			repository.save(new Vehicle("Audi", "e-tron", 4, "SUV", 87342, 364,95, 5, "https://www.audi" +
+			/*repository.save(new Vehicle("Audi", "e-tron", 4, "SUV", 87342, 364,95, 5, "https://www.audi" +
 					".ca/ca/web/en/models/etron/e-tron-quattro.html", "src/main/resources/images/audiETron.png"));
 			repository.save(new Vehicle("BMW", "i4", 4, "Sedan", 54990, 484, 84, 4, "https://www.bmw" +
 					".ca/en/all-models/bmw-i/i4/2021/bmw-i4-highlights.html", "src/main/resources/images/bmwI4.png"));
-			/*repository.save(new Vehicle("Citroen", "e-C4", 4, "SUV", 34252, 352000, 50, 4, "https://www.citroen.co" +
+			repository.save(new Vehicle("Citroen", "e-C4", 4, "SUV", 34252, 352000, 50, 4, "https://www.citroen.co" +
 					".uk/models/c4-e-c4.html", "src/main/resources/images/chevreletBoltEV.png"));
 			repository.save(new Vehicle("Chevrolet", "Bolt EV", 4, "Hatchback", 25600, 417000, 65, 5, "https://www" +
 					".chevrolet.com/electric/bolt-ev", "src/main/resources/images/citroenEC4.png"));
@@ -68,6 +68,12 @@ public class SsveApplication {
 					".volkswagen.co.uk/en/new/e-golf.html", "src/main/resources/images/volkswagenEGolf.png"));
 			repository.save(new Vehicle("Volkswagen", "Golf", 4, "Hatchback", 31495, 250000, 1000, 5, "https://www" +
 					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));*/
+			repository.save(new Vehicle("voiture", "Min", 4, "Hatchback", 31495, 90, 1000, 5, "https://www" +
+					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));
+			repository.save(new Vehicle("Voiture", "Moyen", 4, "Hatchback", 31495, 320, 1000, 5, "https://www" +
+					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));
+			repository.save(new Vehicle("Voiture", "Max", 4, "Hatchback", 31495, 550, 1000, 5, "https://www" +
+					".volkswagen.co.uk/en/new/golf.html", "src/main/resources/images/volkswagenGolf.png"));
 		};
 	}
 
