@@ -17,6 +17,7 @@ const getAllCars = async () => {
   }
   catch(err){
     console.log(err);
+    return [];
   }
 
 };
