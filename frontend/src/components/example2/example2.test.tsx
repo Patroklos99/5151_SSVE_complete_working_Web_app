@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import AddCar from './example2';
 import '@testing-library/jest-dom'
 import { MemoryRouter } from 'react-router-dom';
@@ -31,5 +31,6 @@ test('making sure we have the right input value', async () => {
 test('making post to api', async () => {
   const utils = setup()
   fireEvent.click(utils.getByLabelText('post-button'))
-  await waitFor(() => expect(utils.getByLabelText('post-success')).toHaveTextContent('You submitted successfully!'))
+  // Note when using async assertions, findby queries are preferable to getby queries
+  await waitFor(() => expect(utils.findByLabelText('post-success')).toBeInTheDocument)
 })
