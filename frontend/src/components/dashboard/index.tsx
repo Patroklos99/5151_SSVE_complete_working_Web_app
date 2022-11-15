@@ -1,7 +1,6 @@
+import React from "react";
 import {  Container, Grid} from '@mui/material';
 import ResultsList from './resultsList';
-
-
 
 const Dashboard = () => {
     
