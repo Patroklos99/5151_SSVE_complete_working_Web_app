@@ -327,8 +327,11 @@ public class VehicleService {
         //Max Quebec 48.829245888782516, -64.48377519433731 -> 45.461830145587854, -75.69938395612203
         deplacementList.add(new Deplacement(1, new PointGeo(45.406849308752534, -73.95165370074388), new PointGeo(48.416104487551735, -71.070981205327), FrequenceDeplacement.TWICE_A_YEAR));
         deplacementList.add(new Deplacement(1, new PointGeo(48.829245888782516, -64.48377519433731), new PointGeo(45.461830145587854, -75.69938395612203), FrequenceDeplacement.ONCE_A_WEEK));
-        *///Impossible pour tous 61.59780702431485, -71.9571001824064 -> 45.461830145587854, -75.69938395612203
+        //Impossible pour tous 61.59780702431485, -71.9571001824064 -> 45.461830145587854, -75.69938395612203
         deplacementList.add(new Deplacement(1, new PointGeo(61.59780702431485, -71.9571001824064), new PointGeo(45.461830145587854, -75.69938395612203), FrequenceDeplacement.ONCE_A_WEEK));
+        *///Impossible pour le minimum seulement 48.098557266958686, -77.77749506611988 -> 46.55002722055268, -75.5000386258611
+        deplacementList.add(new Deplacement(1, new PointGeo(48.098557266958686, -77.77749506611988), new PointGeo(46.55002722055268, -75.5000386258611), FrequenceDeplacement.ONCE_A_WEEK));
+
         return deplacementList;
     }
 }
