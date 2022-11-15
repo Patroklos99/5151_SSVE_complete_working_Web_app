@@ -1,12 +1,15 @@
-package org.example;
+package googleTimeline;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.FileReader;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 
 public class TimelineParser {
 
@@ -18,14 +21,24 @@ public class TimelineParser {
      * Runs the program, parsing the input file, extracting and storing relevant data
      * @param args args[1] = Google org.Timeline input file (.JSON)
      */
-    public static void main(String[] args){
+    public static void main(String[] args) throws URISyntaxException, IOException {
         JSONParser parser = new JSONParser();
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        String fileName = "timelineTests/timelineExample.JSON";
+        File file;
+        ClassLoader classLoader = TimelineParser.class.getClassLoader();
+        URL resource = classLoader.getResource(fileName);
+        if (resource == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            file = new File(resource.toURI());
+        }
         Object timelineInput;
         try{
             try {
                 timelineInput = parser.parse(new FileReader(args[1]));
             } catch (IndexOutOfBoundsException e) {
-                timelineInput = parser.parse(new FileReader("src/test/java/timelineExample.json"));
+                timelineInput = parser.parse(new FileReader(file));
             }
             JSONObject jsonOBject = (JSONObject) timelineInput;
             JSONArray timeLineList =  (JSONArray) jsonOBject.get("timelineObjects");
@@ -39,7 +52,6 @@ public class TimelineParser {
             e.printStackTrace();
         }
     }
-
     private static void printData(){
         for (int i = 0; i < uniqueTripList.size(); i++) {
             uniqueTripList.get(i).printTripData();
@@ -51,25 +63,24 @@ public class TimelineParser {
      * @param activitySegment part of JSON file that describes the type of trip (walk/vehicule/etc)
      * @return the coordinates of the start location of a trip in a org.PointGeo object.
      */
-    private static PointGeo extractStart(JSONObject activitySegment) {
+    private static PointGeo_ extractStart(JSONObject activitySegment) {
         JSONObject coordinates = (JSONObject) activitySegment.get("startLocation");
         double startLocationLatitude = Double.parseDouble(coordinates.get("latitudeE7").toString());
         double startLocationLongitude = Double.parseDouble(coordinates.get("longitudeE7").toString());
-        PointGeo start = new PointGeo(startLocationLatitude,startLocationLongitude);
+        PointGeo_ start = new PointGeo_(startLocationLatitude,startLocationLongitude);
         return start;
     }
-
 
     /**
      * This function extracts the end coordinates of a trip from the JSON segment
      * @param activitySegment: part of JSON file that describes the type of trip (walk/vehicule/etc)
      * @return the coordinates of the end location of a trip in a org.PointGeo object.
      */
-    private static PointGeo extractEnd(JSONObject activitySegment) {
+    private static PointGeo_ extractEnd(JSONObject activitySegment) {
         JSONObject coordinates = (JSONObject) activitySegment.get("endLocation");
         double startLocationLatitude = Double.parseDouble(coordinates.get("latitudeE7").toString());
         double startLocationLongitude = Double.parseDouble(coordinates.get("longitudeE7").toString());
-        PointGeo end = new PointGeo(startLocationLatitude,startLocationLongitude);
+        PointGeo_ end = new PointGeo_(startLocationLatitude,startLocationLongitude);
         return end;
     }
 
@@ -103,8 +114,8 @@ public class TimelineParser {
     public static void collectTripData(Iterator<JSONObject> iterator) {
         JSONObject activitySegment;
         String ID;
-        PointGeo start;
-        PointGeo end;
+        PointGeo_ start;
+        PointGeo_ end;
         try {
             activitySegment = (JSONObject) iterator.next().get("activitySegment");
             if (extractActivityType(activitySegment).equals("IN_PASSENGER_VEHICLE")) {
@@ -117,8 +128,7 @@ public class TimelineParser {
                 JSONObject placeVisit = (JSONObject) iterator.next();
             }
         } catch (NullPointerException npe){
-            //System.out.println("FFFFF");
-            // iterator.next();
+            //lets the program continue running
         }
     }
 
@@ -148,6 +158,6 @@ public class TimelineParser {
             }
         }
 
+
     }
 }
-

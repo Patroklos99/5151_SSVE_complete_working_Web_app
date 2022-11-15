@@ -1,4 +1,4 @@
-package org.example;
+package googleTimeline;
 
 /**
  * Objet contenant les données d'un point géographique.
@@ -13,7 +13,7 @@ package org.example;
  *
  * @version 2022-10-22
  */
-public class PointGeo {
+public class PointGeo_ {
 
     private final double lat;
     private final double lgt;
@@ -23,7 +23,7 @@ public class PointGeo {
      * @param lat Latitude du point géographique
      * @param lgt Longitude du point géographique
      */
-    public PointGeo(double lat, double lgt) {
+    public PointGeo_(double lat, double lgt) {
         this.lat = lat;
         this.lgt = lgt;
     }

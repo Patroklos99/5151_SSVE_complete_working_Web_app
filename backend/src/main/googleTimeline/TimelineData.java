@@ -1,14 +1,17 @@
-package org.example;
+package googleTimeline;
+//import java.ca.uqam.info.ssve.model.PointGeo;
+
+//import java.ca.uqam.info.ssve.model.PointGeo;
 
 /**
  * This class stores relevant data from a trip(Deplacement) received by
  * a Google org.Timeline file submitted in the front end.
  *
- *  To be used with org.TimelineParser.java
+ *  To be used with org.googleTimeline.TimelineParser.java
  */
 public class TimelineData {
-    private final PointGeo start;
-    private final PointGeo end;
+    private final PointGeo_ start;
+    private final PointGeo_ end;
     private final String placeID;
 
     private int frequency;
@@ -19,7 +22,7 @@ public class TimelineData {
      * @param _start location of the start of the trip
      * @param _end location of the destination of the trip
      */
-    public TimelineData(String _placeID, PointGeo _start, PointGeo _end) {
+    public TimelineData(String _placeID, PointGeo_ _start, PointGeo_ _end) {
         this.placeID = _placeID;
         this.start = _start;
         this.end = _end;
@@ -39,11 +42,11 @@ public class TimelineData {
         return placeID;
     }
 
-    public PointGeo getStart(){
+    public PointGeo_ getStart(){
         return start;
     }
 
-    public PointGeo getEnd(){
+    public PointGeo_ getEnd(){
         return end;
     }
 
