@@ -34,11 +34,12 @@ unit-test-job:
     
 postman_tests:
     stage: test
+    image:
+        name: postman/newman:alpine
+        entrypoint: [""]
     script:
-      - apk add curl
-      - curl -X POST -d '{"modelName":"test"}' -H 'Content-Type:application/json' 132.208.138.126:8080/api/vehicule 
-      - curl -X GET 132.208.138.126:3000 # les requêtes doivent être faites de l'extérieur car le runner est un container en parallèle
-
+      - newman --version
+      - newman run postman/SSVE.postman_collection.json -e postman/serveurADVE.postman_environment.json
         
 deploy-job:
   stage: deploy
