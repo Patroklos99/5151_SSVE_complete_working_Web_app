@@ -18,6 +18,17 @@ public class SsveApplication {
         SpringApplication.run(SsveApplication.class, args);
     }
 
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**").allowedOrigins("http://localhost:3000");
+            }
+        };
+    }
+
 	@Bean
 	CommandLineRunner commandLineRunner(VehicleRepository repository) {
 		return args -> {
