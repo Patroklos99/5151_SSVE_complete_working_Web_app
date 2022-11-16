@@ -1,11 +1,15 @@
-export default interface CarData {
-
-    /**
-     * This is the data type we use to interface with our API.
-     * Be especially carefull when playing with this as it might break other parts 
-     * of the code if changes aren't implemented mindfully.
-     */
-
-    id?: number | null, // The id of the Car
-    modelName: string | null, // The model of the car
+export default interface ICar {
+    id: number;
+    brand: string;
+    modelName: string;
+    imgLink: string;
+    price: number;
+    nbDoors: number;
+    type: string;
+    safetyScore: number;
+    batteryCapacity: number;
+    range: number;
+    refLink: string;
+    description: string;
+    score: number;
 }
