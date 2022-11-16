@@ -17,23 +17,23 @@ public class TripDummy implements Serializable {
     private Long id;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("start_point")
-    private String start_point;
-    @JsonProperty("end_point")
-    private String end_point;
+    @JsonProperty("startPoint")
+    private String startPoint;
+    @JsonProperty("endPoint")
+    private String endPoint;
     @JsonProperty("freq")
     private String freq;
 
     @ManyToOne
-    @JoinColumn(name="id_trip")
+    @JoinColumn(name="idTrip")
     private TripNeedsDummy tripneedsdummy;
 
     public TripDummy() {
     }
 
-    public TripDummy(String name, String start_point, String end_point, String freq) {
-        this.start_point = start_point;
-        this.end_point = end_point;
+    public TripDummy(String name, String startPoint, String endPoint, String freq) {
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
         this.freq = freq;
     }
 
@@ -46,11 +46,11 @@ public class TripDummy implements Serializable {
     }
 
     public String getStartPoint() {
-        return start_point;
+        return startPoint;
     }
 
     public String getEndPoint() {
-        return end_point;
+        return endPoint;
     }
 
     public String getFreq() {
@@ -60,8 +60,8 @@ public class TripDummy implements Serializable {
     public String toString(){
     return "\n\tid: " + id +
         "\n\tname: " + name +
-        "\n\tstart: " + start_point +
-        "\n\tend: " + end_point +
+        "\n\tstart: " + startPoint +
+        "\n\tend: " + endPoint +
         "\n\tfreq: " + freq;
  }  
 }

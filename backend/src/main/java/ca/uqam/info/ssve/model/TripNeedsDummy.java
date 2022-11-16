@@ -18,8 +18,8 @@ public class TripNeedsDummy implements Serializable{
 
     @JsonProperty("autonomy")
     private int autonomy;
-    @JsonProperty("charge_time")
-    private int charge_time;
+    @JsonProperty("chargeTime")
+    private int chargeTime;
     @OneToMany(mappedBy="tripneedsdummy",cascade = CascadeType.ALL)
     @OrderColumn
     @JsonProperty("trips")
@@ -30,9 +30,9 @@ public class TripNeedsDummy implements Serializable{
     public TripNeedsDummy() {
     }
 
-    public TripNeedsDummy(int autonomy, int charge_time, TripDummy[] trips) {
+    public TripNeedsDummy(int autonomy, int chargeTime, TripDummy[] trips) {
         this.autonomy = autonomy;
-        this.charge_time = charge_time;
+        this.chargeTime = chargeTime;
         this.trips = trips;
     }
 
@@ -44,8 +44,8 @@ public class TripNeedsDummy implements Serializable{
         return autonomy;
     }
 
-    public int getCharge_time() {
-        return charge_time;
+    public int getChargeTime() {
+        return chargeTime;
     }
 
     public TripDummy[] getTrips() {
@@ -62,7 +62,7 @@ public class TripNeedsDummy implements Serializable{
 
         return "id: " + id +
             "\nautonomy: " + autonomy +
-            "\ncharge_time: " + charge_time +
+            "\nchargeTime: " + chargeTime +
             "\ntrips: {" + tripsString + "\n}" ;
 
      }

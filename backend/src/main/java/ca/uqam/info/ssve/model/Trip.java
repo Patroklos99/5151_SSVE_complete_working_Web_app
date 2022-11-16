@@ -38,17 +38,17 @@ public class Trip implements Serializable {
 
     @OneToOne(mappedBy="trip",cascade = CascadeType.ALL)
     @OrderColumn
-    @JsonProperty("start_point")
-    private final GeoPoint start_point;
+    @JsonProperty("startPoint")
+    private final GeoPoint startPoint;
     @OneToOne(mappedBy="trip",cascade = CascadeType.ALL)
     @OrderColumn
-    @JsonProperty("end_point")
-    private final GeoPoint end_point;
+    @JsonProperty("endPoint")
+    private final GeoPoint endPoint;
     @JsonProperty("freq")
     private final int freq; // NOMBRE DE FOIS PAR ANNÉE QUE LE DÉPLACEMENT EST FAIT
 
     @ManyToOne
-    @JoinColumn(name="id_trip")
+    @JoinColumn(name="idTrip")
     private TripNeeds tripneeds;
 
     /**
@@ -61,16 +61,16 @@ public class Trip implements Serializable {
     public Trip () {
         this.id = null;
         this.name = "";
-        this.start_point = null;
-        this.end_point = null;
+        this.startPoint = null;
+        this.endPoint = null;
         this.freq = 0;
     }
 
     public Trip(long id, String name, GeoPoint start, GeoPoint end, int f) {
         this.id = id;
         this.name = name;
-        this.start_point = start;
-        this.end_point = end;
+        this.startPoint = start;
+        this.endPoint = end;
         this.freq = f;
     }
 
@@ -78,8 +78,8 @@ public class Trip implements Serializable {
     public Trip(TripDummy td) {
         this.id = td.getId();
         this.name = td.getName();
-        this.start_point = new GeoPoint(td.getStartPoint());
-        this.end_point = new GeoPoint(td.getEndPoint());
+        this.startPoint = new GeoPoint(td.getStartPoint());
+        this.endPoint = new GeoPoint(td.getEndPoint());
         String[] parts = td.getFreq().split("\\\\");
         int num = Integer.parseInt(parts[0]);
         String s = parts[1];
@@ -109,31 +109,31 @@ public class Trip implements Serializable {
      * Retourne le point de départ du déplacement
      * @return Le point de départ du déplacement
      */
-    public GeoPoint getStart() {
-        return start_point;
+    public GeoPoint getStartPoint() {
+        return startPoint;
     }
 
     /**
      * Retourne le point d'arrivée du déplacement
      * @return Le point d'arrivée du déplacement
      */
-    public GeoPoint getEnd() {
-        return end_point;
+    public GeoPoint getEndPoint() {
+        return endPoint;
     }
 
     /**
      * Retourne la fréquence du déplacement
      * @return La fréquence du déplacement
      */
-    public int getFd() {
+    public int getFreq() {
         return freq;
     }
 
         public String toString(){
     return "\n\tid: " + id +
         "\n\tname: " + name +
-        "\n\tstart: " + start_point.toString() +
-        "\n\tend: " + end_point.toString()+
+        "\n\tstart: " + startPoint.toString() +
+        "\n\tend: " + endPoint.toString()+
         "\n\tfreq: " + freq;
  }  
 }

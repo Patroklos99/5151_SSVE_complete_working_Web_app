@@ -37,8 +37,8 @@ public class TripNeeds implements Serializable {
     @OrderColumn
     @JsonProperty("trips")
     private List<Trip> trips;
-    @JsonProperty("charge_time")
-    private final int charge_time;
+    @JsonProperty("chargeTime")
+    private final int chargeTime;
     @JsonProperty("autonomy")
     private final int autonomy;
 
@@ -50,21 +50,21 @@ public class TripNeeds implements Serializable {
 
     public TripNeeds() {
         this.id = null;
-        this.charge_time = 0;
+        this.chargeTime = 0;
         this.autonomy = 0;
         this.trips = new ArrayList();
     }
 
-    public TripNeeds(Long id, int rechargeTime, int autonomy) {
+    public TripNeeds(Long id, int chargeTime, int autonomy) {
         this.id = id;
-        this.charge_time = rechargeTime;
+        this.chargeTime = chargeTime;
         this.autonomy = autonomy;
         this.trips = new ArrayList();
     }
 
     public TripNeeds(TripNeedsDummy tnd) {
         this.id = tnd.getId();
-        this.charge_time = tnd.getCharge_time();
+        this.chargeTime = tnd.getChargeTime();
         this.autonomy = tnd.getAutonomy();
         this.trips = new ArrayList();
         for(TripDummy td: tnd.getTrips()) {
@@ -94,7 +94,7 @@ public class TripNeeds implements Serializable {
      * @return Le temps de recharge souhaité par l'usager
      */
     public int getChargeTime() {
-        return charge_time;
+        return chargeTime;
     }
 
     /**
@@ -114,7 +114,7 @@ public class TripNeeds implements Serializable {
 
         return "id: " + id +
             "\nautonomy: " + autonomy +
-            "\ncharge_time: " + charge_time +
+            "\nchargeTime: " + chargeTime +
             "\ntrips: {" + tripsString + "\n}" ;
     }
 
