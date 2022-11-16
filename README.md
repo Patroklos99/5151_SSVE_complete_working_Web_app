@@ -26,8 +26,8 @@ Processus d'installation
 Protocole de démarrage du site et options
 ========================================
 
-### Build de l'image docker
-Note importante: le build initiale peut être assez long en fonction de votre connexion internet.
+### Build de l'image Docker
+Note importante: le build initial peut être assez long en fonction de votre connexion internet.
 ```sh
 docker-compose build
 ```
@@ -37,7 +37,7 @@ docker-compose build
 docker-compose up
 ```
 
-Note importante: Si vous tentez de build l'application entiere en utilisant le build en 2 étapes, vous allez rencontrer des erreurs ``CORS`` (cross-origins), pour éviter ce genre d'erreur il est nécessaire de démarrer l'application à partir de docker.
+Note importante: Si vous tentez de build l'application entière en utilisant le build en 2 étapes, vous allez rencontrer des erreurs ``CORS`` (cross-origins), pour éviter ce genre d'erreur il est nécessaire de démarrer l'application à partir de Docker.
 ### Build frontend
 ```sh
 npm install
@@ -60,7 +60,9 @@ npm start
 ./mvnw spring-boot:run
 ```
 
-L'applcation démarre par défaut sur `http://localhost:8080`. Une base de données locale h2 est aussi crée lors du démarrage.
+Noter que le `hot-reloading` n'est pas supporté au niveau du backend et donc il faudra le rebuild et le redéployer après des modifications pour qu'elles soient visibles. 
+
+Le frontend démarre par défaut sur `http://localhost:3000` (en interagissant avec la backend sur le port 8080). Une base de données locale h2 est aussi crée lors du démarrage. Noter que cette BD est en mémoire et non persistante pour le moment.
 
 ### Exécuter les tests de l'api
 

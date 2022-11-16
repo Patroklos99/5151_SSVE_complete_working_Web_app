@@ -1,27 +1,25 @@
-import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import './App.css';
+import About from "./components/about/About";
+import Contact from "./components/contact/Contact";
 
-import logo from "./assets/onlycars_old.png";
-import Trip from "./components/trip/trip"
-import MakeResearch from "./components/makeResearch/makeResearch";
-
+import Dashboard from "./components/dashboard";
+import HomePage from "./components/homepage/HomePage";
+import Header from "./components/shared/Header";
 
 function App() {
   return (
-    <div className="App">
-      <div className="App-header">
-      </div>
-
-      <div className={"App-body"}>
+    <div className="App" data-testid="app">
+      <Header />
+      <div className="App-body">
         <Routes>
-          <Route path="/researchMan" element={<Trip />} />
-          <Route path="/" element={<MakeResearch />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
 
     </div>
-
   );
 }
 
