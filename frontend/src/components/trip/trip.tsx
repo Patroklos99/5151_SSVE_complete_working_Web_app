@@ -12,8 +12,8 @@ const Trip: React.FC = () => {
   const tripState = {
     id: null,
     name: "",
-    start_point: "",
-    end_point: "",
+    startPoint: "",
+    endPoint: "",
     freq: "",
   };
 
@@ -96,8 +96,8 @@ const Trip: React.FC = () => {
       var data = {
         id: null,
         name: vName,
-        start_point: vStart,
-        end_point: vEnd,
+        startPoint: vStart,
+        endPoint: vEnd,
         freq: vFreqNb + "\\" + vFreq,
       };
       setTripList([...TripList, data])
