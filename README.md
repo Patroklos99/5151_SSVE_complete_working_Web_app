@@ -118,5 +118,13 @@ nc 127.0.0.1 5000 < fichierderequêtes.txt
 Voilà, le problème est réglé.
 
 
+## Petit tutoriel
+
+Marc Elson, le responsable des machines virtuelles, dont celle de
+adve.info.uqam.ca m'a aussi partager un lien vers un "crash course" qui peut
+être utile pour les utilisateur de *Windows*, je vous le partage ici pour des
+fins d'exhaustivité.
+
+[Set up a ssh tunnel](https://www.candelatech.com/cookbook.php?vol=misc&book=Instructions_to_set_up_an_SSH_tunnel)
 
 
