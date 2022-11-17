@@ -69,3 +69,51 @@ Le frontend démarre par défaut sur `http://localhost:3000` (en interagissant a
 ```sh
 ./mvnw test
 ```
+# Connexion au service des ports 8008 et 8009
+
+Le port 22 est ouvert, donc il est très simple d'ouvrir un tunnel pour accéder
+au service sur les ports 8008 (quebec) et 8009 (montreal)
+
+## D'abord, demander un username à votre équipe d'intégration
+
+## Ensuite, ouvrez une console et taper:
+
+```bash
+ssh -L 5000:127.0.0.1:8008 username@adve.info.uqam.ca
+```
+
+où bien sûr, "username" est votre username. Entrez votre mot de passe si
+nécessaire et si tout se passe bien, vous avez un "tunel" d'ouvert, de votre
+machine au serveur adve.info.uqam.ca. 
+
+### ssh -L 5000:127.0.0.1
+
+Dit à la commande ssh d'écouter le port 5000 de votre adresse localhost
+
+### :8008 username@adve.info.uqam.ca
+
+Et de transférer le tout sur le port 8008 de la machine adve.info.uqam.ca une
+fois votre connection sécurisé par ssh effectué. 
+
+## Il ne reste ensuite qu'à ouvrir une autre console sur votre machine
+
+Votre console est bel et bien sur votre machine locale et n'est pas connecté ssh
+sur adve.uqam.info.ca
+
+Donc, de votre console locale, vous pouvez maintenant accéder au port 8008 de
+adve.info.uqam.ca en effectuant: 
+
+```bash
+nc 127.0.0.1 5000
+```
+
+D'ici vous pouvez faire vos requêtes via le standard input ou...
+
+```bash
+nc 127.0.0.1 5000 < fichierderequêtes.txt
+```
+
+Voilà, le problème est réglé. 
+
+
+
