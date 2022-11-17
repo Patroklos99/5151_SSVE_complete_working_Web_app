@@ -18,7 +18,7 @@ import TripNeeds from "../types/tripNeeds";
 
 
 
-const getAllTrip = () => {
+const getAllTrip = async () => {
 
     return http.get<Array<TripData>>("/trip");
 
@@ -26,7 +26,7 @@ const getAllTrip = () => {
 
 
 
-const getTrip = (id: any) => {
+const getTrip = async (id: any) => {
 
     console.log("getting with id:", id);
 
@@ -36,13 +36,13 @@ const getTrip = (id: any) => {
 
 
 
-const postTrip = (data: TripData) => {
+const postTrip = async (data: TripData) => {
 
     return http.post<TripData>("/trip", data);
 
 };
 
-const postTripNeeds = (data: TripNeeds) => {
+const postTripNeeds = async (data: TripNeeds) => {
 
     return http.post<TripNeeds>("/tripneeds", data);
 
@@ -51,7 +51,7 @@ const postTripNeeds = (data: TripNeeds) => {
 
 // Note that update, remove and removeAll aren't typed so be carefull !
 
-const updateTrip = (id: any, data: TripData) => {
+const updateTrip = async (id: any, data: TripData) => {
 
     return http.put<any>(`/url/${id}`, data);
 
@@ -59,7 +59,7 @@ const updateTrip = (id: any, data: TripData) => {
 
 
 
-const removeTrip = (id: any) => {
+const removeTrip = async (id: any) => {
 
     return http.delete<any>(`/trip/${id}`);
 
@@ -69,7 +69,7 @@ const removeTrip = (id: any) => {
 
 
 
-const removeAllTrip = () => {
+const removeAllTrip = async () => {
 
     return http.delete<any>(`/trip`);
 
@@ -78,21 +78,13 @@ const removeAllTrip = () => {
 
 
 const TripService = {
-
     getAllTrip,
-
     getTrip,
-
     postTripNeeds,
-
     postTrip,
-
     updateTrip,
-
     removeTrip,
-
     removeAllTrip
-
 };
 
 
