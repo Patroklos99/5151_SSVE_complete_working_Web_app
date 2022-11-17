@@ -83,17 +83,19 @@ ssh -L 5000:127.0.0.1:8008 username@adve.info.uqam.ca
 ```
 
 où bien sûr, "username" est votre username. Entrez votre mot de passe si
-nécessaire et si tout se passe bien, vous avez un "tunel" d'ouvert, de votre
+nécessaire et si tout se passe bien, vous avez un "tunnel" d'ouvert, de votre
 machine au serveur adve.info.uqam.ca. 
 
 ### ssh -L 5000:127.0.0.1
 
-Dit à la commande ssh d'écouter le port 5000 de votre adresse localhost
+Dit à la commande ssh d'écouter le port 5000 de votre adresse localhost.
 
 ### :8008 username@adve.info.uqam.ca
 
 Et de transférer le tout sur le port 8008 de la machine adve.info.uqam.ca une
 fois votre connection sécurisé par ssh effectué. 
+
+Note : si vous rencontrez l'erreur `Cannot assign requested address`, ajoutez l'option `-4` à votre commande afin de forcer le client ssh à utiliser IPV4.
 
 ## Il ne reste ensuite qu'à ouvrir une autre console sur votre machine
 
@@ -113,7 +115,8 @@ D'ici vous pouvez faire vos requêtes via le standard input ou...
 nc 127.0.0.1 5000 < fichierderequêtes.txt
 ```
 
-Voilà, le problème est réglé. 
+Voilà, le problème est réglé.
+
 
 
 
