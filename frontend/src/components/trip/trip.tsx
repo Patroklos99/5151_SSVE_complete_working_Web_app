@@ -5,8 +5,9 @@ import TripData from "../../types/trip";
 import TripService from '../../services/tripServices';
 import TripNeeds from '../../types/tripNeeds';
 import { FormControl, IconButton, NativeSelect, Select, Table, TableCell, TableRow, TextField } from '@mui/material';
+import {Add} from "@mui/icons-material";
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import { v4 as uuidv4 } from 'uuid';
 const Trip: React.FC = () => {
 
   const tripState = {
@@ -26,6 +27,8 @@ const Trip: React.FC = () => {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [TripList, setTripList] = useState<TripData[]>([]);
   const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
+
+
 
   const submitForm = () => {
 
@@ -112,6 +115,11 @@ const Trip: React.FC = () => {
     setTripList(list)
     setTripNeeds({ ...tripNeeds, trips: [...list] });
   }
+
+    const handleAddFields = () => {
+
+    }
+
   return (
     <div>
        <FormControl variant="filled">
@@ -134,6 +142,11 @@ const Trip: React.FC = () => {
         <label id="textsup">Adresse de la destination du trajet</label>
 
         <div id="search-box2"></div>
+           <div><IconButton
+               onClick={handleAddFields}
+           >
+               <Add /> Ajouter une destination
+           </IconButton></div>
         <input id='search2' type={"text"} required hidden />
         <div id="result2" hidden></div>
 
