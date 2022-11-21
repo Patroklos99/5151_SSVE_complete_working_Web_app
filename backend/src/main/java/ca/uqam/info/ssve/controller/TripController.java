@@ -29,10 +29,9 @@ public class TripController {
 
 	@PostMapping("")
 	public @ResponseBody
-	TripNeeds postTrip(@RequestBody TripNeedsDummy tripNeedsDummy) {
-		TripNeeds bd = new TripNeeds(tripNeedsDummy);
-		TripNeeds bd2 = tripService.saveTripNeeds(bd);
-		System.out.println(bd2.toString());
-		return bd2;
+	TripNeeds postTrip(@RequestBody TripNeeds tripNeeds) {
+		TripNeeds bd = tripService.saveTripNeeds(tripNeeds);
+		System.out.println(bd.toString());
+		return bd;
 	}
 }

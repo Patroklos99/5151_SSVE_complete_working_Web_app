@@ -8,25 +8,41 @@ import { FormControl, IconButton, NativeSelect, Select, Table, TableCell, TableR
 import {Add} from "@mui/icons-material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { v4 as uuidv4 } from 'uuid';
+import GeoPoint from '../../types/geoPoint';
+
 const Trip: React.FC = () => {
 
-  const tripState = {
-    id: null,
-    name: "",
-    startPoint: "",
-    endPoint: "",
-    freq: "",
-  };
+  
 
-  const tripNeedsState = {
-    id: null,
-    trips: []
-  };
+    const geoState = {
+      id: null,
+      name: "",
+      lat: 0,
+      lgt: 0,
+    };
+  
+    const tripState = {
+      id: null,
+      name: "",
+      startPoint: null,
+      endPoint: null,
+      freq: 0,
+    };
+  
+    const tripNeedsState = {
+      id: null,
+      trips: []
+    };
+  
+    const [geoPoint, setGeoPoint] = useState<GeoPoint>(geoState);
+    const [trip, setTrip] = useState<TripData>(tripState);
+    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [TripList, setTripList] = useState<TripData[]>([]);
+    const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
+  
+  
 
-  const [trip, setTrip] = useState<TripData>(tripState);
-  const [submitted, setSubmitted] = useState<boolean>(false);
-  const [TripList, setTripList] = useState<TripData[]>([]);
-  const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
+
 
 
 
@@ -96,13 +112,45 @@ const Trip: React.FC = () => {
       vFreqNb != null && vFreqNb != "" &&
       vFreq != null && vFreq != "") {
 
+        var cal: number = 0;
+
+        if (vFreq == "Jour") {
+          cal = +vFreqNb * 365;
+        } else if (vFreq == "Semaine") {
+          cal = +vFreqNb * 52;
+        } else if (vFreq == "Mois") {
+          cal = +vFreqNb * 12;
+        } else if (vFreq == "Année") {
+          cal = +vFreqNb * 1;
+        }
+
+      var splitStart = vStart.split("\\");
+      var splitEnd = vEnd.split("\\");
+
+      var geoPointStart: GeoPoint =  {
+        id : null,
+        name : splitStart[0],
+        lat : +splitStart[1],
+        lgt : +splitStart[2],
+      };
+
+      var geoPointEnd: GeoPoint =  {
+        id : null,
+        name : splitEnd[0],
+        lat : +splitEnd[1],
+        lgt : +splitEnd[2],
+      };
+      
+
       var data = {
         id: null,
         name: vName,
-        startPoint: vStart,
-        endPoint: vEnd,
-        freq: vFreqNb + "\\" + vFreq,
+        startPoint: geoPointStart,
+        endPoint: geoPointEnd,
+        freq: cal,
       };
+      console.log(data);
+
       setTripList([...TripList, data])
       setTripNeeds({ ...tripNeeds, trips: [...tripNeeds.trips, data] });
     }
