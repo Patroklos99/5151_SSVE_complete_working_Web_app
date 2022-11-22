@@ -21,7 +21,7 @@ const HomePage = () => {
           color="warning"
           fontSize="inherit"
         />
-        Désolé cette page est en cours de construction
+        Désolé cette page est en cours de constructions
         <CustomIcon
           sx={{
             marginLeft: "18px",
