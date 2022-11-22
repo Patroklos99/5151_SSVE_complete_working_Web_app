@@ -1,4 +1,5 @@
-import { Avatar, Container, Grid, Icon, ListItem, ListItemAvatar, ListItemText, Paper, Tooltip } from "@mui/material"
+import { Avatar, Container, Icon, ListItem, ListItemAvatar, ListItemText, Paper, Tooltip } from "@mui/material"
+import Grid from '@mui/material/Unstable_Grid2';
 import ICar from "../../../types/Car"
 import './style.css'
 import BatteryChargingFullOutlinedIcon from '@mui/icons-material/BatteryChargingFullOutlined';
@@ -27,9 +28,10 @@ const ResultDetails = (props: ResultDetailsProps) => {
                 <h3 className='prix'>{props.car.price}$</h3>
                 <CircularProgressbar className="circular-progress-score" value={props.car.score} maxValue={10} text={`${score}`} />
             </div>
+            <span>
             <div className="desc">
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid item xs={6}>
+                    <Grid xs={6}>
                         <Tooltip title="Number of doors" arrow>
                             <div className="desc-item">
                                 {carDoorIcon && <img className="car-door-icon" src={carDoorIcon} alt="" />}
@@ -37,7 +39,7 @@ const ResultDetails = (props: ResultDetailsProps) => {
                             </div>
                         </Tooltip>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid xs={6}>
                         <Tooltip title="Battery capacity" arrow>
                             <div className="desc-item">
                                 <BatteryChargingFullOutlinedIcon />
@@ -45,7 +47,7 @@ const ResultDetails = (props: ResultDetailsProps) => {
                             </div>
                         </Tooltip>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid xs={6}>
                         <Tooltip title="Range with full battery" arrow>
                             <div className="desc-item">
                                 {distanceIcon && <img className="distance-icon" src={distanceIcon} alt="" />}
@@ -53,7 +55,7 @@ const ResultDetails = (props: ResultDetailsProps) => {
                             </div>
                         </Tooltip>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid xs={6}>
                         <Tooltip title="NHTSA Safety Score" arrow>
                             <div className="desc-item">
                                 <HealthAndSafetyIcon />
@@ -64,6 +66,8 @@ const ResultDetails = (props: ResultDetailsProps) => {
                 </Grid>
 
             </div>
+            </span>
+
 
         </Container>
 

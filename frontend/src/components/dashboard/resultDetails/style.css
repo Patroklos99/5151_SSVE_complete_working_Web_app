@@ -1,6 +1,7 @@
 .result-details-container .main-img img{
     width: 100%;
     max-height: 38vh;
+    object-fit: cover;
 }
 
 .result-details-container .title{
@@ -27,12 +28,13 @@
 .result-details-container 
     .car-door-icon, 
     .distance-icon{
-    height: 24px;
-    width: 24px;
+    height: 20px;
     opacity: 40%;
+    margin-right: 10px;
 }
 .result-details-container .desc svg{
     opacity: 30%;
+    vertical-align: bottom;
 }
 
 .result-details-container .desc-item{
