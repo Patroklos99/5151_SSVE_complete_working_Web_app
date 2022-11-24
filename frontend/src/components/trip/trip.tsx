@@ -11,40 +11,15 @@ import { v4 as uuidv4 } from 'uuid';
 import GeoPoint from '../../types/geoPoint';
 
 const Trip: React.FC = () => {
-
-  
-
-    const geoState = {
-      id: null,
-      name: "",
-      lat: 0,
-      lgt: 0,
-    };
-  
-    const tripState = {
-      id: null,
-      name: "",
-      startPoint: null,
-      endPoint: null,
-      freq: 0,
-    };
   
     const tripNeedsState = {
       id: null,
       trips: []
     };
   
-    const [geoPoint, setGeoPoint] = useState<GeoPoint>(geoState);
-    const [trip, setTrip] = useState<TripData>(tripState);
     const [submitted, setSubmitted] = useState<boolean>(false);
     const [TripList, setTripList] = useState<TripData[]>([]);
     const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
-  
-  
-
-
-
-
 
   const submitForm = () => {
 
@@ -106,21 +81,21 @@ const Trip: React.FC = () => {
     const vFreqNb = freqNb?.value;
     const vFreq = freq?.value;
 
-    if (vName != null && vName != "" &&
-      vStart != null && vStart != "" &&
-      vEnd != null && vEnd != "" &&
-      vFreqNb != null && vFreqNb != "" &&
-      vFreq != null && vFreq != "") {
+    if (vName !== null && vName !== "" &&
+      vStart !== null && vStart !== "" &&
+      vEnd !== null && vEnd !== "" &&
+      vFreqNb !== null && vFreqNb !== "" &&
+      vFreq !== null && vFreq !== "") {
 
         var cal: number = 0;
 
-        if (vFreq == "Jour") {
+        if (vFreq === "Jour") {
           cal = +vFreqNb * 365;
-        } else if (vFreq == "Semaine") {
+        } else if (vFreq === "Semaine") {
           cal = +vFreqNb * 52;
-        } else if (vFreq == "Mois") {
+        } else if (vFreq === "Mois") {
           cal = +vFreqNb * 12;
-        } else if (vFreq == "Année") {
+        } else if (vFreq === "Année") {
           cal = +vFreqNb * 1;
         }
 
@@ -165,7 +140,6 @@ const Trip: React.FC = () => {
   }
 
     const handleAddFields = () => {
-
     }
 
   return (

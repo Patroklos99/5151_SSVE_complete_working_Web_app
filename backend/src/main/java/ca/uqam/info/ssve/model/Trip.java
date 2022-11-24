@@ -2,18 +2,11 @@ package ca.uqam.info.ssve.model;
 
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Entity;
 import javax.persistence.*;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Objet contenant les données de déplacement de l'usager.
+ * Objet contenant les données d'un déplacement de l'usager.
  *
  * @author David Daoud
  * Code permanent: DAOD80070006
@@ -23,84 +16,79 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Code permanent: CHAC29089704
  * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
  *
- * @version 2022-10-22
+ * @version 2022-11-23
  */
  @Entity
 public class Trip implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @JsonProperty("id")
+    @Column(name = "id_trip")
+    @JsonProperty("id_trip")
     private final Long id;
 
+    @Column(name = "name")
     @JsonProperty("name")
     private final String name;
 
-    @OneToOne(mappedBy="trip",cascade = CascadeType.ALL)
-    @OrderColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="geoPointStart_id", referencedColumnName="id_geopoint")
     @JsonProperty("startPoint")
     private final GeoPoint startPoint;
-    @OneToOne(mappedBy="trip",cascade = CascadeType.ALL)
-    @OrderColumn
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="geoPointEnd_id", referencedColumnName="id_geopoint")
     @JsonProperty("endPoint")
     private final GeoPoint endPoint;
-    @JsonProperty("freq")
-    private final int freq; // NOMBRE DE FOIS PAR ANNÉE QUE LE DÉPLACEMENT EST FAIT
 
-    @ManyToOne
-    @JoinColumn(name="idTrip")
+    @Column(name = "annualFreq")
+    @JsonProperty("freq")
+    private final int annualFreq;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_trip_needs")
     private TripNeeds tripneeds;
 
-    /**
-     * Constructeur
-     * @param start Point de départ du déplacement
-     * @param end Point d'arrivée du déplacement
-     * @param fd La frequence du déplacement
-     */
 
+    /**
+     * Constructeur par défaut
+     */
     public Trip () {
         this.id = null;
         this.name = "";
         this.startPoint = null;
         this.endPoint = null;
-        this.freq = 0;
+        this.annualFreq = 0;
     }
 
-    public Trip(long id, String name, GeoPoint start, GeoPoint end, int f) {
+    /**
+     * Constructeur
+     * @param id Id de l'objet
+     * @param name Nom du déplacement
+     * @param start Point de départ du déplacement
+     * @param end Point d'arrivée du déplacement
+     * @param freq La frequence du déplacement
+     */
+    public Trip(long id, String name, GeoPoint start, GeoPoint end, int freq) {
         this.id = id;
         this.name = name;
         this.startPoint = start;
         this.endPoint = end;
-        this.freq = f;
+        this.annualFreq = freq;
     }
 
-
-    public Trip(TripDummy td) {
-        this.id = td.getId();
-        this.name = td.getName();
-        this.startPoint = new GeoPoint(td.getStartPoint());
-        this.endPoint = new GeoPoint(td.getEndPoint());
-        String[] parts = td.getFreq().split("\\\\");
-        int num = Integer.parseInt(parts[0]);
-        String s = parts[1];
-        int mult = 0;
-        switch(s) {
-            case "Jour" :
-                mult = 365;
-            break;
-            case "Semaine" :
-                mult = 52;
-            break;
-            case "Mois" :
-                mult = 12;
-            break;
-            case "Année" :
-                mult = 1;
-            break;
-        }
-        this.freq = num * mult;
+    /**
+     * Retourne le id de l'objet
+     * @return Le id de l'objet
+     */
+    public Long getId() {
+        return id;
     }
 
+    /**
+     * Retourne le nom de déplacement
+     * @return Le nom de déplacement
+     */
     public String getName() {
         return name;
     }
@@ -126,14 +114,17 @@ public class Trip implements Serializable {
      * @return La fréquence du déplacement
      */
     public int getFreq() {
-        return freq;
+        return annualFreq;
     }
 
+    /**
+     * Permet l'affichage d'un objet Trip
+     */
         public String toString(){
     return "\n\tid: " + id +
         "\n\tname: " + name +
         "\n\tstart: " + startPoint.toString() +
         "\n\tend: " + endPoint.toString()+
-        "\n\tfreq: " + freq;
+        "\n\tfreq: " + annualFreq;
  }  
 }

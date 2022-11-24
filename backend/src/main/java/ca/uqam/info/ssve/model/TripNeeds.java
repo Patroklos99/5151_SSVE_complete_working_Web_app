@@ -4,13 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.Entity;
 import javax.persistence.*;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 /**
  * Objet contenant les données des besoins de déplacement de l'usager.
@@ -23,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Code permanent: CHAC29089704
  * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
  *
- * @version 2022-10-22
+ * @version 2022-11-23
  */
 
 @Entity
@@ -31,21 +26,25 @@ public class TripNeeds implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @JsonProperty("id")
+    @Column(name = "id_trip_needs")
+    @JsonProperty("id_trip_needs")
     private final Long id;
-    @OneToMany(mappedBy="tripneeds",cascade = CascadeType.ALL)
-    @OrderColumn
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_trip_needs")
     @JsonProperty("trips")
     private List<Trip> trips;
+
+    @Column(name = "chargeTime")
     @JsonProperty("chargeTime")
     private final int chargeTime;
+
+    @Column(name = "autonomy")
     @JsonProperty("autonomy")
     private final int autonomy;
 
     /**
-     * Constructeur
-     * @param rechargeTime Temps de rechargement souhaité par l'usager
-     * @param autonomy Autonomie du véhicule souhaité par l'usager
+     * Constructeur par défaut
      */
 
     public TripNeeds() {
@@ -55,22 +54,17 @@ public class TripNeeds implements Serializable {
         this.trips = new ArrayList();
     }
 
+    /**
+     * Constructeur
+     * @param id Id de l'objet
+     * @param chargeTime Temps de rechargement souhaité par l'usager
+     * @param autonomy Autonomie du véhicule souhaité par l'usager
+     */
     public TripNeeds(Long id, int chargeTime, int autonomy) {
         this.id = id;
         this.chargeTime = chargeTime;
         this.autonomy = autonomy;
         this.trips = new ArrayList();
-    }
-
-    public TripNeeds(TripNeedsDummy tnd) {
-        this.id = tnd.getId();
-        this.chargeTime = tnd.getChargeTime();
-        this.autonomy = tnd.getAutonomy();
-        this.trips = new ArrayList();
-        for(TripDummy td: tnd.getTrips()) {
-            Trip d = new Trip(td);
-            trips.add(d);
-        }
     }
 
     /**
@@ -79,6 +73,14 @@ public class TripNeeds implements Serializable {
      */
     public void addTravel(Trip d) {
         trips.add(d);
+    }
+
+    /**
+     * Retourne le id de l'objet
+     * @return Le id de l'objet
+     */
+    public Long getId() {
+        return id;
     }
 
     /**
@@ -105,6 +107,10 @@ public class TripNeeds implements Serializable {
         return autonomy;
     }
 
+
+    /**
+     * Permet l'affichage d'un objet TripNeeds
+     */
     public String toString() {
         String tripsString = "";
 

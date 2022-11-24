@@ -1,8 +1,4 @@
 package ca.uqam.info.ssve.model;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,45 +13,74 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Code permanent: CHAC29089704
  * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
  *
- * @version 2022-10-22
+ * @version 2022-11-23
  */
  @Entity
 public class GeoPoint {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @JsonProperty("id")
+    @Column(name = "id_geopoint")
+    @JsonProperty("id_geopoint")
     private Long id;
+
+    @Column(name = "name")
     @JsonProperty("name")
     private final String name;
+
+    @Column(name = "lat")
     @JsonProperty("lat")
     private final double lat;
+
+    @Column(name = "lgt")
     @JsonProperty("lgt")
     private final double lgt;
 
-    @ManyToOne
+    @OneToOne(mappedBy="startPoint")
     @JoinColumn(name="id_trip")
     private Trip trip;
 
+    @OneToOne(mappedBy="endPoint")
+    @JoinColumn(name="id_trip")
+    private Trip trip2;
+
+    /**
+     * Constructeur par défaut
+     */
+
+    public GeoPoint() {
+        this.id = null;
+        this.name = "";
+        this.lat = 0;
+        this.lgt = 0;
+    }
+
     /**
      * Constructeur
+     * @param id Id de l'objet
+     * @param name Nom de l'endroit
      * @param lat Latitude du point géographique
      * @param lgt Longitude du point géographique
      */
-
-    public GeoPoint(String name, double lat, double lgt) {
+    public GeoPoint(Long id, String name, double lat, double lgt) {
+        this.id = id;
         this.name = name;
         this.lat = lat;
         this.lgt = lgt;
     }
 
-    public GeoPoint(String s) {
-        String[] parts = s.split("\\\\");
-        this.name = parts[0];
-        this.lat = Double.parseDouble(parts[1]);
-        this.lgt = Double.parseDouble(parts[2]);
+    /**
+     * Retourne le id de l'objet
+     * @return Le id de l'objet
+     */
+    public Long getId() {
+        return id;
     }
 
+    /**
+     * Retourne le nom du point géographique
+     * @return Le nom du point géographique
+     */
     public String getName() {
         return name;
     }
@@ -76,7 +101,10 @@ public class GeoPoint {
         return lgt;
     }
 
-            public String toString(){
-    return name + ", " + lat + ", " + lgt;
- }  
+    /**
+     * Permet l'affichage d'un objet GeoPoint
+     */   
+    public String toString() {
+        return name + ", " + lat + ", " + lgt;
+    }  
 }

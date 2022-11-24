@@ -5,7 +5,6 @@
  */
 package ca.uqam.info.ssve.controller;
 
-import ca.uqam.info.ssve.model.TripNeedsDummy;
 import ca.uqam.info.ssve.model.TripNeeds;
 import ca.uqam.info.ssve.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
