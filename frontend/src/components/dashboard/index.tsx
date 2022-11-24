@@ -1,6 +1,7 @@
 import React from "react";
 import {  Container, Grid} from '@mui/material';
 import ResultsList from './resultsList';
+import FilterPanel from "./filterPanel";
 
 const Dashboard = () => {
     
@@ -10,7 +11,10 @@ const Dashboard = () => {
             <Grid container spacing={2}>
                 <Grid item xs={4}>
                     {/*To do: input pannel*/}
-                </Grid>
+                    <h1>Formulaire de deplacement</h1>
+                    
+                    <FilterPanel/>
+                </Grid>     
                 <Grid item xs={8}>
                     <ResultsList/>
                 </Grid>

@@ -5,19 +5,33 @@ import { ToggleButton } from '@mui/material';
 
 
 
-const FilterToggle = () => {
+export default function FilterToggle() {
+    const [carType, setCarType] = React.useState(() => ['Berline','VUS']);
   
-    return (
-        <ToggleButtonGroup>
-            
-                
-          
-
-        </ToggleButtonGroup>
-
-    
-
-    );
-};
-
-export default FilterToggle;
+  
+    const handleChange = (
+      event: React.MouseEvent<HTMLElement>,
+      newCarType: string[],
+    ) => {
+      setCarType(newCarType);
+  };
+  
+  return (
+    <ToggleButtonGroup
+      color="primary"
+      value={carType}
+      onChange={handleChange}
+      aria-label="car type"
+      >
+        <ToggleButton value="Berline">Berline</ToggleButton>
+        <ToggleButton value="VUS">VUS</ToggleButton>
+        
+      </ToggleButtonGroup>
+  
+  
+  
+  
+  
+  );
+  
+  }
