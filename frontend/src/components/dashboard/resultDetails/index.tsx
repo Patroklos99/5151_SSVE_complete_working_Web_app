@@ -21,7 +21,7 @@ const ResultDetails = (props: ResultDetailsProps) => {
     return (
         <Container className="result-details-container">
             <div className="main-img">
-                <img src={require(`../../../assets/images/${props.car.imgLink}`)} alt="" />
+                <img src={/*require(`../../../assets/images/${props.car.imgLink}`)*/""} alt="" />
             </div>
             <div className="title">
                 <h2 className='modele'>{props.car.brand +" "+ props.car.modelName}</h2>

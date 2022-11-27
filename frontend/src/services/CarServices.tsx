@@ -7,7 +7,7 @@
 const url = "http://localhost:8080/api"
 const getAllCars = async () => {
   try{
-    const res = await fetch(`${url}/vehicle/evaluate`,
+    const res = await fetch(`${url}/vehicle`,
     {
       method: 'GET',
     });
