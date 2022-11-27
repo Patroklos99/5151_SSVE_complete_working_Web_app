@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Evaluation extends Vehicle {
     private double score;
+    private int trajetTotal;
+    private int nbTrajetSansRecharge;
 
     public Evaluation() {
         Random r = new Random();
@@ -36,6 +38,22 @@ public class Evaluation extends Vehicle {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public int getTrajetTotal() {
+        return trajetTotal;
+    }
+
+    public void setTrajetTotal(int trajetTotal) {
+        this.trajetTotal = trajetTotal;
+    }
+
+    public double getNbTrajetSansRecharge() {
+        return nbTrajetSansRecharge;
+    }
+
+    public void setNbTrajetSansRecharge(int nbTrajetSansRecharge) {
+        this.nbTrajetSansRecharge = nbTrajetSansRecharge;
     }
 
 }
