@@ -115,7 +115,7 @@ public class VehicleService {
     }
 
     private boolean validateLoadCapacity(int loadCapacity) {
-        return loadCapacity > 0 && loadCapacity < 10000;
+        return loadCapacity > 0 && loadCapacity < 500;
     }
 
     private boolean validateType(String type) {
