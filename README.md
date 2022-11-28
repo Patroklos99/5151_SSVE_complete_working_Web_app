@@ -66,7 +66,7 @@ Le frontend démarre par défaut sur `http://localhost:3000` (en interagissant a
 
 #### Swagger
 
-Lorsque l'API roule, un endpoint est disponible pour interagir avec l'API. `http://localhost:8080/swagger-ui/index.html`
+Lorsque l'API roule, un endpoint est disponible pour interagir avec celui-ci. `http://localhost:8080/swagger-ui/index.html`
 
 ### Exécuter les tests de l'api
 

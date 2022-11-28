@@ -343,7 +343,8 @@ public class VehicleService {
             double score = 0;
             for (Route route : routeList) {
                 // --------Obtien les infos du déplacement avec la boite noir
-                String data = adveConnection.doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() * 1000);
+                String data = adveConnection
+                        .doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() * 1000);
                 System.out.println("Call Vehicle[" + (i + 1) + "] -> data: " + data);
                 // --------Donne une note au déplacement pour la voiture i
                 if (data.contains("Impossible")) {
