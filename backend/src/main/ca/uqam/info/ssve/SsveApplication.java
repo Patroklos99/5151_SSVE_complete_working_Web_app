@@ -59,7 +59,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.audi.ca/ca/web/en/models/etron/e-tron-quattro.html",
-					"src/main/resources/images/audiETron.png"));
+					"src/main/resources/images/audiETron.png",
+					"L'Audi e-tron offre amplement d'espace intérieur pour les déplacements quotidiens, une excellente autonomie ainsi que la performance de la traction intégrale quattro."));
 
 			repository.save(new Vehicle(
 					"BMW",
@@ -77,7 +78,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.bmw.ca/en/all-models/bmw-i/i4/2021/bmw-i4-highlights.html",
-					"src/main/resources/images/bmwI4.png"));
+					"src/main/resources/images/bmwI4.png",
+					"Les modèles BMW i sont l'avenir de la mobilité. Créé en 2010, BMW i travaille sur des véhicules à propulsion tout électrique et partiellement électrique, mais aussi sur une nouvelle compréhension de la relation entre l'automobile et la durabilité."));
 
 			repository.save(new Vehicle(
 					"Citroen",
@@ -95,7 +97,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.citroen.co.uk/models/c4-e-c4.html",
-					"src/main/resources/images/chevreletBoltEV.png"));
+					"src/main/resources/images/chevreletBoltEV.png",
+					"Citroën ë-C4 Électrique affiche les mêmes caractéristiques que la version thermique. Son design, son confort et sa praticité à bord sont absolument identiques. En ville, Citroën ë-C4 Électrique permet l'accès aux zones à circulation restreinte."));
 
 			repository.save(new Vehicle(
 					"Chevrolet",
@@ -113,7 +116,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.chevrolet.com/electric/bolt-ev",
-					"src/main/resources/images/citroenEC4.png"));
+					"src/main/resources/images/citroenEC4.png",
+					"Une nouvelle ère de véhicules entièrement électriques abordables est arrivée et la voiture électrique Bolt EV de Chevrolet mène la charge. Elle offre un rendement exceptionnel, une technologie de pointe et un style exaltant."));
 
 			repository.save(new Vehicle(
 					"Ford Mustang",
@@ -131,7 +135,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.ford.ca/suvs/mach-e/?gnav=header-electrified-vhp",
-					"src/main/resources/images/fordMustangMachE.png"));
+					"src/main/resources/images/fordMustangMachE.png",
+					"Inspirée par la passion qu'évoque son héritage légendaire, la Mustang Mach-E est le nouveau symbole de la liberté. Préparez-vous à vibrer au rythme de l'accélération fulgurante de ce pot d'échappement zéro émission."));
 
 			repository.save(new Vehicle(
 					"Hyundai",
@@ -149,7 +154,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.hyundaicanada.com/en/showroom/2022/ioniq-5",
-					"src/main/resources/images/hyundaiIoniq5.png"));
+					"src/main/resources/images/hyundaiIoniq5.png",
+					"L'IONIQ 5 superbement pensée et dessinée établit une nouvelle norme pour notre gamme de véhicules électriques. Chaque détail a été conçu à partir des dernières avancées en matière de technologie et de design."));
 
 			repository.save(new Vehicle(
 					"Hyundai",
@@ -167,7 +173,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.hyundaicanada.com/en/showroom/2022/kona-n",
-					"src/main/resources/images/hyundaiKonaElectric.png"));
+					"src/main/resources/images/hyundaiKonaElectric.png",
+					"Avec son design dynamique, une autonomie de batterie étonnante et une foule d'innovations technologiques, le nouveau KONA électrique comble toutes les attentes de ceux qui souhaitent profiter des avantages impressionnants de ce véhicule."));
 
 			repository.save(new Vehicle(
 					"Jaguar",
@@ -185,7 +192,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.jaguar.ca/en/all-models/i-pace/index.html",
-					"src/main/resources/images/jaguarIpace.png"));
+					"src/main/resources/images/jaguarIpace.png",
+					"Élégant et aérodynamique. Le résultat spectaculaire de l'ADN de Jaguar, de la technologie de course FIA de Formule E et du design britannique contemporain."));
 
 			repository.save(new Vehicle(
 					"Kia",
@@ -203,7 +211,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.kia.ca/en/vehicles/2022/niro-ev",
-					"src/main/resources/images/kiaENiro.png"));
+					"src/main/resources/images/kiaENiro.png",
+					"La conduite électrique en toute liberté. Offrant une autonomie maximale de 385 km, le Niro EV est tout aussi confortable et capable qu'un multisegment ordinaire, tandis que la conduite entièrement électrique vous mène à destination en toute liberté."));
 
 			repository.save(new Vehicle(
 					"Kia",
@@ -221,10 +230,11 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.kia.ca/en/vehicles/2023/soul-ev",
-					"src/main/resources/images/kiaESoul.png"));
+					"src/main/resources/images/kiaESoul.png",
+					"Dessinée pour faire tourner les têtes. Conçue pour transformer les esprits. La Soul EV est faite pour tous ceux qui veulent avoir du plaisir en conduisant et partir à l'aventure de la façon la plus évoluée qui soit."));
 
 			repository.save(new Vehicle(
-					"Mitsubishi",
+					"Nissan",
 					"Leaf",
 					5,
 					"Hatchback",
@@ -239,7 +249,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.nissan.ca/vehicles/electric-cars/leaf.html",
-					"src/main/resources/images/nissanLeaf.png"));
+					"src/main/resources/images/nissanLeaf.png",
+					"La technologie de pointe est au cœur même de la Nissan LEAF 2023, y compris une série complète de caractéristiques Nissan Intelligent Mobility(MC) conçues pour améliorer votre conduite."));
 
 			repository.save(new Vehicle(
 					"Mitsubishi",
@@ -257,7 +268,8 @@ public class SsveApplication {
 					300,
 					3,
 					"https://www.mitsubishicars.com/i-miev-electric-car",
-					"src/main/resources/images/mitsubishiIMiev.png"));
+					"src/main/resources/images/mitsubishiIMiev.png",
+					"Nous avons affiné chaque aspect de notre véhicule rechargeable le plus vendu pour créer quelque chose de vraiment remarquable. Le tout nouveau i-MIEV 2023 offre plus de puissance, une meilleure efficacité et une plus grande autonomie."));
 
 			repository.save(new Vehicle(
 					"Peugeot",
@@ -275,7 +287,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://ev-database.org/car/1095/Peugeot-iOn",
-					"src/main/resources/images/peugeotIOn.png"));
+					"src/main/resources/images/peugeotIOn.png",
+					"La gamme électrique PEUGEOT conjugue à la fois un design innovant, des performances écologiques remarquables et des technologies de pointe."));
 
 			repository.save(new Vehicle(
 					"Peugeot",
@@ -293,7 +306,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.rac.co.uk/drive/car-reviews/peugeot/partner/partner-tepee-2015-2018/",
-					"src/main/resources/images/peugeotPartnerTepeeElectric.png"));
+					"src/main/resources/images/peugeotPartnerTepeeElectric.png",
+					"La gamme électrique PEUGEOT conjugue à la fois un design innovant, des performances écologiques remarquables et des technologies de pointe."));
 
 			repository.save(new Vehicle(
 					"Renault",
@@ -311,7 +325,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.renault.co.uk/electric-vehicles/zoe.html",
-					"src/main/resources/images/renaultZoe.png"));
+					"src/main/resources/images/renaultZoe.png",
+					"Retrouvez tout ce qui fait le succès de Zoe E-Tech 100% electric, caractère affirmé, lignes fluides, signature lumineuse à LED en forme de C."));
 
 			repository.save(new Vehicle(
 					"Smart",
@@ -329,7 +344,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.caranddriver.com/smart/eq-fortwo",
-					"src/main/resources/images/smartForTwo.png"));
+					"src/main/resources/images/smartForTwo.png",
+					"Chez smart, votre sécurité est notre priorité numéro un. À tout moment, vous pouvez vérifier si votre véhicule fait l'objet de rappels et savoir quelles sont les mesures à prendre pour résoudre le problème."));
 
 			repository.save(new Vehicle(
 					"Smart",
@@ -347,7 +363,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.smart.mercedes-benz.com/gb/en/models/eq-forfour#intro-smart-eq-forfour",
-					"src/main/resources/images/smartForFour.png"));
+					"src/main/resources/images/smartForFour.png",
+					"Chez smart, votre sécurité est notre priorité numéro un. À tout moment, vous pouvez vérifier si votre véhicule fait l'objet de rappels et savoir quelles sont les mesures à prendre pour résoudre le problème."));
 
 			repository.save(new Vehicle(
 					"Tesla",
@@ -365,7 +382,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.tesla.com/en_ca/models",
-					"src/main/resources/images/teslaModelS.png"));
+					"src/main/resources/images/teslaModelS.png",
+					"La Model S Plaid offre l'accélération la plus rapide de tous les véhicules en production. L'architecture de batterie mise à jour pour toutes les Model S permet de faire des tours de piste consécutifs sans perte de performance."));
 
 			repository.save(new Vehicle(
 					"Tesla",
@@ -383,7 +401,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.tesla.com/en_ca/modelx",
-					"src/main/resources/images/teslaModelX.png"));
+					"src/main/resources/images/teslaModelX.png",
+					"Avec la puissance inégalée et l'accélération la plus rapide de tous les VUS, le Model X Plaid est le VUS le plus performant jamais construit."));
 
 			repository.save(new Vehicle(
 					"Tesla",
@@ -401,7 +420,8 @@ public class SsveApplication {
 					300,
 					5,
 					"https://www.tesla.com/en_ca/model3",
-					"src/main/resources/images/teslaModel3.png"));
+					"src/main/resources/images/teslaModel3.png",
+					"La Model 3 propose en option la traction intégrale à double moteur, des roues Überturbine de 20 po et des freins Performance pour une maîtrise totale en toute condition."));
 
 			repository.save(new Vehicle(
 					"Toyota",
@@ -419,7 +439,8 @@ public class SsveApplication {
 					480,
 					5,
 					"https://www.toyota.com/mirai/",
-					"src/main/resources/images/toyotaMirai.png"));
+					"src/main/resources/images/toyotaMirai.png",
+					"Voici la Mirai 2022. La deuxième génération du véhicule électrique à pile à combustible à hydrogène révolutionnaire de Toyota offre plus de tout que jamais. Plus de style. Plus d'espace. Plus de technologies intelligentes et intuitives."));
 
 			repository.save(new Vehicle(
 					"Volkswagen",
@@ -437,7 +458,8 @@ public class SsveApplication {
 					480,
 					5,
 					"https://www.volkswagen.co.uk/en/new/e-up.html",
-					"src/main/resources/images/volkswagenEUp.png"));
+					"src/main/resources/images/volkswagenEUp.png",
+					"Plus d'autonomie que jamais. Plus d'équipements à un meilleur prix. Pour tous ceux qui évoluent avec leur temps : l'e-up! facilite encore plus l'éléctro-mobilité. Et même mieux."));
 
 			repository.save(new Vehicle(
 					"Volkswagen",
@@ -455,7 +477,8 @@ public class SsveApplication {
 					480,
 					5,
 					"https://www.volkswagen.co.uk/en/new/e-golf.html",
-					"src/main/resources/images/volkswagenEGolf.png"));
+					"src/main/resources/images/volkswagenEGolf.png",
+					"La Golf est là. La huitième génération du modèle emblématique Volkswagen établit de nouvelles normes en matière d'innovations, de confort et de connectivité."));
 
 			repository.save(new Vehicle(
 					"Volkswagen",
@@ -473,7 +496,8 @@ public class SsveApplication {
 					645,
 					5,
 					"https://www.volkswagen.co.uk/en/new/golf.html",
-					"src/main/resources/images/volkswagenGolf.png"));
+					"src/main/resources/images/volkswagenGolf.png",
+					"La Golf est là. La huitième génération du modèle emblématique Volkswagen établit de nouvelles normes en matière d'innovations, de confort et de connectivité."));
 
 			repository.save(new Vehicle(
 					"voiture",
@@ -491,7 +515,8 @@ public class SsveApplication {
 					5000,
 					5,
 					"https://www.volkswagen.co.uk/en/new/golf.html",
-					"src/main/resources/images/volkswagenGolf.png"));
+					"src/main/resources/images/volkswagenGolf.png",
+					""));
 			repository.save(new Vehicle(
 					"Voiture",
 					"Moyen",
@@ -508,7 +533,8 @@ public class SsveApplication {
 					5000,
 					5,
 					"https://www.volkswagen.co.uk/en/new/golf.html",
-					"src/main/resources/images/volkswagenGolf.png"));
+					"src/main/resources/images/volkswagenGolf.png",
+					""));
 			repository.save(new Vehicle(
 					"Voiture",
 					"Max",
@@ -525,7 +551,8 @@ public class SsveApplication {
 					5000,
 					5,
 					"https://www.volkswagen.co.uk/en/new/golf.html",
-					"src/main/resources/images/volkswagenGolf.png"));
+					"src/main/resources/images/volkswagenGolf.png",
+					""));
 		};
 	}
 }

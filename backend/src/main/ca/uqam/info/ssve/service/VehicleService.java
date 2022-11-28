@@ -42,7 +42,8 @@ public class VehicleService {
                 && validateLoadCapacity(vehicle.getLoadCapacity())
                 && validateSafetyScore(vehicle.getSafetyScore())
                 && validateRefLink(vehicle.getRefLink())
-                && validateImgLink(vehicle.getImgLink())) {
+                && validateImgLink(vehicle.getImgLink())
+                && validateDescription(vehicle.getDescription())) {
             long size = vehicleRepository.count();
             vehicleRepository.save(vehicle);
             Optional<Vehicle> voiture = vehicleRepository.findById(size + 1);
@@ -75,6 +76,7 @@ public class VehicleService {
                 && validateSafetyScore(vehicle.getSafetyScore())
                 && validateRefLink(vehicle.getRefLink())
                 && validateImgLink(vehicle.getImgLink())
+                && validateDescription(vehicle.getDescription())
                 && vehicleRepository.findById(vehicle.getId()).isPresent()) {
             vehicleRepository.save(vehicle);
             return vehicleRepository.findById(vehicle.getId()).get();
@@ -138,6 +140,10 @@ public class VehicleService {
 
     private boolean validateImgLink(String imgLink) {
         return imgLink.matches("(\\b(https?|ftp|file)://)?[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
+    }
+
+    private boolean validateDescription(String description) {
+        return description.length() >= 0 && description.length() < 1000;
     }
 
     // --------------------------------- ---------------------------------------
@@ -301,6 +307,7 @@ public class VehicleService {
             eval.setSafetyScore(vehicle.getSafetyScore());
             eval.setRefLink(vehicle.getRefLink());
             eval.setImgLink(vehicle.getImgLink());
+            eval.setDescription(vehicle.getDescription());
             list2.add(eval);
         }
 

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -49,6 +50,8 @@ public class Vehicle {
     private String refLink;
     @NotEmpty
     private String imgLink;
+    @NotEmpty
+    private String description;
 
     public Vehicle(
             String brand,
@@ -66,7 +69,8 @@ public class Vehicle {
             int loadCapacity,
             int safetyScore,
             String refLink,
-            String imgLink) {
+            String imgLink,
+            String description) {
         this.brand = brand;
         this.modelName = modelName;
         this.nbPlaces = nbPlaces;
@@ -83,6 +87,7 @@ public class Vehicle {
         this.safetyScore = safetyScore;
         this.refLink = refLink;
         this.imgLink = imgLink;
+        this.description = description;
     }
 
     public Vehicle() {
