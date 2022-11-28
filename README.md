@@ -64,6 +64,10 @@ Noter que le `hot-reloading` n'est pas supporté au niveau du backend et donc il
 
 Le frontend démarre par défaut sur `http://localhost:3000` (en interagissant avec la backend sur le port 8080). Une base de données locale h2 est aussi crée lors du démarrage. Noter que cette BD est en mémoire et non persistante pour le moment.
 
+#### Swagger
+
+Lorsque l'API roule, un endpoint est disponible pour interagir avec celui-ci. `http://localhost:8080/swagger-ui/index.html`
+
 ### Exécuter les tests de l'api
 
 ```sh
