@@ -1,17 +1,13 @@
-import { Avatar, Container, Icon, ListItem, ListItemAvatar, ListItemText, Paper, Tooltip } from "@mui/material"
+import { Container, Tooltip } from "@mui/material"
 import Grid from '@mui/material/Unstable_Grid2';
 import ICar from "../../../types/Car"
 import './style.css'
-import BatteryChargingFullOutlinedIcon from '@mui/icons-material/BatteryChargingFullOutlined';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import BuildIcon from '@mui/icons-material/Build';
 import PersonIcon from '@mui/icons-material/Person';
-import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import cityIcon from '../../../assets/icons/city.svg'
-import highwayIcon from '../../../assets/icons/highway.svg'
 
 
 
@@ -23,7 +19,7 @@ const distanceIcon = require('../../../assets/icons/distance.png');
 
 const ResultDetails = (props: ResultDetailsProps) => {
     const { car } = props;
-    const score = (Math.round(car.score * 100) / 100).toFixed(2);
+    const score = (car.score * 10).toFixed(2);
     
     const getRange = (capacity: number, consumption: number)=>{
         return Math.round(capacity / consumption * 100) / 100;
@@ -39,8 +35,15 @@ const ResultDetails = (props: ResultDetailsProps) => {
             <Container className="result-details-infos-container">
             <div className="title">
                 <h2 className='modele'>{car.brand +" "+ car.modelName}</h2>
-                <h3 className='prix'>{car.price}$</h3>
-                <CircularProgressbar className="circular-progress-score" value={car.score} maxValue={10} text={`${score}`} />
+                    <h3 className='prix'>{car.price}$</h3>
+                    <CircularProgressbar className="circular-progress-score" value={car.score} maxValue={10} text={`${score}`} 
+                        styles={buildStyles({
+                            textSize: '16px',
+                            pathColor: `rgba(0, 153, 120, ${car.score})`,
+                            trailColor: '#d6d6d6',
+                            textColor: '#000',
+                        })} 
+                    />
             </div>
             <span>
             <div className="desc">

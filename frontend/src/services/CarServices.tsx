@@ -7,12 +7,13 @@
 const url = "http://localhost:8080/api"
 const getAllCars = async () => {
   try{
-    const res = await fetch(`${url}/vehicle`,
+    const res = await fetch(`${url}/vehicle/tempDummy`,
     {
       method: 'GET',
     });
   
     const data = await res.json();
+    console.log(data);
     return data;
   }
   catch(err){
