@@ -51,7 +51,7 @@ postman_tests:
 deploy:
   stage: deploy
   only:
-    - feature/ajoutPipeline
+    - master
   script:
     - |-
       for containerName in deployreact deployspring; do
