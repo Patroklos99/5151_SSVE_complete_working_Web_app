@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Contact from "./components/contact/Contact";
+import React from "react";
 
-import Dashboard from "./components/dashboard";
+import Contact from "./components/contact/Contact";
+import Dashboard from "./components/Dashboard";
 import Homepage from "./components/homepage/Homepage";
 import Input from "./components/input/Input";
 import Header from "./components/shared/Header";

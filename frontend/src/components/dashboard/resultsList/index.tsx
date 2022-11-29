@@ -1,8 +1,8 @@
 import { Button, Divider, FormControl, FormControlLabel, FormLabel, List, Popover, Radio, RadioGroup} from '@mui/material';
 import React, { useEffect } from 'react';
-import {carsData} from '../../../assets/data_exemples/cars';
-import { ICar } from '../../../models/cars';
 import ListItemCar from './listItemCar';
+import CarService from '../../../services/CarService';
+import { ICar } from '../../../models/cars';
 
 import './style.css';
 
@@ -13,7 +13,7 @@ const ResultsList = () => {
 
     useEffect(() => {
         //shoud load data from BE, but use local data for now
-        setCars(carsData);
+        setCars(CarService.getPartial);
     }, []);
 
 

@@ -1,6 +1,7 @@
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import React from "react"
 
 export function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
     //linear-gradient(90deg, #6fcbb6 ${100 - props.score}%, #9c64f4 100%)
