@@ -11,8 +11,6 @@ const ResultsList = () => {
     const [orderByAnchorEl, setOrderByAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     useEffect(() => {
-        // Met à jour les autos selon le filtre, mais brise le tri mis en place :/
-        // Correction TODO : Déplacer le sort des véhicules dans le service
         setCars(CarFilterUtil.getPartial);
     });
 
@@ -31,6 +29,7 @@ const ResultsList = () => {
 
     const handleOrderByChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const orderBy = (event.target as HTMLInputElement).value;
+        CarFilterUtil.setFilter(orderBy);
         switch (orderBy) {
             case 'priceAsc':
                 setCars([...cars.sort((a, b) => a.prix - b.prix)]);

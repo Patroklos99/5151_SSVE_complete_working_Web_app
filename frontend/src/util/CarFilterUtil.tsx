@@ -2,6 +2,7 @@ import {carsData} from '../assets/data_exemples/cars';
 import { ICar } from '../models/cars';
 
 let include: any[] = [];
+let filter: any = "score";
 
 const getAll = () => {
   return carsData;
@@ -27,8 +28,24 @@ const getPartial = () => {
             partialCars.push(carsData[include[i]]);
         }
     }
+    partialCars = sortCars(partialCars);
     return partialCars;
 };
+
+const sortCars = (cars: ICar[]) => {
+    switch (filter) {
+        case 'priceAsc':
+            cars.sort((a, b) => a.prix - b.prix);
+            break;
+        case 'priceDesc':
+            cars.sort((a, b) => b.prix - a.prix);
+            break;
+        case 'score':
+            cars.sort((a, b) => b.score - a.score);
+            break;
+    }
+    return cars;
+}
 
 const addValueToInclude = (value: any) => {
     if(value < carsData.length) {
@@ -68,6 +85,10 @@ const update = (index: any, data: ICar) => {
     }
 };
 
+const setFilter = (filterValue: any) => {
+    filter = filterValue;
+}
+
 const CarFilterUtil = {
   getAll,
   fillPartialInclude,
@@ -77,6 +98,7 @@ const CarFilterUtil = {
   removeValueFromInclude,
   get,
   update,
+  setFilter,
 };
 
 export default CarFilterUtil;
