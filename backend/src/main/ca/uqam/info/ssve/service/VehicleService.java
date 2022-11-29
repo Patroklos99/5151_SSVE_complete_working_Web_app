@@ -179,6 +179,9 @@ public class VehicleService {
         // final
         List<Vehicle> allVehicle = getAllVehicle();
         allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
+
+        int nbTrajetSansRecharge = 0;
+
         for (int i = 0; i < allVehicle.size(); i++) {
             double score = 0;
             for (Route route : routeList) {
@@ -186,6 +189,10 @@ public class VehicleService {
                 String data = adveConnection
                         .doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() * 100);
                 stringToRoute(route, data);
+
+                if(route.getChargingTime() == 0)
+                    nbTrajetSansRecharge++;
+
                 // --------Donne une note au déplacement pour la voiture i
                 evaluateRoute(route, allVehicle, i);
             }
@@ -198,6 +205,8 @@ public class VehicleService {
             // retourné
             Evaluation evaluation = new Evaluation(allVehicle.get(i));
             evaluation.setScore(score);
+            evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
+            evaluation.setTrajetTotal(routeList.size());
             vehicleFinalScore.add(evaluation);
         }
         adveConnection.closeServer();
