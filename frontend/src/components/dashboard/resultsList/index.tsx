@@ -1,7 +1,7 @@
 import { Button, Divider, FormControl, FormControlLabel, FormLabel, List, Popover, Radio, RadioGroup} from '@mui/material';
 import React, { useEffect } from 'react';
 import ListItemCar from './listItemCar';
-import CarService from '../../../services/CarService';
+import CarUtil from '../../../util/CarUtil';
 import { ICar } from '../../../models/cars';
 
 import './style.css';
@@ -13,7 +13,7 @@ const ResultsList = () => {
     useEffect(() => {
         // Met à jour les autos selon le filtre, mais brise le tri mis en place :/
         // Correction TODO : Déplacer le sort des véhicules dans le service
-        setCars(CarService.getPartial);
+        setCars(CarUtil.getPartial);
     });
 
 

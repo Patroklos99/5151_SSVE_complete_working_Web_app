@@ -2,10 +2,10 @@ import React from "react";
 import {Container, Grid} from '@mui/material';
 import ResultsList from './resultsList';
 import FilterPanel from "./filterPanel";
-import CarService from "../../services/CarService"
+import CarUtil from "../../util/CarUtil"
 
 const Dashboard = () => {
-    CarService.fillPartialInclude();
+    CarUtil.fillPartialInclude();
 
     return (
         <Container maxWidth="xl">

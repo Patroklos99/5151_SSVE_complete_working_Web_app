@@ -3,7 +3,7 @@ import FormControlLabel  from '@mui/material/FormControlLabel';
 import React from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
-import CarService from '../../../services/CarService';
+import CarUtil from '../../../util/CarUtil';
 import { ICar } from '../../../models/cars';
 
 export default function CheckboxComp( brand: any, changeChecked: any): any {
@@ -16,17 +16,17 @@ export default function CheckboxComp( brand: any, changeChecked: any): any {
         marque = !marque;
 
         if(marque == true) {
-            let cars: ICar[] = CarService.getAll();
+            let cars: ICar[] = CarUtil.getAll();
             for(let i = 0; i < cars.length; i++) {
                 if(cars[i].marque == nom) {
-                    CarService.addValueToInclude(i);
+                    CarUtil.addValueToInclude(i);
                 }
             }
         } else if (marque == false) {
-            let cars: ICar[] = CarService.getAll();
+            let cars: ICar[] = CarUtil.getAll();
             for(let i = 0; i < cars.length; i++) {
                 if(cars[i].marque == nom) {
-                    CarService.removeValueFromInclude(i);
+                    CarUtil.removeValueFromInclude(i);
                 }
             }
         }

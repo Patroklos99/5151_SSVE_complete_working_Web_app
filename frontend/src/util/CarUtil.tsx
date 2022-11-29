@@ -3,7 +3,6 @@ import { ICar } from '../models/cars';
 
 let include: any[] = [];
 
-
 const getAll = () => {
   return carsData;
 };
@@ -69,7 +68,7 @@ const update = (index: any, data: ICar) => {
     }
 };
 
-const CarService = {
+const CarUtil = {
   getAll,
   fillPartialInclude,
   clearPartialInclude,
@@ -80,4 +79,4 @@ const CarService = {
   update,
 };
 
-export default CarService;
+export default CarUtil;
