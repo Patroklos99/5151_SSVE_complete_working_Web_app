@@ -76,15 +76,6 @@ const get = (index: any) => {
   }
 };
 
-const update = (index: any, data: ICar) => {
-    if(index >= carsData.length) {
-        return "error";
-    } else {
-        carsData[index] = data;
-        return carsData[index];
-    }
-};
-
 const setFilter = (filterValue: any) => {
     filter = filterValue;
 }
@@ -97,7 +88,6 @@ const CarFilterUtil = {
   addValueToInclude,
   removeValueFromInclude,
   get,
-  update,
   setFilter,
 };
 
