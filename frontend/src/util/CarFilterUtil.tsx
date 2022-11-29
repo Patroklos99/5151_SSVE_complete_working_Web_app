@@ -68,7 +68,7 @@ const update = (index: any, data: ICar) => {
     }
 };
 
-const CarUtil = {
+const CarFilterUtil = {
   getAll,
   fillPartialInclude,
   clearPartialInclude,
@@ -79,4 +79,4 @@ const CarUtil = {
   update,
 };
 
-export default CarUtil;
+export default CarFilterUtil;
