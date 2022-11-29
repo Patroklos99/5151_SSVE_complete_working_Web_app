@@ -22,11 +22,71 @@ const ResultDetails = (props: ResultDetailsProps) => {
     const score = (car.score * 10).toFixed(2);
     
     const getRange = (capacity: number, consumption: number)=>{
-        return Math.round(capacity / consumption * 100) / 100;
+        return Math.round(capacity / consumption * 100);
     }
-    const totalRangeCity = getRange(car.electricalCapacity, car.electricalStreetConsumption) + getRange(car.gasCapacity, car.gasStreetConsumption);
-    const totalRangeHighway = getRange(car.electricalCapacity, car.electricalHighwayConsumption) + getRange(car.gasCapacity, car.gasHighwayConsumption);
-    const totalRange = totalRangeCity + totalRangeHighway;
+    const totalRangeCity_E = getRange(car.electricalCapacity, car.electricalStreetConsumption);
+    const totalRangeHighway_E = getRange(car.electricalCapacity, car.electricalHighwayConsumption)
+    const totalRangeCity_G = getRange(car.gasCapacity, car.gasStreetConsumption);
+    const totalRangeHighway_G = getRange(car.gasCapacity, car.gasHighwayConsumption);
+    const totalRange_E = (totalRangeCity_E + totalRangeHighway_E) / 2;
+    const totalRange_G = (totalRangeCity_G + totalRangeHighway_G) / 2;
+
+    const getTotalRange = ()=>{
+        const totalRange = car.gasCapacity > 0 ? totalRange_E + totalRange_G : totalRange_E;
+        return (totalRange).toFixed(2);
+    }
+
+    const gasInformationsRender = () => {
+        if(car.gasCapacity > 0)
+            return(
+                <div>
+                    <h3>Gas informations</h3>
+                    <div className="gas-infos-container">
+                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                            <Grid xs={6}>
+                                    <div className="desc-item">
+                                        <p className="title">City consumption: </p>
+                                        <p>{car.gasStreetConsumption}</p><p>L/100km</p>
+                                    </div>
+                            </Grid>
+                            <Grid xs={6}>
+                                <Tooltip title="Range int the city with full gas tank" arrow>
+                                    <div className="desc-item">
+                                        <p className="title">City range: </p>
+                                        <p>{totalRangeCity_G}</p><p>km</p>
+                                    </div>
+                                </Tooltip>
+                            </Grid>
+                            <Grid xs={6}>
+                                <Tooltip title="Range on the highway with full tank" arrow>
+                                    <div className="desc-item">
+                                        <p className="title">Highway consumption: </p>
+                                        <p>{car.gasHighwayConsumption}</p><p>L/100km</p>
+                                    </div>
+                                </Tooltip>
+                            </Grid>
+                            <Grid xs={6}>
+                            <Tooltip title="Range on the highway with full gas tank" arrow>
+                                <div className="desc-item">
+                                    <p className="title">Highway range: </p>
+                                    <p>{totalRangeHighway_G}</p><p>km</p>
+                                </div>
+                            </Tooltip>
+                            </Grid>
+                            <Grid xs={6}>
+                                    <div className="desc-item">
+                                        <p className="title">Gas capacity: </p>
+                                        <p>{car.gasCapacity}</p><p>L</p>
+                                    </div>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </div>
+            )
+        return "";
+    }
+
+
     return (
         <Container className="result-details-container">
             <div className="main-img">
@@ -47,6 +107,9 @@ const ResultDetails = (props: ResultDetailsProps) => {
             </div>
             <span>
             <div className="desc">
+                <div className='desc-text'>
+                    {car.description}
+                </div>
                 <h3>General informations</h3>
                 <div className="general-infos-container">
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -54,15 +117,15 @@ const ResultDetails = (props: ResultDetailsProps) => {
                             <Tooltip title="Maintenance costs" arrow>
                                 <div className="desc-item">
                                     <BuildIcon/>
-                                    {car.maintainCosts}$
+                                    {car.maintainCosts}$ / year
                                 </div>
                             </Tooltip>
                         </Grid>
                         <Grid xs={6}>
-                            <Tooltip title="Range with full battery (and full gas tank)" arrow>
+                            <Tooltip title="Total range calculated with electrical (and gas if there is) and taking the mean of city and highway range" arrow>
                                 <div className="desc-item">
                                     {distanceIcon && <img className="distance-icon" src={distanceIcon} alt="" />}
-                                    {totalRange} km
+                                    {getTotalRange()} km
                                 </div>
                             </Tooltip>
                         </Grid>
@@ -97,60 +160,42 @@ const ResultDetails = (props: ResultDetailsProps) => {
                 <div className="eletric-infos-container">
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid xs={6}>
-                            <Tooltip title="Battery capacity" arrow>
                                 <div className="desc-item">
-                                    <p className="title">Battery capacity: </p>
-                                    <p>{car.electricalCapacity} kWh</p>
+                                    <p className="title">City consumption: </p>
+                                    <p>{car.electricalStreetConsumption} </p><p>kWh/100km</p>
+                                </div>
+                        </Grid>
+                        <Grid xs={6}>
+                            <Tooltip title="Range int the city with full battery" arrow>
+                                <div className="desc-item">
+                                    <p className="title">City range: </p>
+                                    <p>{totalRangeCity_E}</p><p>km</p>
                                 </div>
                             </Tooltip>
                         </Grid>
                         <Grid xs={6}>
-                            <Tooltip title="Range in the city with full battery" arrow>
                                 <div className="desc-item">
-                                    <p className="title">Street consumption: </p>
-                                    <p>{car.electricalStreetConsumption} kWh/100km</p>
+                                    <p className="title">Highway consumption: </p>
+                                    <p>{car.electricalHighwayConsumption}</p><p>kWh/100km</p>
                                 </div>
-                            </Tooltip>
                         </Grid>
                         <Grid xs={6}>
                             <Tooltip title="Range on the highway with full battery" arrow>
                                 <div className="desc-item">
-                                    <p className="title">Highway consumption: </p>
-                                    <p>{car.electricalHighwayConsumption} kWh/100km</p>
+                                    <p className="title">Highway range: </p>
+                                    <p>{totalRangeHighway_E}</p><p>km</p>
                                 </div>
                             </Tooltip>
+                        </Grid>
+                        <Grid xs={6}>
+                                <div className="desc-item">
+                                    <p className="title">Battery capacity: </p>
+                                    <p>{car.electricalCapacity}</p><p>kWh</p>
+                                </div>
                         </Grid>
                     </Grid>
                 </div>
-                <h3>Gas informations</h3>
-                <div className="gas-infos-container">
-                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid xs={6}>
-                            <Tooltip title="Fuel tank capacity" arrow>
-                                <div className="desc-item">
-                                    <p className="title">Gas capacity: </p>
-                                    <p>{car.gasCapacity} L</p>
-                                </div>
-                            </Tooltip>
-                        </Grid>
-                        <Grid xs={6}>
-                            <Tooltip title="Range in the city with full tank" arrow>
-                                <div className="desc-item">
-                                    <p className="title">Street consumption: </p>
-                                    <p>{car.gasStreetConsumption} L/100km</p>
-                                </div>
-                            </Tooltip>
-                        </Grid>
-                        <Grid xs={6}>
-                            <Tooltip title="Range on the highway with full tank" arrow>
-                                <div className="desc-item">
-                                    <p className="title">Highway consumption: </p>
-                                    <p>{car.gasHighwayConsumption} L/100km</p>
-                                </div>
-                            </Tooltip>
-                        </Grid>
-                    </Grid>
-                </div>
+                {gasInformationsRender()}
 
             </div>
             </span>

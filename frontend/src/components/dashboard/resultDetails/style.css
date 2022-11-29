@@ -58,6 +58,14 @@
     margin-bottom: 5px;
 }
 
+.result-details-container .desc-item p:nth-child(3){
+    color: gray;
+    margin-left: 2px;
+    font-size: 12px;
+    line-height: 21px;
+}
+
+
 .result-details-container .circular-progress-score{
     width: 70px;
     height: 70;
