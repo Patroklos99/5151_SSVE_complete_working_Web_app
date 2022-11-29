@@ -8,15 +8,14 @@ before_script:
 stages:
   - build
   - test
+  - deploy
 
 build-job:
   stage: build
-  only:
-    - feature/ajoutPipeline
   script:
     - TZ=Canada/Eastern
     - ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone # définir le timezone pour éviter qu'il soit demandé et que ça stall pendant l'install de docker
-    - apk add openjdk17 docker-compose grep
+    - apk add openjdk17 grep
     - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
     - ./mvnw clean install # on n'a besoin de rouler ça qu'une seule fois puisque les artéfacts (ici un jar) sont partagés entre les stages par défaut
     - |-
@@ -25,6 +24,7 @@ build-job:
         docker container ls -a | grep -q $containerName || exit_code=$?
         if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
       done
+      
     - docker image prune -f # enlever les anciennes images sinon ça pile up
     - docker build -f frontend/DockerfileReact -t ssve-react . 
     - docker build -f backend/src/DockerfileSpring -t ssve-spring .
@@ -33,8 +33,6 @@ build-job:
     
 unit-test-job:
   stage: test
-  only:
-    - feature/ajoutPipeline
   script:
     - apk add openjdk17
     - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::") # smort
@@ -42,8 +40,6 @@ unit-test-job:
     
 postman_tests:
   stage: test
-  only:
-    - feature/ajoutPipeline
   image:
       name: postman/newman:alpine
       entrypoint: [""]
@@ -51,3 +47,18 @@ postman_tests:
     - sleep 10
     - newman --version
     - newman run postman/SSVE.postman_collection.json -e postman/serveurADVE.postman_environment.json
+
+deploy:
+  stage: deploy
+  only:
+    - feature/ajoutPipeline
+  script:
+    - |-
+      for containerName in deployreact deployspring; do
+        exit_code=0
+        docker container ls -a | grep -q $containerName || exit_code=$?
+        if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
+      done
+      
+    - docker run -itd -p 6969:3000 --name deployreact ssve-react
+    - docker run -itd -p 420:8080 --name deployspring ssve-spring
