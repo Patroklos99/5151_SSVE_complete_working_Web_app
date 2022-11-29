@@ -1,6 +1,8 @@
 import {carsData} from '../assets/data_exemples/cars';
 import { ICar } from '../models/cars';
 
+// TODO: Revamp logique car pas fonctionnelle
+
 let include: any[] = [];
 
 const getAll = () => {
