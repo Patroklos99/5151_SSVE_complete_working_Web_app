@@ -11,10 +11,7 @@ const getAllCars = async () => {
     {
       method: 'GET',
     });
-  
-    const data = await res.json();
-    console.log(data);
-    return data;
+    return  await res.json();;
   }
   catch(err){
     console.log(err);
