@@ -15,9 +15,6 @@ export default function CheckboxComp( brand: any, changeChecked: any): any {
     const filterCompleted = (marque : boolean, nom : any) => {
         marque = !marque;
 
-        alert(marque);
-
-        
         if(marque == true) {
             let cars: ICar[] = CarService.getAll();
             for(let i = 0; i < cars.length; i++) {
@@ -33,6 +30,7 @@ export default function CheckboxComp( brand: any, changeChecked: any): any {
                 }
             }
         }
+        
         return marque;
     }
     

@@ -10,11 +10,9 @@ const ResultsList = () => {
     const [cars, setCars] = React.useState<ICar[]>([]);
     const [orderByAnchorEl, setOrderByAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-
     useEffect(() => {
-        //shoud load data from BE, but use local data for now
         setCars(CarService.getPartial);
-    }, []);
+    });
 
 
     const handleOrderByClick = (event: React.MouseEvent<HTMLButtonElement>) => {
