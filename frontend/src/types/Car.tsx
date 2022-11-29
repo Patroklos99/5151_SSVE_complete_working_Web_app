@@ -2,6 +2,7 @@ export default interface ICar {
     id: number;
     brand: string;
     modelName: string;
+    nbPlaces: number;
     imgLink: string;
     price: number;
     nbDoors: number;
@@ -12,4 +13,14 @@ export default interface ICar {
     refLink: string;
     description: string;
     score: number;
+
+    maintainCosts: number;
+    electricalCapacity: number;
+    electricalStreetConsumption: number;
+    electricalHighwayConsumption: number;
+    gasCapacity: number;
+    gasStreetConsumption: number;
+    gasHighwayConsumption: number;
+    loadCapacity: number;
 }
+

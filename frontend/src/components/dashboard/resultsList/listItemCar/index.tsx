@@ -33,7 +33,7 @@ const ListItemCar = (props: ListItemCarProps) => {
                                 <div className='desc-text'>
                                     {props.car.description}
                                 </div>
-                                <LinearProgressWithLabel variant="determinate" value={props.car.score *10}/>
+                                <LinearProgressWithLabel variant="determinate" value={/*props.car.score *10*/ 90}/>
                             </div> 
                         }
                         color="black"

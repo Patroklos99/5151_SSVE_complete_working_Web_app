@@ -32,6 +32,11 @@
     opacity: 40%;
     margin-right: 10px;
 }
+.result-details-container .custom-icon{
+    height: 20px;
+    margin-right: 10px;
+}
+
 .result-details-container .desc svg{
     opacity: 30%;
     vertical-align: bottom;
@@ -39,6 +44,18 @@
 
 .result-details-container .desc-item{
     width: fit-content;
+    display: flex;
+    white-space: nowrap;
+}
+
+.result-details-container .desc-item .title{
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.result-details-container .desc-item p{
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .result-details-container .circular-progress-score{
@@ -47,7 +64,31 @@
     margin: 0 auto;
 }
 
-.result-details-container .CircularProgressbar-text{
+ .CircularProgressbar-text{
     font-size: 2rem;
     font-weight: bold;
+}
+
+.result-details-container .eletric-infos-container{
+    margin-bottom: 10px;
+    /* outline: 2px solid rgb(100,149,237); */
+    border-radius: 4px;
+}
+
+.result-details-container .gas-infos-container{
+    margin-bottom: 10px;
+    /* outline: 2px solid rgb(178,34,34); */
+    border-radius: 4px;
+}
+
+.result-details-container .general-infos-container{
+    margin-bottom: 10px;
+    /* outline: 2px solid rgb(169,169,169); */
+    border-radius: 4px;
+}
+
+.result-details-container .desc .MuiGrid2-container{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
 }
