@@ -1,8 +1,6 @@
 import {carsData} from '../assets/data_exemples/cars';
 import { ICar } from '../models/cars';
 
-// TODO: Revamp logique car pas fonctionnelle
-
 let include: any[] = [];
 
 const getAll = () => {
@@ -45,7 +43,7 @@ const removeValueFromInclude = (value: any) => {
     if(value < carsData.length) {
         let find = include.indexOf(value);
         if(find >= 0) {
-            for(let i = value; i < include.length; i++) {
+            for(let i = find; i < include.length; i++) {
                 include[i] = include[i+1];
             }
             include.pop();
