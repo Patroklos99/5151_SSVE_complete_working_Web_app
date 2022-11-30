@@ -101,17 +101,18 @@ const Trip: React.FC = () => {
 
   const handleTripAdd = () => {
     const name = document.getElementById('name') as HTMLInputElement
-    const start = document.getElementById('search1') as HTMLInputElement
+    // const start = document.getElementById('search1') as HTMLInputElement
+    const start = GeoPointList;
     const freqNb = document.getElementById('freqNb') as HTMLInputElement
     const freq = document.getElementById('frequences') as HTMLInputElement
 
     const vName = name?.value;
-    const vStart = start?.value;
+    const vStart = start;
     const vFreqNb = freqNb?.value;
     const vFreq = freq?.value;
 
     if (vName !== null && vName !== "" &&
-      vStart !== null && vStart !== "" &&
+      vStart !== null &&
       vFreqNb !== null && vFreqNb !== "" &&
       vFreq !== null && vFreq !== "") {
 
@@ -126,21 +127,12 @@ const Trip: React.FC = () => {
         } else if (vFreq === "Année") {
           cal = +vFreqNb * 1;
         }
-
-      var splitStart = vStart.split("\\");
-
-      var geoPointStart: GeoPoint =  {
-        id : null,
-        name : splitStart[0],
-        lat : +splitStart[1],
-        lgt : +splitStart[2],
-      };
       
 
       var data = {
         id: null,
         name: vName,
-        startPoint: geoPointStart,
+        startPoint: vStart,
         freq: cal,
       };
       console.log(data);
