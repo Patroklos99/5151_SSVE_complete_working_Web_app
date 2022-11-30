@@ -20,6 +20,7 @@ const Trip: React.FC = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
     const [TripList, setTripList] = useState<TripData[]>([]);
     const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
+    const [GeoPointList, setGeoPointList] = useState<GeoPoint[]>([]);
 
   const submitForm = () => {
 
@@ -68,22 +69,49 @@ const Trip: React.FC = () => {
     }
   }, []);
 
+  const handleGeoPointAdd = () => {
+    const start = document.getElementById('search1') as HTMLInputElement
+
+    const vStart = start?.value;
+
+    if (vStart !== null && vStart !== "") {
+
+        var cal: number = 0;
+
+      var splitStart = vStart.split("\\");
+
+      var geoPointStart: GeoPoint =  {
+        id : null,
+        name : splitStart[0],
+        lat : +splitStart[1],
+        lgt : +splitStart[2],
+      };
+      
+      setGeoPointList([...GeoPointList, geoPointStart]);
+    }
+
+  }  
+
+  const handleGeoPointRemove = (index: number) => {
+    const list = [...GeoPointList]
+    list.splice(index, 1)
+    setGeoPointList(list)
+  }
+  
+
   const handleTripAdd = () => {
     const name = document.getElementById('name') as HTMLInputElement
     const start = document.getElementById('search1') as HTMLInputElement
-    const end = document.getElementById('search2') as HTMLInputElement
     const freqNb = document.getElementById('freqNb') as HTMLInputElement
     const freq = document.getElementById('frequences') as HTMLInputElement
 
     const vName = name?.value;
     const vStart = start?.value;
-    const vEnd = end?.value;
     const vFreqNb = freqNb?.value;
     const vFreq = freq?.value;
 
     if (vName !== null && vName !== "" &&
       vStart !== null && vStart !== "" &&
-      vEnd !== null && vEnd !== "" &&
       vFreqNb !== null && vFreqNb !== "" &&
       vFreq !== null && vFreq !== "") {
 
@@ -100,7 +128,6 @@ const Trip: React.FC = () => {
         }
 
       var splitStart = vStart.split("\\");
-      var splitEnd = vEnd.split("\\");
 
       var geoPointStart: GeoPoint =  {
         id : null,
@@ -108,20 +135,12 @@ const Trip: React.FC = () => {
         lat : +splitStart[1],
         lgt : +splitStart[2],
       };
-
-      var geoPointEnd: GeoPoint =  {
-        id : null,
-        name : splitEnd[0],
-        lat : +splitEnd[1],
-        lgt : +splitEnd[2],
-      };
       
 
       var data = {
         id: null,
         name: vName,
         startPoint: geoPointStart,
-        endPoint: geoPointEnd,
         freq: cal,
       };
       console.log(data);
@@ -139,8 +158,6 @@ const Trip: React.FC = () => {
     setTripNeeds({ ...tripNeeds, trips: [...list] });
   }
 
-    const handleAddFields = () => {
-    }
 
   return (
     <div>
@@ -154,23 +171,37 @@ const Trip: React.FC = () => {
           sx={{ boxShadow: 5 }}
         />
         <div id="map"></div>
-        <div id="map2"></div>
         <br />
-        <label id="textsup">Adresse de début du trajet</label>
+        <label id="textsup">Arrêt</label>
 
         <div id="search-box"></div>
         <input id='search1' type={"text"} required hidden />
         <div id="result" hidden></div>
-        <label id="textsup">Adresse de la destination du trajet</label>
 
-        <div id="search-box2"></div>
-           <div><IconButton
-               onClick={handleAddFields}
-           >
+           <div><IconButton onClick={handleGeoPointAdd}>
                <Add /> Ajouter une destination
            </IconButton></div>
-        <input id='search2' type={"text"} required hidden />
-        <div id="result2" hidden></div>
+           <div>
+          {GeoPointList.map((geoPoint, index) => (
+            <div>
+              <Table size="small">
+                <TableRow >
+                  <div>
+                    <TableCell sx={{ width: "100%" }}>{geoPoint.name}</TableCell>
+                    <TableCell >
+                      <IconButton aria-label="delete">
+                        <DeleteIcon
+                          onClick={() => handleGeoPointRemove(index)} />
+                      </IconButton>
+
+                    </TableCell>
+                  </div>
+                </TableRow>
+              </Table>
+            </div>
+          ))
+          }
+        </div >
 
         <Table size="small">
           <TableRow>
