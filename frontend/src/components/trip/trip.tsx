@@ -4,7 +4,7 @@ import './trip.css'
 import TripData from "../../types/trip";
 import TripService from '../../services/tripServices';
 import TripNeeds from '../../types/tripNeeds';
-import { FormControl, IconButton, NativeSelect, Select, Table, TableCell, TableRow, TextField } from '@mui/material';
+import { Button, FormControl, IconButton, NativeSelect, Select, Table, TableCell, TableRow, TextField } from '@mui/material';
 import {Add} from "@mui/icons-material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { v4 as uuidv4 } from 'uuid';
@@ -155,9 +155,9 @@ const Trip: React.FC = () => {
         <input id='search1' type={"text"} required hidden />
         <div id="result" hidden></div>
 
-           <div><IconButton onClick={handleGeoPointAdd}>
+           <Button variant="outlined" onClick={handleGeoPointAdd}>
                <Add /> Ajouter une destination
-           </IconButton></div>
+           </Button>
            <div>
           {GeoPointList.map((geoPoint, index) => (
             <div>
@@ -206,7 +206,7 @@ const Trip: React.FC = () => {
             </TableCell>
           </TableRow>
         </Table>
-        <button onClick={() => handleTripAdd()} type={"submit"}>Ajouter trajet</button>
+        <Button variant="outlined" onClick={() => handleTripAdd()} type={"submit"}>Ajouter trajet</Button>
         <div>
           {TripList.map((trip, index) => (
             <div>
@@ -228,7 +228,7 @@ const Trip: React.FC = () => {
           ))
           }
         </div >
-        < button onClick={() => submitForm()} type={"submit"} >Soumettre</button >
+        < Button variant="outlined" onClick={() => submitForm()} type={"submit"} >Soumettre</Button >
         <label id='submitted'>NON-SOUMIS</label>
       </FormControl >
     </div >
