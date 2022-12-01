@@ -43,8 +43,7 @@ public class Trip implements Serializable {
     /**
      * Constructeur
      * @param name Nom du déplacement
-     * @param start Point de départ du déplacement
-     * @param end Point d'arrivée du déplacement
+     * @param list List de points de déplacement
      * @param freq La frequence du déplacement
      */
     public Trip(String name, List<GeoPoint> list, int freq) {
