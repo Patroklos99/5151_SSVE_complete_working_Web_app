@@ -57,23 +57,23 @@ const Trip: React.FC = () => {
   }, []);
 
   const handleGeoPointAdd = () => {
-    const start = document.getElementById('search1') as HTMLInputElement
+    const stop = document.getElementById('search') as HTMLInputElement
 
-    const vStart = start?.value;
+    const vStops = stop?.value;
 
-    if (vStart !== null && vStart !== "") {
+    if (vStops !== null && vStops !== "") {
 
       var cal: number = 0;
 
-      var splitStart = vStart.split("\\");
+      var splitStop = vStops.split("\\");
 
-      var geoPointStart: GeoPoint = {
-        name: splitStart[0],
-        lat: +splitStart[1],
-        lgt: +splitStart[2],
+      var geoPointStop: GeoPoint = {
+        name: splitStop[0],
+        lat: +splitStop[1],
+        lgt: +splitStop[2],
       };
 
-      setGeoPointList([...GeoPointList, geoPointStart]);
+      setGeoPointList([...GeoPointList, geoPointStop]);
     }
 
   }
@@ -87,17 +87,17 @@ const Trip: React.FC = () => {
 
   const handleTripAdd = () => {
     const name = document.getElementById('name') as HTMLInputElement
-    const start = GeoPointList;
+    const stop = GeoPointList;
     const freqNb = document.getElementById('freqNb') as HTMLInputElement
     const freq = document.getElementById('frequences') as HTMLInputElement
 
     const vName = name?.value;
-    const vStart = start;
+    const vStops = stop;
     const vFreqNb = freqNb?.value;
     const vFreq = freq?.value;
 
     if (vName !== null && vName !== "" &&
-      vStart !== null &&
+    vStops !== null &&
       vFreqNb !== null && vFreqNb !== "" &&
       vFreq !== null && vFreq !== "") {
 
@@ -116,7 +116,7 @@ const Trip: React.FC = () => {
 
       var data = {
         name: vName,
-        stops: vStart,
+        stops: vStops,
         annualFreq: cal,
       };
       console.log(data);
@@ -153,7 +153,7 @@ const Trip: React.FC = () => {
         <label id="textsup">Arrêt</label>
 
         <div id="search-box"></div>
-        <input id='search1' type={"text"} required hidden />
+        <input id='search' type={"text"} required hidden />
         <div id="result" hidden></div>
 
         <Button variant="outlined" onClick={handleGeoPointAdd}>

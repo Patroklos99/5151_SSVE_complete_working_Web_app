@@ -23,7 +23,7 @@
 
     //Initialize the geocoder
     var geocoderControl = new L.control.geocoder('pk.4714636617564cdace4967f9ee10772d', geocoderControlOptions).addTo(map).on('select', function (e) {
-        fillSearch("search1",e.feature.feature.display_name, e.latlng.lat, e.latlng.lng);
+        fillSearch("search",e.feature.feature.display_name, e.latlng.lat, e.latlng.lng);
         displayLatLon(e.feature.feature.display_name, e.latlng.lat, e.latlng.lng);
     });
 
