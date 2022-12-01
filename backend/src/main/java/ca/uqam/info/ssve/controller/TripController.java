@@ -6,7 +6,6 @@
 package ca.uqam.info.ssve.controller;
 
 import ca.uqam.info.ssve.model.TripNeeds;
-import ca.uqam.info.ssve.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +16,10 @@ import java.util.Map;
 @RequestMapping("api/tripneeds")
 public class TripController {
 
-	@Autowired
-	TripService tripService;
-
-	@GetMapping("/{id}")
-	public @ResponseBody
-	TripNeeds getTrip(@PathVariable Long id) {
-		return tripService.getTrip(id);
-	}
-
 	@PostMapping("")
 	public @ResponseBody
 	TripNeeds postTrip(@RequestBody TripNeeds tripNeeds) {
-		TripNeeds bd = tripService.saveTripNeeds(tripNeeds);
-		System.out.println(bd.toString());
-		return bd;
+		System.out.println(tripNeeds.toString());
+		return tripNeeds;
 	}
 }

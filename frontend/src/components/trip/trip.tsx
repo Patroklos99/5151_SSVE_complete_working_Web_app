@@ -13,7 +13,6 @@ import GeoPoint from '../../types/geoPoint';
 const Trip: React.FC = () => {
   
     const tripNeedsState = {
-      id: null,
       trips: []
     };
   
@@ -35,7 +34,6 @@ const Trip: React.FC = () => {
       TripService.postTripNeeds(dataTripNeeds)
         .then((response: any) => {
           setTripNeeds({
-            id: response.id,
             trips: response.trips
           });
           setSubmitted(true);
@@ -46,17 +44,6 @@ const Trip: React.FC = () => {
           console.log(e);
         });
     }
-  }
-
-  const getData = () => {
-    TripService.getTrip(1)
-      .then((response: any) => {
-        setTripNeeds(response.data);
-        console.log(response.data);
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      });
   }
 
   useEffect(() => {
@@ -81,7 +68,6 @@ const Trip: React.FC = () => {
       var splitStart = vStart.split("\\");
 
       var geoPointStart: GeoPoint =  {
-        id : null,
         name : splitStart[0],
         lat : +splitStart[1],
         lgt : +splitStart[2],
@@ -130,10 +116,9 @@ const Trip: React.FC = () => {
       
 
       var data = {
-        id: null,
         name: vName,
-        startPoint: vStart,
-        freq: cal,
+        stops: vStart,
+        annualFreq: cal,
       };
       console.log(data);
 

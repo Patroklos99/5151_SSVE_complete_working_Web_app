@@ -1,11 +1,9 @@
 package ca.uqam.info.ssve.model;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Objet contenant les données des besoins de déplacement de l'usager.
@@ -18,29 +16,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Code permanent: CHAC29089704
  * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
  *
- * @version 2022-11-23
+ * @version 2022-11-30
  */
 
-@Entity
 public class TripNeeds implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "id_trip_needs")
-    @JsonProperty("id_trip_needs")
-    private final Long id;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_trip_needs")
     @JsonProperty("trips")
     private List<Trip> trips;
 
-    @Column(name = "chargeTime")
     @JsonProperty("chargeTime")
     private final int chargeTime;
 
-    @Column(name = "autonomy")
-    @JsonProperty("autonomy")
+    @JsonProperty("autonomy") 
     private final int autonomy;
 
     /**
@@ -48,7 +35,6 @@ public class TripNeeds implements Serializable {
      */
 
     public TripNeeds() {
-        this.id = null;
         this.chargeTime = 0;
         this.autonomy = 0;
         this.trips = new ArrayList();
@@ -56,12 +42,10 @@ public class TripNeeds implements Serializable {
 
     /**
      * Constructeur
-     * @param id Id de l'objet
      * @param chargeTime Temps de rechargement souhaité par l'usager
      * @param autonomy Autonomie du véhicule souhaité par l'usager
      */
-    public TripNeeds(Long id, int chargeTime, int autonomy) {
-        this.id = id;
+    public TripNeeds(int chargeTime, int autonomy) {
         this.chargeTime = chargeTime;
         this.autonomy = autonomy;
         this.trips = new ArrayList();
@@ -73,14 +57,6 @@ public class TripNeeds implements Serializable {
      */
     public void addTravel(Trip d) {
         trips.add(d);
-    }
-
-    /**
-     * Retourne le id de l'objet
-     * @return Le id de l'objet
-     */
-    public Long getId() {
-        return id;
     }
 
     /**
@@ -113,13 +89,10 @@ public class TripNeeds implements Serializable {
      */
     public String toString() {
         String tripsString = "";
-
         for (Trip t: trips) {
             tripsString += t.toString() + '\n';
         }
-
-        return "id: " + id +
-            "\nautonomy: " + autonomy +
+        return "autonomy: " + autonomy +
             "\nchargeTime: " + chargeTime +
             "\ntrips: {" + tripsString + "\n}" ;
     }

@@ -1,8 +1,9 @@
 package ca.uqam.info.ssve.model;
 
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.io.Serializable;
-import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -16,73 +17,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Code permanent: CHAC29089704
  * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
  *
- * @version 2022-11-23
+ * @version 2022-11-30
  */
- @Entity
 public class Trip implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "id_trip")
-    @JsonProperty("id_trip")
-    private final Long id;
-
-    @Column(name = "name")
     @JsonProperty("name")
     private final String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="geoPointStart_id", referencedColumnName="id_geopoint")
-    @JsonProperty("startPoint")
-    private final GeoPoint startPoint;
+    @JsonProperty("stops")
+    private List<GeoPoint> stops;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="geoPointEnd_id", referencedColumnName="id_geopoint")
-    @JsonProperty("endPoint")
-    private final GeoPoint endPoint;
-
-    @Column(name = "annualFreq")
-    @JsonProperty("freq")
+    @JsonProperty("annualFreq")
     private final int annualFreq;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_trip_needs")
-    private TripNeeds tripneeds;
 
 
     /**
      * Constructeur par défaut
      */
     public Trip () {
-        this.id = null;
         this.name = "";
-        this.startPoint = null;
-        this.endPoint = null;
+        this.stops = new ArrayList();
         this.annualFreq = 0;
     }
 
     /**
      * Constructeur
-     * @param id Id de l'objet
      * @param name Nom du déplacement
      * @param start Point de départ du déplacement
      * @param end Point d'arrivée du déplacement
      * @param freq La frequence du déplacement
      */
-    public Trip(long id, String name, GeoPoint start, GeoPoint end, int freq) {
-        this.id = id;
+    public Trip(String name, List<GeoPoint> list, int freq) {
         this.name = name;
-        this.startPoint = start;
-        this.endPoint = end;
+        this.stops = list;
         this.annualFreq = freq;
-    }
-
-    /**
-     * Retourne le id de l'objet
-     * @return Le id de l'objet
-     */
-    public Long getId() {
-        return id;
     }
 
     /**
@@ -94,19 +62,11 @@ public class Trip implements Serializable {
     }
 
     /**
-     * Retourne le point de départ du déplacement
-     * @return Le point de départ du déplacement
+     * Retourne les arrêts du déplacement 
+     * @return Les arrêts du déplacement 
      */
-    public GeoPoint getStartPoint() {
-        return startPoint;
-    }
-
-    /**
-     * Retourne le point d'arrivée du déplacement
-     * @return Le point d'arrivée du déplacement
-     */
-    public GeoPoint getEndPoint() {
-        return endPoint;
+    public List<GeoPoint> getStops() {
+        return Collections.unmodifiableList(stops);
     }
 
     /**
@@ -121,10 +81,12 @@ public class Trip implements Serializable {
      * Permet l'affichage d'un objet Trip
      */
         public String toString(){
-    return "\n\tid: " + id +
-        "\n\tname: " + name +
-        "\n\tstart: " + startPoint.toString() +
-        "\n\tend: " + endPoint.toString()+
+            String r = "";
+            for(GeoPoint g: stops) {
+                r += g.toString() + "\n\t\t";
+            }
+    return "\n\tname: " + name +
+        "\n\tstops: " + r +
         "\n\tfreq: " + annualFreq;
  }  
 }
