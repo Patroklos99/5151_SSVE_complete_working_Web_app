@@ -1,6 +1,8 @@
 import React from "react";
 import {  Container, Grid} from '@mui/material';
 import ResultsList from './resultsList';
+import Trip from "../trip/trip"
+import MakeResearch from "../makeResearch/makeResearch";
 
 const Dashboard = () => {
     
@@ -9,7 +11,7 @@ const Dashboard = () => {
             <h1>Dashboard</h1>
             <Grid container spacing={2}>
                 <Grid item xs={4}>
-                    {/*To do: input pannel*/}
+                    <Trip/>
                 </Grid>
                 <Grid item xs={8}>
                     <ResultsList/>
