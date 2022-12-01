@@ -1,0 +1,23 @@
+.App-header {
+  background-color: #009978;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* NavBar component css */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
