@@ -4,22 +4,22 @@ import './trip.css'
 import TripData from "../../types/trip";
 import TripService from '../../services/tripServices';
 import TripNeeds from '../../types/tripNeeds';
-import { Button, FormControl, IconButton, NativeSelect, Select, Table, TableCell, TableRow, TextField } from '@mui/material';
-import {Add} from "@mui/icons-material";
+import { Button, FormControl, IconButton, NativeSelect, Table, TableCell, TableRow, TextField } from '@mui/material';
+import { Add } from "@mui/icons-material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { v4 as uuidv4 } from 'uuid';
 import GeoPoint from '../../types/geoPoint';
 
 const Trip: React.FC = () => {
-  
-    const tripNeedsState = {
-      trips: []
-    };
-  
-    const [submitted, setSubmitted] = useState<boolean>(false);
-    const [TripList, setTripList] = useState<TripData[]>([]);
-    const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
-    const [GeoPointList, setGeoPointList] = useState<GeoPoint[]>([]);
+
+  const tripNeedsState = {
+    trips: []
+  };
+
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [TripList, setTripList] = useState<TripData[]>([]);
+  const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
+  const [GeoPointList, setGeoPointList] = useState<GeoPoint[]>([]);
 
   const submitForm = () => {
 
@@ -63,31 +63,30 @@ const Trip: React.FC = () => {
 
     if (vStart !== null && vStart !== "") {
 
-        var cal: number = 0;
+      var cal: number = 0;
 
       var splitStart = vStart.split("\\");
 
-      var geoPointStart: GeoPoint =  {
-        name : splitStart[0],
-        lat : +splitStart[1],
-        lgt : +splitStart[2],
+      var geoPointStart: GeoPoint = {
+        name: splitStart[0],
+        lat: +splitStart[1],
+        lgt: +splitStart[2],
       };
-      
+
       setGeoPointList([...GeoPointList, geoPointStart]);
     }
 
-  }  
+  }
 
   const handleGeoPointRemove = (index: number) => {
     const list = [...GeoPointList]
     list.splice(index, 1)
     setGeoPointList(list)
   }
-  
+
 
   const handleTripAdd = () => {
     const name = document.getElementById('name') as HTMLInputElement
-    // const start = document.getElementById('search1') as HTMLInputElement
     const start = GeoPointList;
     const freqNb = document.getElementById('freqNb') as HTMLInputElement
     const freq = document.getElementById('frequences') as HTMLInputElement
@@ -102,18 +101,18 @@ const Trip: React.FC = () => {
       vFreqNb !== null && vFreqNb !== "" &&
       vFreq !== null && vFreq !== "") {
 
-        var cal: number = 0;
+      var cal: number = 0;
 
-        if (vFreq === "Jour") {
-          cal = +vFreqNb * 365;
-        } else if (vFreq === "Semaine") {
-          cal = +vFreqNb * 52;
-        } else if (vFreq === "Mois") {
-          cal = +vFreqNb * 12;
-        } else if (vFreq === "Année") {
-          cal = +vFreqNb * 1;
-        }
-      
+      if (vFreq === "Jour") {
+        cal = +vFreqNb * 365;
+      } else if (vFreq === "Semaine") {
+        cal = +vFreqNb * 52;
+      } else if (vFreq === "Mois") {
+        cal = +vFreqNb * 12;
+      } else if (vFreq === "Année") {
+        cal = +vFreqNb * 1;
+      }
+
 
       var data = {
         name: vName,
@@ -125,6 +124,9 @@ const Trip: React.FC = () => {
       setTripList([...TripList, data])
       setTripNeeds({ ...tripNeeds, trips: [...tripNeeds.trips, data] });
     }
+    name.value = "";
+    setGeoPointList([]);
+    freqNb.value = "";
 
   }
 
@@ -135,10 +137,9 @@ const Trip: React.FC = () => {
     setTripNeeds({ ...tripNeeds, trips: [...list] });
   }
 
-
   return (
     <div>
-       <FormControl variant="filled">
+      <FormControl variant="filled">
         <label id="textsup">Nom du trajet</label>
         <TextField
           id="name"
@@ -155,10 +156,10 @@ const Trip: React.FC = () => {
         <input id='search1' type={"text"} required hidden />
         <div id="result" hidden></div>
 
-           <Button variant="outlined" onClick={handleGeoPointAdd}>
-               <Add /> Ajouter une destination
-           </Button>
-           <div>
+        <Button variant="outlined" onClick={handleGeoPointAdd}>
+          <Add /> Ajouter une destination
+        </Button>
+        <div>
           {GeoPointList.map((geoPoint, index) => (
             <div>
               <Table size="small">
@@ -206,7 +207,9 @@ const Trip: React.FC = () => {
             </TableCell>
           </TableRow>
         </Table>
-        <Button variant="outlined" onClick={() => handleTripAdd()} type={"submit"}>Ajouter trajet</Button>
+        <Button variant="outlined" onClick={() => handleTripAdd()} type={"submit"}>
+          <Add /> Ajouter un trajet
+        </Button>
         <div>
           {TripList.map((trip, index) => (
             <div>
