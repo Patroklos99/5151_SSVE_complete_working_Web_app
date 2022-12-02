@@ -1,35 +1,56 @@
-import { Container, SvgIcon, SvgIconProps, Typography } from "@mui/material";
+import { Container, Button } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 import "./HomePage.css";
+import Image from '../../assets/logo.png'
 
-function CustomIcon(props: SvgIconProps) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M23 8A7 7 0 0 0 9.68 5H7v2H4.5a1.5 1.5 0 0 0-1.42 1.01L1 14v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-7.68A7.01 7.01 0 0 0 23 8zm-18.5.5h4.53a6.93 6.93 0 0 0 2.08 4.5H3l1.5-4.5zm0 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm2.93-5.63-.21.11-.18.09a4.97 4.97 0 0 1-.42.16l-.22.07-.23.06-.2.05a5 5 0 0 1-5.94-4.41A4.07 4.07 0 0 1 11 8l.02-.47.02-.17.04-.28.04-.21.05-.21.07-.24.05-.13a4.99 4.99 0 0 1 9.69 1.7 4.96 4.96 0 0 1-2.55 4.38zM15 4h2v5h-2zm0 6h2v2h-2z" />
-    </SvgIcon>
-  );
-}
+
 const HomePage = () => {
   return (
     <Container maxWidth="xl">
-      <h1>Accueil</h1>
-      <Typography color="inherit" variant="h5">
-        <CustomIcon
-          sx={{
-            marginRight: "18px",
-          }}
-          color="warning"
-          fontSize="inherit"
-        />
-        Désolé cette page est en cours de constructions
-        <CustomIcon
-          sx={{
-            marginLeft: "18px",
-          }}
-          color="warning"
-          fontSize="inherit"
-        />
-      </Typography>
+      <section className='homePage'>
+            <ellipse className='ellipse' />
+            <Link className='textEllipse' to='/about'>À propos</Link>
+            <img className='logo' src={Image} alt='not-found'/>
+            <p className='title1'>SSVE</p>
+            <div className='content'>
+                <p className='title2'>Trouver la meilleure auto <br /> électrique pour vous!</p>
+                <p className='description'>
+                        Avec un algorithme spécialement développé pour ce projet, 
+                        on analyse vos <br /> déplacements pour vous suggérer quelle 
+                        auto électrique vous conviendrait <br /> le mieux. Dans le cas ou 
+                        la voiture à essence est un meilleur choix, <br /> 
+                        nous vous le dirons aussi.
+                </p>
+                <Button
+                sx={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "15px",
+              
+                  position: "absolute",
+                  width: "280px",
+                  height: "55px",
+                  marginLeft: "230px",
+                  top: "528px",
+              
+                  background: "#65E4A3",
+                  border: "2px solid #69E6A6",
+                  borderRadius: "56px",
+              
+                  flex: "none",
+                  order: "2",
+                  flexGrow: "0",
+                  zIndex: "2"
+                }}
+                component={Link}
+                to="/dashboard"
+              >
+                <span className="textButton">Je fais le test!</span>
+              </Button>
+
+            </div>
+       </section>
     </Container>
   );
 };

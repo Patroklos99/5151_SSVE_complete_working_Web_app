@@ -1,0 +1,133 @@
+.homePage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: -4px;
+    background: #0A2640; 
+    overflow: hidden;
+}
+
+.content{
+    position: relative;
+    margin-top: 40px;
+}
+
+
+.title1{
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 43.25px;
+    line-height: 34px;
+
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+
+    width: 221.23px;
+    height: 42px;
+    left: 160px;
+}
+
+.title2{
+    position: absolute;
+    width: 1567px;
+    height: 1380px;
+
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 72px;
+
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    width: 567px;
+    height: 138px;
+
+    margin-top: 170px;
+    margin-left: 100.77px;
+}
+
+.description{
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    width: 567px;
+    height: 112px;
+
+    margin-top:  350px;
+    margin-left: 100.77px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+
+    color: #F1F1F1;
+}
+
+.textButton{
+   
+    font-family: 'Roboto', sans-serif;
+    font-style: medium;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    text-transform: initial;
+    color: #000204;
+
+  
+}
+
+.logo{
+    position: absolute;
+    margin-left: 100.77px;
+    top: 40px;
+    width: 50px;
+    height: 50px; 
+}
+
+
+.ellipse{
+    position: absolute;
+    width: 1293px;
+    height: 1293px;
+    left: 777px;
+    top: -793px;
+    border-radius:646.5px;
+    background: #1C3D5B;
+}
+
+.textEllipse{
+    position: absolute;
+    text-decoration:none;
+    width: 69px;
+    height: 28px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 28px;
+
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+    margin-left: 850px;
+    margin-top: 48px;
+}
