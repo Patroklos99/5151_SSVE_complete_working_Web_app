@@ -1,18 +1,18 @@
 import { Container, Button } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../shared/Logo";
 import "./HomePage.css";
-import Image from '../../assets/logo.png'
 
 
-const HomePage = () => {
+
+const HomePage: React.FC = () => {
   return (
     <Container maxWidth="xl">
       <section className='homePage'>
             <ellipse className='ellipse' />
             <Link className='textEllipse' to='/about'>À propos</Link>
-            <img className='logo' src={Image} alt='not-found'/>
-            <p className='title1'>SSVE</p>
+            <Logo />
             <div className='content'>
                 <p className='title2'>Trouver la meilleure auto <br /> électrique pour vous!</p>
                 <p className='description'>
