@@ -15,29 +15,25 @@ interface ListItemCarProps {
 const ListItemCar = (props: ListItemCarProps) => {
 
     return (
-        <div className="list-item-car">
+        <div key={props.index} className="list-item-car">
             <Paper elevation={4} onClick={() => props.handleClick(props.car)}>
                 <ListItem key={props.index} alignItems="flex-start">
                     <ListItemAvatar>
                         <Avatar alt="img" src={/*require(`../../../../assets/images/${props.car.imgLink}`)*/""} />
                     </ListItemAvatar>
-                    <ListItemText
-                        primary={
-                            <div className="primary">
-                                <div className='modele'>{props.car.brand +" "+ props.car.modelName}</div>
-                                <div className='prix'>{props.car.price}$</div>
-                            </div> 
-                        }
-                        secondary={
-                            <div>
-                                <div className='desc-text'>
-                                    {props.car.description}
-                                </div>
-                                <LinearProgressWithLabel variant="determinate" value={props.car.score *10}/>
-                            </div> 
-                        }
-                        color="black"
-                    />
+                    <div className="desc">
+                        <ListItemText
+                            primary={
+                                <div className="primary">
+                                    <div className='modele'>{props.car.brand +" "+ props.car.modelName}</div>
+                                    <div className='prix'>{props.car.price}$</div>
+                                </div> 
+                            }
+                            secondary={props.car.description}
+                            color="black"
+                        />
+                        <LinearProgressWithLabel variant="determinate" value={props.car.score * 10}/>
+                    </div>
                 </ListItem>
             </Paper>
         </div>
