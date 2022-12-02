@@ -22,8 +22,11 @@ const HomePage: React.FC = () => {
                         la voiture à essence est un meilleur choix, <br /> 
                         nous vous le dirons aussi.
                 </p>
-                <Button
+                <Button 
                 sx={{
+                  '&:hover':{
+                    background:"#41d38aef"
+                  },
                   justifyContent: "center",
                   alignItems: "center",
                   gap: "15px",
@@ -33,9 +36,9 @@ const HomePage: React.FC = () => {
                   height: "55px",
                   marginLeft: "230px",
                   top: "528px",
-              
+                 
                   background: "#65E4A3",
-                  border: "2px solid #69E6A6",
+                  border: "",
                   borderRadius: "56px",
               
                   flex: "none",

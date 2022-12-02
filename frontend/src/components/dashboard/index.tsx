@@ -25,7 +25,7 @@ const Dashboard = () => {
                 <Grid item xs={dashboardStatus === 'search' ? 8 : 4}>
                     <ResultsList handleResultClick = {handleResultClick}/>
                 </Grid>
-                {dashboardStatus == 'results' && selectedCar &&
+                {dashboardStatus === 'results' && selectedCar &&
                     <Grid item xs={8}>
                         <ResultDetails car={selectedCar}/>
                     </Grid>
