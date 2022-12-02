@@ -7,7 +7,6 @@ import axios from "../http-commons";
  * Note that there is no error handling here but axios includes a elegant way to handle errors
  * that should be implemented in services. See https://axios-http.com/docs/handling_errors
  */
-const url = "http://localhost:8080/api";
 const getAllCars = async () => {
   try {
     const res = await axios.get("/vehicle/tempDummy");

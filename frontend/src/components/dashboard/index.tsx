@@ -17,12 +17,12 @@ const Dashboard = () => {
         <Container maxWidth="xl">
             <h1 hidden>Dashboard</h1>
             <Grid container spacing={2}>
-                {dashboardStatus == 'search' &&
+                {dashboardStatus === 'search' &&
                     <Grid item xs={4}>
                         {/*To do: input pannel*/}
                     </Grid>
                 }
-                <Grid item xs={dashboardStatus == 'search' ? 8 : 4}>
+                <Grid item xs={dashboardStatus === 'search' ? 8 : 4}>
                     <ResultsList handleResultClick = {handleResultClick}/>
                 </Grid>
                 {dashboardStatus == 'results' && selectedCar &&
