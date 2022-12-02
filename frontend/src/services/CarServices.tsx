@@ -1,4 +1,5 @@
 import ICar from "../types/Car";
+import axios from "../http-commons";
 
 /**
  * These are all examples of services, if you need more complex
@@ -9,10 +10,8 @@ import ICar from "../types/Car";
 const url = "http://localhost:8080/api";
 const getAllCars = async () => {
   try {
-    const res = await fetch(`${url}/vehicle/tempDummy`, {
-      method: "GET",
-    });
-    const data = await res.json();
+    const res = await axios.get("/vehicle/tempDummy");
+    const data = res.data;
     data.forEach((car: ICar) => {
       car.imgLink = car.imgLink.substring(car.imgLink.lastIndexOf('/') + 1)
     });
