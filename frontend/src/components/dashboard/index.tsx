@@ -10,7 +10,6 @@ const Dashboard = () => {
     const [selectedCar, setSelectedCar] = React.useState<ICar | null>(null);
 
     const handleResultClick = (result: ICar) => {
-        console.log(result);
         setSelectedCar(result);
         setDashboardStatus('results');
     }

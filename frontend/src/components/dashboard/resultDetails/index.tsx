@@ -84,7 +84,7 @@ const ResultDetails = (props: ResultDetailsProps) => {
     return (
         <Container className="result-details-container">
             <div className="main-img">
-                <img src={require(`../../../assets/images/audiETron.png`)} alt="" />
+                <img src={require(`../../../assets/images/${car.imgLink}`)} alt="" />
             </div>
             <Container className="result-details-infos-container">
                 <div className="title">

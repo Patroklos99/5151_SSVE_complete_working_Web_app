@@ -1,3 +1,5 @@
+import ICar from "../types/Car";
+
 /**
  * These are all examples of services, if you need more complex
  * services feel free to create your own in it own file to prevent clutter.
@@ -10,7 +12,11 @@ const getAllCars = async () => {
     const res = await fetch(`${url}/vehicle/tempDummy`, {
       method: "GET",
     });
-    return await res.json();
+    const data = await res.json();
+    data.forEach((car: ICar) => {
+      car.imgLink = car.imgLink.substring(car.imgLink.lastIndexOf('/') + 1)
+    });
+    return await data;
   } catch (err) {
     console.log(err);
     return [];
