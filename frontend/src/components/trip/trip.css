@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+  }
+ 
+  [id^=map] {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    display: none;
+  }
+
+.btn {
+  background-color: #009978;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+  [id^=search-box] {
+    padding-bottom: 20px;
+    width: 100%;
+  }
+ 
+  [id=search-box2] {
+    z-index: 1;
+  }
+ 
+  [id^=result] {
+    padding-left: 20px;
+    padding-top: 20px;
+  }
+ 
+  [class^=leaflet-locationiq-control] {
+    width: 100%;
+  }
+ 
+  [class^=leaflet-locationiq-results] {
+    top: 55px !important;
+  }
+ 
+  #textsup {
+    text-align: left;
+  }
