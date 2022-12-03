@@ -3,7 +3,6 @@ import {  Container, Grid} from '@mui/material';
 import ResultsList from './resultsList';
 
 const Dashboard = () => {
-    
     return (
         <Container maxWidth="xl">
             <h1>Dashboard</h1>
@@ -15,8 +14,6 @@ const Dashboard = () => {
                     <ResultsList/>
                 </Grid>
             </Grid>
-       
-        
         </Container>
     );
 };
