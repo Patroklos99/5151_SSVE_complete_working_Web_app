@@ -2,15 +2,22 @@ import { Avatar, ListItem, ListItemAvatar, ListItemText, Paper } from "@mui/mate
 import ICar from "../../../../types/Car"
 import { LinearProgressWithLabel } from "../linearProgressWithLabel"
 import './style.css'
+import process from "process"
 
 const ListItemCar = (car:ICar, index: number) => {
+
+    let imgSrc = "" // Definiser votre source d'image local ici
+
+    if (process.env.NODE_ENV === 'production') {
+        imgSrc = "http://adve.info.uqam.ca/img/";
+    }
 
     return (
         <div key={index} className="list-item-car">
             <Paper elevation={4}>
                 <ListItem key={index} alignItems="flex-start">
                     <ListItemAvatar>
-                        <Avatar alt="img" src={require(`../../../../assets/images/${car.imgLink}`)} />
+                        <Avatar alt="img" src={`${imgSrc}${car.imgLink}`}></Avatar>
                     </ListItemAvatar>
                     <div className="desc">
                         <ListItemText
