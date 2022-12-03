@@ -1,7 +1,14 @@
 .filters {
-    background-color: aquamarine;
+    background-color: whitesmoke;
+   
 }
 
 .input-group {
     padding : 1rem;
+    padding-left: 2rem;
 }
+
+h1 {
+    text-align: center;
+}
+

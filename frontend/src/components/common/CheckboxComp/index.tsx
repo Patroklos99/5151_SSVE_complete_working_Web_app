@@ -37,9 +37,9 @@ export default function CheckboxComp( brand: any, changeChecked: any): any {
     return (
         <FormGroup>
 
-            <FormControlLabel onChange={() => PorscheAppear = filterCompleted(PorscheAppear, "Porsche")} control={<Checkbox defaultChecked />} label="Porsche" />
-            <FormControlLabel onChange={() => TeslaAppear = filterCompleted(TeslaAppear, "Tesla")} control={<Checkbox defaultChecked />} label="Tesla" />
-            <FormControlLabel onChange={() => BmwAppear = filterCompleted(BmwAppear, "Bmw")} control={<Checkbox defaultChecked />} label="Bmw" />
+            <FormControlLabel onChange={() => PorscheAppear = filterCompleted(PorscheAppear, "Porsche")} control={<Checkbox defaultChecked color="success"/>} label="Porsche" />
+            <FormControlLabel onChange={() => TeslaAppear = filterCompleted(TeslaAppear, "Tesla")} control={<Checkbox defaultChecked color="success"/>} label="Tesla" />
+            <FormControlLabel onChange={() => BmwAppear = filterCompleted(BmwAppear, "Bmw")} control={<Checkbox defaultChecked color="success"/>} label="Bmw" />
 
         </FormGroup>
     );

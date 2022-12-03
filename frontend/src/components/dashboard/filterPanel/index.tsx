@@ -4,18 +4,24 @@ import DoorFilter from '../../common/DoorFilter';
 import DropDownSelect from '../../common/DropDownSelect';
 import FilterToggle from '../../common/FilterToggle';
 import SliderComp from '../../common/SliderComp';
+import Typography from '@mui/material/Typography';
+import { Paper } from "@mui/material";
 import "./style.css";
+import SliderSafetyScore from '../../common/SliderSafetyScore';
+import SliderScore from '../../common/SliderScore';
 
 const FilterPanel = ({
     
 
 }) => (
-    
+       <Paper elevation={10}>
         <div className="filters">
-            <h1>Filtres</h1>
+            <h1><em>Filtres</em></h1>
 
             <div className="input-group">
-                <p className="label">Type de voiture</p>
+                <Typography id="non-linear-slider" gutterBottom>
+                    Type de voiture
+                </Typography>
                 <FilterToggle/>
             </div>
 
@@ -37,35 +43,30 @@ const FilterPanel = ({
             </div>
 
             <div className="input-group">
-                <p className="label">Prix</p>
-                <SliderComp/>
+                <Typography id="non-linear-slider" gutterBottom>
+                    Prix
+                </Typography>
+                <SliderComp minValue={undefined} maxValue={undefined} />
             </div>
 
             <div className="input-group">
-                <p className="label">Autonomie</p>
-                <SliderComp/>
+                <Typography id="non-linear-slider" gutterBottom>
+                    Score
+                </Typography>
+                <SliderScore minValue={undefined} maxValue={undefined} />
+            </div>
+                   
+            <div className="input-group">
+                <Typography id="non-linear-slider" gutterBottom>
+                    Score de Securite
+                </Typography>
+                <SliderSafetyScore minValue={undefined} maxValue={undefined} />
             </div>
 
-            <div className="input-group">
-                <p className="label">Capacite</p>
-                <SliderComp/>
-            </div>
+ 
 
-            <div className="input-group">
-                <p className="label">Temps de recharge</p>
-                <SliderComp/>
-            </div>
-
-            <div className="input-group">
-                <p className="label">Score</p>
-                <SliderComp/>
-            </div>
-
-            <div className="input-group">
-                <p className="label">Score de securite</p>
-                <SliderComp/>
-            </div>
         </div>
+        </Paper>
 );
 
 
