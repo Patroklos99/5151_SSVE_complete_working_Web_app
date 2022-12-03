@@ -1,4 +1,5 @@
 import axios from "../http-commons";
+import Icar from "../types/Car";
 
 /**
  * These are all examples of services, if you need more complex
@@ -8,8 +9,9 @@ import axios from "../http-commons";
  */
 const getAllCars = async () => {
   try {
-    const res = await axios.get("/vehicle/evaluate");
-    const data = await res.data;
+    console.log(process.env.NODE_ENV);
+    const res = await axios.get<Array<Icar>>("/vehicle/evaluate");
+    const data = res.data;
     return data;
   } catch (err) {
     console.log(err);
