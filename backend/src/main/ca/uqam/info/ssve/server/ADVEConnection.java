@@ -1,6 +1,5 @@
 package ca.uqam.info.ssve.server;
 
-import java.net.*;
 import java.io.*;
 
 import com.jcraft.jsch.ChannelExec;

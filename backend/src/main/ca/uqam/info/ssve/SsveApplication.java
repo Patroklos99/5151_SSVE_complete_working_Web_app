@@ -3,8 +3,6 @@ package ca.uqam.info.ssve;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.repository.VehicleRepository;
 
-import java.util.ArrayList;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

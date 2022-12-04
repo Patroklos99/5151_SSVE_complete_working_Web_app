@@ -147,13 +147,6 @@ public class VehicleService {
     }
 
     // --------------------------------- ---------------------------------------
-    private boolean validateId(Long id) {
-        return id > 0 && id < Integer.MAX_VALUE;
-    }
-
-    private boolean validateScore(double score) {
-        return score >= 0.0 && score <= 15.0;
-    }
 
     public List<Evaluation> evaluateVehicle(List<Deplacement> coordinateList)
             throws IOException, JSchException, InterruptedException {
@@ -190,7 +183,7 @@ public class VehicleService {
                         .doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() * 100);
                 stringToRoute(route, data);
 
-                if(route.getChargingTime() == 0)
+                if (route.getChargingTime() == 0)
                     nbTrajetSansRecharge++;
 
                 // --------Donne une note au déplacement pour la voiture i
@@ -257,10 +250,6 @@ public class VehicleService {
      * @param data:  String à traduire
      */
     private void stringToRoute(Route route, String data) {
-        int valueNum = 0;
-        int space1 = 0;
-        int space2 = 0;
-        int space3 = 0;
         String[] splited = data.split(" ");
         route.setDistance(Double.parseDouble(splited[0]));
         route.setTripTime(Double.parseDouble(splited[1]));
