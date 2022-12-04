@@ -1,17 +1,14 @@
 package java.ca.uqam.info.ssve.service;
 
-import java.ca.uqam.info.ssve.model.Deplacement;
-import java.ca.uqam.info.ssve.model.Route;
-import java.ca.uqam.info.ssve.model.Evaluation;
-import java.ca.uqam.info.ssve.model.Vehicle;
+import java.ca.uqam.info.ssve.model.*;
 import java.ca.uqam.info.ssve.repository.VehicleRepository;
 import java.ca.uqam.info.ssve.server.ADVEConnection;
+import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -19,13 +16,13 @@ public class VehicleService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
+    private ADVEConnection adveConnection = new ADVEConnection();
 
     public Vehicle getVehicle(Long id) {
         return vehicleRepository.findById(id).get();
     }
 
     /**
-     *
      * @param vehicle
      * @return
      */
@@ -33,15 +30,27 @@ public class VehicleService {
         if (validateBrand(vehicle.getBrand())
                 && validateModelName(vehicle.getModelName())
                 && validatePrice(vehicle.getPrice())
-                && validateNbDoors(vehicle.getNbDoors())
+                && validateNbPlaces(vehicle.getNbPlaces())
                 && validateType(vehicle.getType())
-                && validateRange(vehicle.getRange())
-                && validateBatteryCapacity(vehicle.getBatteryCapacity())
+                && validateMaintainCosts(vehicle.getMaintainCosts())
+                && validateElectricalCapacity(vehicle.getElectricalCapacity())
+                && validateElectricalConsumption(vehicle.getElectricalStreetConsumption())
+                && validateElectricalConsumption(vehicle.getElectricalHighwayConsumption())
+                && validateGasCapacity(vehicle.getGasCapacity())
+                && validateGasConsumption(vehicle.getGasStreetConsumption())
+                && validateGasConsumption(vehicle.getGasHighwayConsumption())
+                && validateLoadCapacity(vehicle.getLoadCapacity())
                 && validateSafetyScore(vehicle.getSafetyScore())
                 && validateRefLink(vehicle.getRefLink())
-                && validateImgLink(vehicle.getImgLink())) {
+                && validateImgLink(vehicle.getImgLink())
+                && validateDescription(vehicle.getDescription())) {
+            long size = vehicleRepository.count();
             vehicleRepository.save(vehicle);
-            return vehicle;
+            Optional<Vehicle> voiture = vehicleRepository.findById(size + 1);
+            if (voiture.isPresent()) {
+                return voiture.get();
+            }
+            throw new IllegalArgumentException();
         }
         throw new IllegalArgumentException();
     }
@@ -54,13 +63,20 @@ public class VehicleService {
         if (validateBrand(vehicle.getBrand())
                 && validateModelName(vehicle.getModelName())
                 && validatePrice(vehicle.getPrice())
-                && validateNbDoors(vehicle.getNbDoors())
+                && validateNbPlaces(vehicle.getNbPlaces())
                 && validateType(vehicle.getType())
-                && validateRange(vehicle.getRange())
-                && validateBatteryCapacity(vehicle.getBatteryCapacity())
+                && validateMaintainCosts(vehicle.getMaintainCosts())
+                && validateElectricalCapacity(vehicle.getElectricalCapacity())
+                && validateElectricalConsumption(vehicle.getElectricalStreetConsumption())
+                && validateElectricalConsumption(vehicle.getElectricalHighwayConsumption())
+                && validateGasCapacity(vehicle.getGasCapacity())
+                && validateGasConsumption(vehicle.getGasStreetConsumption())
+                && validateGasConsumption(vehicle.getGasHighwayConsumption())
+                && validateLoadCapacity(vehicle.getLoadCapacity())
                 && validateSafetyScore(vehicle.getSafetyScore())
                 && validateRefLink(vehicle.getRefLink())
                 && validateImgLink(vehicle.getImgLink())
+                && validateDescription(vehicle.getDescription())
                 && vehicleRepository.findById(vehicle.getId()).isPresent()) {
             vehicleRepository.save(vehicle);
             return vehicleRepository.findById(vehicle.getId()).get();
@@ -78,8 +94,28 @@ public class VehicleService {
         return modelName.matches("[A-Za-z\s0-9]+");
     }
 
-    private boolean validateNbDoors(int nbDoors) {
+    private boolean validateNbPlaces(int nbDoors) {
         return nbDoors > 0 && nbDoors < 10;
+    }
+
+    private boolean validateElectricalCapacity(int electricalCapacity) {
+        return electricalCapacity > 0 && electricalCapacity < 500;
+    }
+
+    private boolean validateElectricalConsumption(double electricalConsumption) {
+        return electricalConsumption > 0 && electricalConsumption < 100;
+    }
+
+    private boolean validateGasCapacity(int gasCapacity) {
+        return gasCapacity > 0 && gasCapacity < 500;
+    }
+
+    private boolean validateGasConsumption(double gasConsumption) {
+        return gasConsumption > 0 && gasConsumption < 100;
+    }
+
+    private boolean validateLoadCapacity(int loadCapacity) {
+        return loadCapacity > 0 && loadCapacity < 500;
     }
 
     private boolean validateType(String type) {
@@ -90,12 +126,8 @@ public class VehicleService {
         return price > 0 && price < Integer.MAX_VALUE;
     }
 
-    private boolean validateRange(int range) {
-        return range > 0 && range < 2000;
-    }
-
-    private boolean validateBatteryCapacity(int batteryCapacity) {
-        return batteryCapacity > 0 && batteryCapacity < Integer.MAX_VALUE;
+    private boolean validateMaintainCosts(double maintainCosts) {
+        return maintainCosts > 0 && maintainCosts < 1000;
     }
 
     private boolean validateSafetyScore(int safetyScore) {
@@ -110,63 +142,148 @@ public class VehicleService {
         return imgLink.matches("(\\b(https?|ftp|file)://)?[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
     }
 
+    private boolean validateDescription(String description) {
+        return description.length() >= 0 && description.length() < 1000;
+    }
+
     // --------------------------------- ---------------------------------------
-    private boolean validateId(Long id) {
-        return id > 0 && id < Integer.MAX_VALUE;
+
+    public List<Evaluation> evaluateVehicle(List<Deplacement> coordinateList)
+            throws IOException, JSchException, InterruptedException {
+        // -------- DÉBUT ALGO RÉEL---------
+        adveConnection.connectServer();
+        ArrayList<Route> routeList = new ArrayList<>();
+        ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
+        int frequenceTotale = 0;
+
+        // --------Détermination de la fréquence total et du poid de chaque route
+        for (Deplacement x : coordinateList) {
+            Route route = new Route();
+            route.setFrequence(x.getFd().getNb_days());
+            route.setDeplacement(x);
+            frequenceTotale += route.getFrequence();
+            routeList.add(route);
+        }
+        for (Route route : routeList) {
+            route.setWeight(getPercentage(route.getFrequence(), frequenceTotale));
+        }
+
+        // --------Évaluation de chaque route pour chaque voiture et calcule de la note
+        // final
+        List<Vehicle> allVehicle = getAllVehicle();
+        allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
+
+        int nbTrajetSansRecharge = 0;
+
+        for (int i = 0; i < allVehicle.size(); i++) {
+            double score = 0;
+            for (Route route : routeList) {
+                // --------Obtien les infos du déplacement avec la boite noir
+                String data = adveConnection
+                        .doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() * 100);
+                stringToRoute(route, data);
+
+                if (route.getChargingTime() == 0)
+                    nbTrajetSansRecharge++;
+
+                // --------Donne une note au déplacement pour la voiture i
+                evaluateRoute(route, allVehicle, i);
+            }
+            // -------- Calcule la note final de la voiture selon la note de chaque
+            // déplacement
+            for (Route route : routeList)
+                score = score + (route.getWeight() * route.getScore());
+
+            // --------Ajoute le score final a la voiture et l'ajoute dans la liste a
+            // retourné
+            Evaluation evaluation = new Evaluation(allVehicle.get(i));
+            evaluation.setScore(score);
+            evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
+            evaluation.setTrajetTotal(routeList.size());
+            vehicleFinalScore.add(evaluation);
+        }
+        adveConnection.closeServer();
+        // --------Sort les voitures par score
+        vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
+        Collections.reverse(vehicleFinalScore);
+        return vehicleFinalScore;
     }
 
-    private boolean validateScore(double score) {
-        return score >= 0.0 && score <= 15.0;
+    private String requeteString(Route route) {
+        String start = "(" + route.getDeplacement().getStart().getLat() + ","
+                + route.getDeplacement().getStart().getLgt() + ")";
+        String end = "(" + route.getDeplacement().getEnd().getLat() + "," + route.getDeplacement().getEnd().getLgt()
+                + ")";
+        return start + " " + end + " ";
     }
 
-    public List<Evaluation> evaluateVehicle() throws IOException { // List<Deplacement> coordinateList
+    private void evaluateRoute(Route route, List<Vehicle> vehicle, int i) {
+        double poid1 = 0.75;
+        double poid2 = 0.25;
+        double note1 = getPercentage(vehicle.get(i).getElectricalCapacity(), route.getDistance());
+        if (note1 > 100)
+            note1 = 100;
+        int rangeMax = 0;
+        for (int j = 0; j < vehicle.size(); j++) {
+            if (vehicle.get(j).getElectricalCapacity() > rangeMax) {
+                rangeMax = vehicle.get(j).getElectricalCapacity();
+            }
+        }
+        double note2 = getPercentage((vehicle.get(i).getElectricalCapacity() - route.getDistance()),
+                (rangeMax - route.getDistance()));
+        if (note2 > 100) {
+            note2 = 100;
+        } else if (note2 < 0) {
+            note2 = 0;
+        }
+        route.setScore(poid1 * note1 + poid2 * note2);
+    }
 
-        // -------- Algorithme réel
-        /*
-         * ArrayList<Route> routeList = new ArrayList<>();
-         * ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
-         * int frequenceTotale = 0;
-         * ADVEConnection adveConnection = new
-         * ADVEConnection("https://adve.info.uqam.ca");
-         * for (Deplacement x : coordinateList) {
-         * //algo utilisation boite noite (serveur)
-         * String info = adveConnection.call(x); //Résultat boite noir voir si String ou
-         * JSON
-         * Route route = new Route();
-         * route.setFrequence(x.getFd().getNb_days());
-         * /*
-         * route.setDistance();
-         * route.setTripTime(); A ajusté selon le type de retour de la boite noire
-         * route.setWaitingTime();
-         * route.setChargingTime();
-         *//*
-            * routeList.add(route);
-            * frequenceTotale += route.getFrequence();
-            * }
-            * for (Route route : routeList) {
-            * route.setWeight((route.getFrequence() / frequenceTotale) +
-            * (route.getFrequence() % frequenceTotale));
-            * }
-            * 
-            * List <Vehicle> allVehicle = getAllVehicle();
-            * allVehicle.sort(Comparator.comparing(Vehicle::getRange));
-            * for (int i = 0; i < allVehicle.size(); i++) {
-            * double score = 0;
-            * for (Route route : routeList) {
-            * evaluateRoute(route, allVehicle, i);
-            * }
-            * for (Route route : routeList) {
-            * score = score+(route.getWeight()* route.getScore());
-            * }
-            * Evaluation evaluation = new Evaluation(allVehicle.get(i));
-            * evaluation.setScore(score);
-            * vehicleFinalScore.add(evaluation);
-            * }
-            * vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
-            * return vehicleFinalScore;
-            */
+    public static double getPercentage(double part, double whole) {
+        return new BigDecimal(part * 100 / whole).doubleValue();
+    }
 
-        // Dummy pour FrontEnd ---------------------------------------------------------
+    /**
+     * Méthode pour traduire un string et ajouter ses valeurs dans un objet Route
+     * 
+     * @param route: Objet Route à modifier
+     * @param data:  String à traduire
+     */
+    private void stringToRoute(Route route, String data) {
+        String[] splited = data.split(" ");
+        route.setDistance(Double.parseDouble(splited[0]));
+        route.setTripTime(Double.parseDouble(splited[1]));
+        route.setWaitingTime(Double.parseDouble(splited[2]));
+        route.setChargingTime(Double.parseDouble(splited[3]));
+    }
+
+    /**
+     * Méthode pour arrondire un nombre
+     * 
+     * @param value:  valeur a arrondire
+     * @param places: nombre de chiffre après la virgule
+     * @return
+     */
+    public static double round(double value, int places) {
+        if (places < 0)
+            throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
+    // --------------------------------- MÉTHODE TEMPORAIRE POUR TESTER L'ALGORITHME
+    // ---------------------------------
+
+    /**
+     * Méthode pour retourné une note aléatoire a chaque véhicule afin de tester le
+     * frontend. Temporaire
+     * 
+     * @return List de voiture avec une note aléatoire.
+     */
+    public List<Evaluation> dummyScore() {
         List<Vehicle> list = getAllVehicle();
         List<Evaluation> list2 = new ArrayList<>();
         for (Vehicle vehicle : list) {
@@ -174,33 +291,129 @@ public class VehicleService {
             eval.setId(vehicle.getId());
             eval.setBrand(vehicle.getBrand());
             eval.setModelName(vehicle.getModelName());
-            eval.setNbDoors(vehicle.getNbDoors());
+            eval.setNbPlaces(vehicle.getNbPlaces());
             eval.setType(vehicle.getType());
             eval.setPrice(vehicle.getPrice());
-            eval.setRange(vehicle.getRange());
-            eval.setBatteryCapacity(vehicle.getBatteryCapacity());
+            eval.setMaintainCosts(vehicle.getMaintainCosts());
+            eval.setElectricalCapacity(vehicle.getElectricalCapacity());
+            eval.setElectricalStreetConsumption(vehicle.getElectricalStreetConsumption());
+            eval.setElectricalHighwayConsumption(vehicle.getElectricalHighwayConsumption());
+            eval.setGasCapacity(vehicle.getGasCapacity());
+            eval.setGasStreetConsumption(vehicle.getGasStreetConsumption());
+            eval.setGasHighwayConsumption(vehicle.getGasHighwayConsumption());
+            eval.setLoadCapacity(vehicle.getLoadCapacity());
             eval.setSafetyScore(vehicle.getSafetyScore());
             eval.setRefLink(vehicle.getRefLink());
             eval.setImgLink(vehicle.getImgLink());
+            eval.setDescription(vehicle.getDescription());
             list2.add(eval);
         }
 
         return list2;
     }
 
-    private void evaluateRoute(Route route, List<Vehicle> vehicle, int i) {
-        double poid1 = 0.75;
-        double poid2 = 0.25;
-        double note1 = (vehicle.get(i).getRange() / route.getDistance())
-                + (vehicle.get(i).getRange() % route.getDistance()) * 100;
-        if (note1 > 100) {
-            note1 = 100;
+    /**
+     * Méthode pour testé l'algorithme avec un input de déplacement controllé.
+     * Temporaire.
+     * 
+     * @return
+     * @throws IOException
+     * @throws JSchException
+     * @throws InterruptedException
+     */
+    public List<Evaluation> evaluateVehicleTest() throws IOException, JSchException, InterruptedException {
+        List<Deplacement> coordinateList = createDeplacementList();
+        adveConnection.connectServer();
+        // -------- DÉBUT ALGO RÉEL---------
+        ArrayList<Route> routeList = new ArrayList<>();
+        ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
+        int frequenceTotale = 0;
+        // --------Détermination de la fréquence total et du poid de chaque route
+        for (Deplacement x : coordinateList) {
+            Route route = new Route();
+            route.setFrequence(x.getFd().getNb_days());
+            route.setDeplacement(x);
+            frequenceTotale += route.getFrequence();
+            routeList.add(route);
         }
-        int rangeMax = vehicle.get(0).getRange();
-        double note2 = ((vehicle.get(i).getRange() - route.getDistance()) / rangeMax)
-                + (vehicle.get(i).getRange() % rangeMax) * 100;
+        for (Route route : routeList) {
+            route.setWeight(getPercentage(route.getFrequence(), frequenceTotale));
+        }
 
-        route.setScore(poid1 * note1 + poid2 * note2);
+        // --------Évaluation de chaque route pour chaque voiture et calcule de la note
+        // final
+        List<Vehicle> allVehicle = getAllVehicle();
+        allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
+        for (int i = 0; i < allVehicle.size(); i++) {
+            double score = 0;
+            for (Route route : routeList) {
+                // --------Obtien les infos du déplacement avec la boite noir
+                String data = adveConnection
+                        .doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() * 1000);
+                System.out.println("Call Vehicle[" + (i + 1) + "] -> data: " + data);
+                // --------Donne une note au déplacement pour la voiture i
+                if (data.contains("Impossible")) {
+                    route.setScore(0);
+                } else {
+                    stringToRoute(route, data);
+                    evaluateRoute(route, allVehicle, i);
+                }
+            }
+            // -------- Calcule la note final de la voiture selon la note de chaque
+            // déplacement
+            for (Route route : routeList)
+                score = score + ((route.getWeight() / 100) * route.getScore());
+            // --------Ajoute le score final a la voiture et l'ajoute dans la liste a
+            // retourné
+            Evaluation evaluation = new Evaluation(allVehicle.get(i));
+            evaluation.setScore(round(score, 2));
+            vehicleFinalScore.add(evaluation);
+        }
+        adveConnection.closeServer();
+        // --------Sort les voitures par score
+        vehicleFinalScore.sort(Collections.reverseOrder(Comparator.comparing(Evaluation::getScore)));
+        return vehicleFinalScore;
     }
 
+    private List<Deplacement> createDeplacementList() {
+        List<Deplacement> deplacementList = new ArrayList<>();
+        // normal -----------------------------------------------------------
+        deplacementList.add(new Deplacement(1, new PointGeo(45.1138, -72.3623), new PointGeo(45.5382, -73.9159),
+                FrequenceDeplacement.TWICE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(48.0293, -71.7262), new PointGeo(45.0393, -72.5376),
+                FrequenceDeplacement.ONCE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new PointGeo(47.6861, -70.3343), new PointGeo(48.2191, -68.9323),
+                FrequenceDeplacement.ONCE_A_YEAR));
+        /*
+         * //Min --------------------------------------------------------------
+         * deplacementList.add(new Deplacement(1, new PointGeo(45.51963513223519,
+         * -73.64121842695846), new PointGeo(45.51934642873574, -73.64017685359295),
+         * FrequenceDeplacement.ONCE_A_YEAR));
+         * deplacementList.add(new Deplacement(1, new PointGeo(45.568363215529445,
+         * -73.57952489894289), new PointGeo(45.56722615890229, -73.57574873076257),
+         * FrequenceDeplacement.ONCE_A_YEAR));
+         * 
+         * //Max --------------------------------------------------------------
+         * deplacementList.add(new Deplacement(1, new PointGeo(45.404567768292274,
+         * -73.9545708308814), new PointGeo(45.7016485378072, -73.47982044062513),
+         * FrequenceDeplacement.TWICE_A_YEAR));
+         * deplacementList.add(new Deplacement(1, new PointGeo(45.701810104949196,
+         * -73.47925907001209), new PointGeo(45.40608420341184, -73.93127599467023),
+         * FrequenceDeplacement.ONCE_A_YEAR));
+         * 
+         * //Max Quebec -------------------------------------------------------
+         * deplacementList.add(new Deplacement(1, new PointGeo(45.406849308752534,
+         * -73.95165370074388), new PointGeo(48.416104487551735, -71.070981205327),
+         * FrequenceDeplacement.TWICE_A_YEAR));
+         * deplacementList.add(new Deplacement(1, new PointGeo(48.829245888782516,
+         * -64.48377519433731), new PointGeo(45.461830145587854, -75.69938395612203),
+         * FrequenceDeplacement.ONCE_A_WEEK));
+         * 
+         * //Impossible pour tous ---------------------------------------------
+         * deplacementList.add(new Deplacement(1, new PointGeo(61.59780702431485,
+         * -71.9571001824064), new PointGeo(45.461830145587854, -75.69938395612203),
+         * FrequenceDeplacement.ONCE_A_WEEK));
+         */
+        return deplacementList;
+    }
 }
