@@ -31,7 +31,7 @@ public class VehicleServiceTest {
 
     @BeforeEach
     public void setUp() {
-        repository.save(new Vehicle(
+        vehicleRepository.save(new Vehicle(
                 "Tesla",
                 "Model 3",
                 5,
@@ -50,7 +50,7 @@ public class VehicleServiceTest {
                 "src/main/resources/images/teslaModel3.png",
                 "La Model 3 propose en option la traction intégrale à double moteur, des roues Überturbine de 20 po et des freins Performance pour une maîtrise totale en toute condition."));
 
-        repository.save(new Vehicle(
+        vehicleRepository.save(new Vehicle(
                 "Toyota",
                 "Mirai",
                 5,
@@ -69,7 +69,7 @@ public class VehicleServiceTest {
                 "src/main/resources/images/toyotaMirai.png",
                 "Voici la Mirai 2022. La deuxième génération du véhicule électrique à pile à combustible à hydrogène révolutionnaire de Toyota offre plus de tout que jamais. Plus de style. Plus d'espace. Plus de technologies intelligentes et intuitives."));
 
-        repository.save(new Vehicle(
+        vehicleRepository.save(new Vehicle(
                 "Volkswagen",
                 "e-Up",
                 5,
@@ -94,7 +94,7 @@ public class VehicleServiceTest {
         vehicleTest.setId(1L);
         vehicleTest.setBrand("Volkswagen");
         vehicleTest.setModelName("e-Up");
-        vehicleTest.setNnPlaces(5);
+        vehicleTest.setNbPlaces(5);
         vehicleTest.setType("Hatchback");
         vehicleTest.setPrice(35417);
         vehicleTest.setMaintainCosts(72);
@@ -114,28 +114,24 @@ public class VehicleServiceTest {
     }
 
     public boolean isEqual(Vehicle vehicle, Vehicle vehicleTest) {
-        if (!vehicle.getId().equals(vehicleTest.getId())) {
-            return false;
-        } else if (!vehicle.getModelName().equals(vehicleTest.getModelName())) {
-            return false;
-        } else if (vehicle.getNbDoors() != vehicleTest.getNbDoors()) {
-            return false;
-        } else if (!vehicle.getType().equals(vehicleTest.getType())) {
-            return false;
-        } else if (vehicle.getPrice() != vehicleTest.getPrice()) {
-            return false;
-        } else if (vehicle.getRange() != vehicleTest.getRange()) {
-            return false;
-        } else if (vehicle.getBatteryCapacity() != vehicleTest.getBatteryCapacity()) {
-            return false;
-        } else if (vehicle.getSafetyScore() != vehicleTest.getSafetyScore()) {
-            return false;
-        } else if (!vehicle.getRefLink().equals(vehicleTest.getRefLink())) {
-            return false;
-        } else if (!vehicle.getImgLink().equals(vehicleTest.getImgLink())) {
-            return false;
-        }
-        return true;
+        return vehicle.getId().equals(vehicleTest.getId()) &&
+                vehicle.getBrand().equals(vehicleTest.getBrand()) &&
+                vehicle.getModelName().equals(vehicleTest.getModelName()) &&
+                vehicle.getNbPlaces() == vehicleTest.getNbPlaces() &&
+                vehicle.getType().equals(vehicleTest.getType()) &&
+                vehicle.getPrice() == vehicleTest.getPrice() &&
+                vehicle.getMaintainCosts() == vehicleTest.getMaintainCosts() &&
+                vehicle.getElectricalCapacity() == vehicleTest.getElectricalCapacity() &&
+                vehicle.getElectricalStreetConsumption() == vehicleTest.getElectricalStreetConsumption() &&
+                vehicle.getElectricalHighwayConsumption() == vehicleTest.getElectricalStreetConsumption() &&
+                vehicle.getGasCapacity() == vehicleTest.getGasCapacity() &&
+                vehicle.getGasStreetConsumption() == vehicleTest.getGasStreetConsumption() &&
+                vehicle.getGasHighwayConsumption() == vehicleTest.getGasHighwayConsumption() &&
+                vehicle.getLoadCapacity() == vehicleTest.getLoadCapacity() &&
+                vehicle.getSafetyScore() == vehicleTest.getSafetyScore() &&
+                vehicle.getRefLink().equals(vehicleTest.getRefLink()) &&
+                vehicle.getImgLink().equals(vehicleTest.getImgLink()) &&
+                vehicle.getDescription().equals(vehicleTest.getDescription());
     }
 
     @Test
