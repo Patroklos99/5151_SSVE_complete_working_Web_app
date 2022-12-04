@@ -1,28 +1,44 @@
 import {carsData} from '../assets/data_exemples/cars';
 import { ICar } from '../models/cars';
 
+// Autos à afficher:
 let include: any[] = [];
-let filter: any = "score";
+
+// Autos à ne pas afficher dû à un type de filtre :
 let excludeNo: any[] = [];
 let excludeType: string[] = [];
 
+// Type de tri des autos: 
+let filter: any = "score";
+
+
+// Obtient toutes les autos de la BD
 const getAll = () => {
   return carsData;
 };
 
-const fillPartialInclude = () => {
-    clearPartialInclude();
+// Obtient une auto de la BD selon son index
+const get = (index: any) => {
+    if(index >= carsData.length) {
+      return "error";
+    } else {
+      return carsData[index];
+    }
+  };
+
+// Remplir les autos à inclure par toutes les autos de la BD
+const fillOriginalPartial = () => {
+    // Vide la liste actuel d'include
+    while(include.length > 0) {
+        include.pop();
+    }
+    // Remplit la liste d'include
     for(let i = 0; i < carsData.length; i++) {
         include.push(i);
     }
 }
 
-const clearPartialInclude = () => {
-    while(include.length > 0) {
-        include.pop();
-    }
-}
-
+// Retourne la liste des autos à afficher en ordre d'affichage
 const getPartial = () => {
     let partialCars: ICar[] = [];
     for(let i = 0; i < include.length; i++){
@@ -34,6 +50,7 @@ const getPartial = () => {
     return partialCars;
 };
 
+// Tri les autos d'une liste selon le type défini
 const sortCars = (cars: ICar[]) => {
     switch (filter) {
         case 'priceAsc':
@@ -49,12 +66,18 @@ const sortCars = (cars: ICar[]) => {
     return cars;
 }
 
-const addValueToInclude = (value: any, type: string) => {
+// Permet de définir quel type de tri utiliser
+const setFilter = (filterValue: any) => {
+    filter = filterValue;
+}
 
+// Ajoute une auto à la liste à inclure
+const addValueToInclude = (value: any, type: string) => {
+    // S'assure que c'est une valeur valide
     if(value < carsData.length) {
-        
+        // Si l'auto était exclu pour ce type de filtre, 
+        // la retirer de la liste d'exclusion
         let remove: number = -1;
-        
         for(let i = 0; i < excludeNo.length; i++) {
             if(excludeNo[i] == value) {
                 let typeFind = excludeType[i];
@@ -63,7 +86,6 @@ const addValueToInclude = (value: any, type: string) => {
                 } 
             }
         }
-
         if(remove >= 0) {
             for(let i = remove; i < excludeNo.length ; i++) {
                 excludeNo[i] = excludeNo[i+1];
@@ -72,7 +94,8 @@ const addValueToInclude = (value: any, type: string) => {
             excludeNo.pop();
             excludeType.pop();
         }
-
+        // Si l'auto n'est pas exclu par un autre type de filtre, 
+        // la rajouter à la liste à afficher
         let findExclude = excludeNo.indexOf(value);
         if(findExclude < 0) {
             let find = include.indexOf(value);
@@ -84,9 +107,12 @@ const addValueToInclude = (value: any, type: string) => {
 
 }
 
+// Retire une auto à la liste à inclure
 const removeValueFromInclude = (value: any, type: string) => {
-
+    // S'assure que c'est une valeur valide
     if(value < carsData.length) {
+        // Si l'auto est dans la liste à afficher, 
+        // la retirer de la liste
         let find = include.indexOf(value);
         if(find >= 0) {
             for(let i = find; i < include.length; i++) {
@@ -94,10 +120,9 @@ const removeValueFromInclude = (value: any, type: string) => {
             }
             include.pop();
         } 
-
-
+        // Si l'auto n'est pas déjà dans la liste à exclure pour ce type, 
+        // la rajouter à la liste d'exclusion
         let add: boolean = true;
-
         for(let i = 0; i < excludeNo.length; i++) {
             if(excludeNo[i] == value) {
                 let typeFind = excludeType[i];
@@ -106,7 +131,6 @@ const removeValueFromInclude = (value: any, type: string) => {
                 } 
             }
         }
-
         if(add) {
             excludeNo.push(value);
             excludeType.push(type);
@@ -114,27 +138,14 @@ const removeValueFromInclude = (value: any, type: string) => {
     }
 }
 
-const get = (index: any) => {
-  if(index >= carsData.length) {
-    return "error";
-  } else {
-    return carsData[index];
-  }
-};
-
-const setFilter = (filterValue: any) => {
-    filter = filterValue;
-}
-
 const CarFilterUtil = {
   getAll,
-  fillPartialInclude,
-  clearPartialInclude,
+  get,
+  fillOriginalPartial,
   getPartial,
+  setFilter,
   addValueToInclude,
   removeValueFromInclude,
-  get,
-  setFilter,
 };
 
 export default CarFilterUtil;

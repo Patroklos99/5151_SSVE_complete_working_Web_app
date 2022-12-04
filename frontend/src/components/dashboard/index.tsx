@@ -5,7 +5,7 @@ import FilterPanel from "./filterPanel";
 import CarFilterUtil from "../../util/CarFilterUtil"
 
 const Dashboard = () => {
-    CarFilterUtil.fillPartialInclude();
+    CarFilterUtil.fillOriginalPartial();
 
     return (
         <Container maxWidth="xl">
