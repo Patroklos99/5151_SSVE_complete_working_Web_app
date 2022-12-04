@@ -16,17 +16,24 @@ export default function DoorFilter() {
     newCarDoorNum: number[]
   ) => {
     let cars: ICar[] = CarFilterUtil.getAll();
+    let listToAdd: number[] = []
     for ( let i = 0; i < cars.length; i++) {
       for ( let j = 0; j < newCarDoorNum.length; j++)
-
-
         if ( cars[i].nbPortes == newCarDoorNum[j]) {
-            CarFilterUtil.addValueToInclude(i);
-        } else {
-            CarFilterUtil.removeValueFromInclude(i);
+            let find = listToAdd.indexOf(i);
+            if(find < 0) {
+                listToAdd.push(i);
+            }
+        } 
+    }
+    for(let k = 0; k < CarFilterUtil.getAll().length; k++) {
+        let find = listToAdd.indexOf(k);
+        if (find >= 0) {
+            CarFilterUtil.addValueToInclude(k);
+        } else if (find < 0) {
+            CarFilterUtil.removeValueFromInclude(k);
         }
     }
-
 
     setCarDoorNum(newCarDoorNum);
   };
