@@ -12,8 +12,6 @@ import Chip from '@mui/material/Chip';
 import CarFilterUtil from '../../../util/CarFilterUtil';
 import { ICar } from '../../../models/cars';
 
-
-
 const ITEM_HEIGHT = 36;
 const ITEM_PADDING_TOP = 6;
 const MenuProps = {
@@ -46,20 +44,45 @@ export default function DropDownSelect() {
   const theme = useTheme();
   const [model, setModel] = React.useState<string[]>([]);
 
+  const updateCarList = (newModel: any) => {
+        if(newModel.length == 0) {
+            for(let i = 0; i < CarFilterUtil.getAll().length; i++) {
+                CarFilterUtil.addValueToInclude(i);
+            }
+        } else {
+            let cars: ICar[] = CarFilterUtil.getAll();
+            let listToAdd: number[] = []
+            for ( let i = 0; i < cars.length; i++) {
+            for ( let j = 0; j < newModel.length; j++)
+                if ( cars[i].modele == newModel[j]) {
+                    let find = listToAdd.indexOf(i);
+                    if(find < 0) {
+                        listToAdd.push(i);
+                    }
+                } 
+            }
+            for(let k = 0; k < CarFilterUtil.getAll().length; k++) {
+                let find = listToAdd.indexOf(k);
+                if (find >= 0) {
+                    CarFilterUtil.addValueToInclude(k);
+                } else if (find < 0) {
+                    CarFilterUtil.removeValueFromInclude(k);
+                }
+            }
+        }
+  }
+
   const handleChange = (event: SelectChangeEvent<typeof model>) => {
     const {
       target: { value },
     } = event;
 
-    // TODO utiliser le service CarFilterUtil
+    let newModel = typeof value === 'string' ? value.split(',') : value
 
+    setModel(newModel);
 
-    setModel(
+    updateCarList(newModel);
       
-      typeof value === 'string' ? value.split(',') : value,
-    );
-
-
   };
 
   return (
