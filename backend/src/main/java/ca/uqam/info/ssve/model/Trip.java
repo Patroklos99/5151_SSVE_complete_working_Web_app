@@ -1,4 +1,4 @@
-package ca.uqam.info.ssve.model;
+package java.ca.uqam.info.ssve.model;
 
 import lombok.Data;
 
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class Trip {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;

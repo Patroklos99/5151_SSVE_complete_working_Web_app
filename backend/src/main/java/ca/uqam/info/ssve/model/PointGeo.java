@@ -1,4 +1,4 @@
-package ca.uqam.info.ssve.model;
+package java.ca.uqam.info.ssve.model;
 
 import lombok.Data;
 
@@ -6,12 +6,12 @@ import lombok.Data;
  * Objet contenant les données d'un point géographique.
  *
  * @author David Daoud
- * Code permanent: DAOD80070006
- * Courriel: daoud.david@courrier.uqam.ca
+ *         Code permanent: DAOD80070006
+ *         Courriel: daoud.david@courrier.uqam.ca
  *
  * @author Christopher Chamberland-Rémillard
- * Code permanent: CHAC29089704
- * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
+ *         Code permanent: CHAC29089704
+ *         Courriel: chamberland-remillard.christopher@courrier.uqam.ca
  *
  * @version 2022-10-22
  */
@@ -23,6 +23,7 @@ public class PointGeo {
 
     /**
      * Constructeur
+     * 
      * @param lat Latitude du point géographique
      * @param lgt Longitude du point géographique
      */
@@ -33,6 +34,7 @@ public class PointGeo {
 
     /**
      * Retourne la latitude du point géographique
+     * 
      * @return La latitude du point géographique
      */
     public double getLat() {
@@ -41,6 +43,7 @@ public class PointGeo {
 
     /**
      * Retourne la longitude du point géographique
+     * 
      * @return La longitude du point géographique
      */
     public double getLgt() {

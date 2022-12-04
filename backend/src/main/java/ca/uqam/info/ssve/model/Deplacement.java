@@ -1,4 +1,4 @@
-package ca.uqam.info.ssve.model;
+package java.ca.uqam.info.ssve.model;
 
 import lombok.Data;
 
