@@ -1,6 +1,7 @@
 package java.ca.uqam.info.ssve.model;
 
-import lombok.Data;import ava.util.Collections;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Trip implements Serializable {
 
     @JsonProperty("name")
+    private String name;
 
     @JsonProperty("stops")
     private List<GeoPoint> stops;
