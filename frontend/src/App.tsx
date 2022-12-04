@@ -3,7 +3,7 @@ import "./App.css";
 import React from "react";
 
 import Contact from "./components/contact/Contact";
-import Dashboard from "./components/dashboard";
+import Dashboard from "./components/Dashboard";
 import Homepage from "./components/homepage/Homepage";
 import Input from "./components/input/Input";
 import Header from "./components/shared/Header";
