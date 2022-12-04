@@ -1,7 +1,6 @@
 package java.ca.uqam.info.ssve.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,37 +21,73 @@ public class Vehicle {
     @NotEmpty
     private String modelName;
     @NotEmpty
-    private int nbDoors;
+    private int nbPlaces;
     @NotEmpty
     private String type;
     @NotEmpty
     private int price;
     @NotEmpty
-    private int range;
+    private double maintainCosts;
     @NotEmpty
-    private int batteryCapacity;
+    private int electricalCapacity;
+    @NotEmpty
+    private double electricalStreetConsumption;
+    @NotEmpty
+    private double electricalHighwayConsumption;
+    @NotEmpty
+    private int gasCapacity;
+    @NotEmpty
+    private double gasStreetConsumption;
+    @NotEmpty
+    private double gasHighwayConsumption;
+    @NotEmpty
+    private int loadCapacity;
     @NotEmpty
     private int safetyScore;
     @NotEmpty
     private String refLink;
     @NotEmpty
     private String imgLink;
+    @NotEmpty
+    private String description;
 
-    public Vehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity,
-            int safetyScore, String refLink, String imgLink) {
+    public Vehicle(
+            String brand,
+            String modelName,
+            int nbPlaces,
+            String type,
+            int price,
+            int maintainCosts,
+            int electricalCapacity,
+            double electricalStreetConsumption,
+            double electricalHighwayConsumption,
+            int gasCapacity,
+            double gasStreetConsumption,
+            double gasHighwayConsumption,
+            int loadCapacity,
+            int safetyScore,
+            String refLink,
+            String imgLink,
+            String description) {
         this.brand = brand;
         this.modelName = modelName;
-        this.nbDoors = nbDoors;
+        this.nbPlaces = nbPlaces;
         this.type = type;
         this.price = price;
-        this.range = range;
-        this.batteryCapacity = batteryCapacity;
+        this.maintainCosts = maintainCosts;
+        this.electricalCapacity = electricalCapacity;
+        this.electricalStreetConsumption = electricalStreetConsumption;
+        this.electricalHighwayConsumption = electricalHighwayConsumption;
+        this.gasCapacity = gasCapacity;
+        this.gasStreetConsumption = gasStreetConsumption;
+        this.gasHighwayConsumption = gasHighwayConsumption;
+        this.loadCapacity = loadCapacity;
         this.safetyScore = safetyScore;
         this.refLink = refLink;
         this.imgLink = imgLink;
+        this.description = description;
     }
 
     public Vehicle() {
-
     }
 }
