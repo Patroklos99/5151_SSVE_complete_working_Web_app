@@ -44,13 +44,7 @@ public class VehicleService {
                 && validateRefLink(vehicle.getRefLink())
                 && validateImgLink(vehicle.getImgLink())
                 && validateDescription(vehicle.getDescription())) {
-            long size = vehicleRepository.count();
-            vehicleRepository.save(vehicle);
-            Optional<Vehicle> voiture = vehicleRepository.findById(size + 1);
-            if (voiture.isPresent()) {
-                return voiture.get();
-            }
-            throw new IllegalArgumentException();
+            return vehicleRepository.save(vehicle);
         }
         throw new IllegalArgumentException();
     }
@@ -150,7 +144,6 @@ public class VehicleService {
 
     public List<Evaluation> evaluateVehicle(List<Deplacement> coordinateList)
             throws IOException, JSchException, InterruptedException {
-        // -------- DÉBUT ALGO RÉEL---------
         adveConnection.connectServer();
         ArrayList<Route> routeList = new ArrayList<>();
         ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
@@ -169,7 +162,6 @@ public class VehicleService {
         }
 
         // --------Évaluation de chaque route pour chaque voiture et calcule de la note
-        // final
         List<Vehicle> allVehicle = getAllVehicle();
         allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
 
@@ -178,7 +170,7 @@ public class VehicleService {
         for (int i = 0; i < allVehicle.size(); i++) {
             double score = 0;
             for (Route route : routeList) {
-                // --------Obtien les infos du déplacement avec la boite noir
+                // --------Obtient les infos du déplacement avec la boite noire
                 String data = adveConnection
                         .doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() * 100);
                 stringToRoute(route, data);
@@ -186,16 +178,12 @@ public class VehicleService {
                 if (route.getChargingTime() == 0)
                     nbTrajetSansRecharge++;
 
-                // --------Donne une note au déplacement pour la voiture i
                 evaluateRoute(route, allVehicle, i);
-            }
-            // -------- Calcule la note final de la voiture selon la note de chaque
-            // déplacement
-            for (Route route : routeList)
                 score = score + (route.getWeight() * route.getScore());
+            }
 
             // --------Ajoute le score final a la voiture et l'ajoute dans la liste a
-            // retourné
+            // retourner
             Evaluation evaluation = new Evaluation(allVehicle.get(i));
             evaluation.setScore(score);
             evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
@@ -203,7 +191,6 @@ public class VehicleService {
             vehicleFinalScore.add(evaluation);
         }
         adveConnection.closeServer();
-        // --------Sort les voitures par score
         vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
         Collections.reverse(vehicleFinalScore);
         return vehicleFinalScore;
@@ -287,25 +274,7 @@ public class VehicleService {
         List<Vehicle> list = getAllVehicle();
         List<Evaluation> list2 = new ArrayList<>();
         for (Vehicle vehicle : list) {
-            Evaluation eval = new Evaluation();
-            eval.setId(vehicle.getId());
-            eval.setBrand(vehicle.getBrand());
-            eval.setModelName(vehicle.getModelName());
-            eval.setNbPlaces(vehicle.getNbPlaces());
-            eval.setType(vehicle.getType());
-            eval.setPrice(vehicle.getPrice());
-            eval.setMaintainCosts(vehicle.getMaintainCosts());
-            eval.setElectricalCapacity(vehicle.getElectricalCapacity());
-            eval.setElectricalStreetConsumption(vehicle.getElectricalStreetConsumption());
-            eval.setElectricalHighwayConsumption(vehicle.getElectricalHighwayConsumption());
-            eval.setGasCapacity(vehicle.getGasCapacity());
-            eval.setGasStreetConsumption(vehicle.getGasStreetConsumption());
-            eval.setGasHighwayConsumption(vehicle.getGasHighwayConsumption());
-            eval.setLoadCapacity(vehicle.getLoadCapacity());
-            eval.setSafetyScore(vehicle.getSafetyScore());
-            eval.setRefLink(vehicle.getRefLink());
-            eval.setImgLink(vehicle.getImgLink());
-            eval.setDescription(vehicle.getDescription());
+            Evaluation eval = new Evaluation(vehicle);
             list2.add(eval);
         }
 

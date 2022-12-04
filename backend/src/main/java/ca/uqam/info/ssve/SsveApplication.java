@@ -21,26 +21,6 @@ public class SsveApplication {
 	CommandLineRunner commandLineRunner(VehicleRepository repository) {
 		return args -> {
 
-			/*
-			 * Donnees de test
-			 * 
-			 * repository.save(new Vehicle("voiture", "Min", 4, "Hatchback", 31495, 90,
-			 * 1000, 5, "https://www" +
-			 * ".volkswagen.co.uk/en/new/golf.html",
-			 * "src/main/resources/images/volkswagenGolf.png"));
-			 * 
-			 * repository.save(new Vehicle("Voiture", "Moyen", 4, "Hatchback", 31495, 320,
-			 * 1000, 5, "https://www" +
-			 * ".volkswagen.co.uk/en/new/golf.html",
-			 * "src/main/resources/images/volkswagenGolf.png"));
-			 * 
-			 * repository.save(new Vehicle("Voiture", "Max", 4, "Hatchback", 31495, 550,
-			 * 1000, 5, "https://www" +
-			 * ".volkswagen.co.uk/en/new/golf.html",
-			 * "src/main/resources/images/volkswagenGolf.png"));
-			 * 
-			 */
-
 			repository.save(new Vehicle(
 					"Audi",
 					"e-tron",
