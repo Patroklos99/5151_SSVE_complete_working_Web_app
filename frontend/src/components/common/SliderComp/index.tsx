@@ -35,9 +35,9 @@ export default function SliderComp(props: { minValue: number | undefined; maxVal
         let cars: ICar[] = CarFilterUtil.getAll();
         for ( let i = 0; i < cars.length; i++) {
             if ( cars[i].prix <= value) {
-                CarFilterUtil.addValueToInclude(i);
+                CarFilterUtil.addValueToInclude(i,"prix");
             } else {
-                CarFilterUtil.removeValueFromInclude(i);
+                CarFilterUtil.removeValueFromInclude(i,"prix");
             }
         }
         setPrice(value.target.valueAsNumber)

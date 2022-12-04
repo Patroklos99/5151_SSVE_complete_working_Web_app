@@ -51,9 +51,9 @@ export default function SliderScore(props: { minValue: number | undefined; maxVa
         let cars: ICar[] = CarFilterUtil.getAll();
         for ( let i = 0; i < cars.length; i++) {
             if ( cars[i].score <= value) {
-                CarFilterUtil.addValueToInclude(i);
+                CarFilterUtil.addValueToInclude(i,"score");
             } else {
-                CarFilterUtil.removeValueFromInclude(i);
+                CarFilterUtil.removeValueFromInclude(i,"score");
             }
         }
         setScore(value.target.valueAsNumber)

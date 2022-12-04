@@ -51,9 +51,9 @@ export default function SliderSafetyScore(props: { minValue: number | undefined;
         let cars: ICar[] = CarFilterUtil.getAll();
         for ( let i = 0; i < cars.length; i++) {
             if ( cars[i].scoreSecurite <= value) {
-                CarFilterUtil.addValueToInclude(i);
+                CarFilterUtil.addValueToInclude(i,"safety");
             } else {
-                CarFilterUtil.removeValueFromInclude(i);
+                CarFilterUtil.removeValueFromInclude(i,"safety");
             }
         }
         setScoreSecurite(value.target.valueAsNumber)

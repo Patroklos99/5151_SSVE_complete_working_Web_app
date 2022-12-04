@@ -28,9 +28,9 @@ export default function FilterToggle() {
         for(let k = 0; k < CarFilterUtil.getAll().length; k++) {
             let find = listToAdd.indexOf(k);
             if (find >= 0) {
-                CarFilterUtil.addValueToInclude(k);
+                CarFilterUtil.addValueToInclude(k,"type");
             } else if (find < 0) {
-                CarFilterUtil.removeValueFromInclude(k);
+                CarFilterUtil.removeValueFromInclude(k,"type");
             }
         }
         setCarType(newCarType);

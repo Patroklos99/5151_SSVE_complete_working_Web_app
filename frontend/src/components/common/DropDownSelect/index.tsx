@@ -47,7 +47,7 @@ export default function DropDownSelect() {
   const updateCarList = (newModel: any) => {
         if(newModel.length == 0) {
             for(let i = 0; i < CarFilterUtil.getAll().length; i++) {
-                CarFilterUtil.addValueToInclude(i);
+                CarFilterUtil.addValueToInclude(i,"modele");
             }
         } else {
             let cars: ICar[] = CarFilterUtil.getAll();
@@ -64,9 +64,9 @@ export default function DropDownSelect() {
             for(let k = 0; k < CarFilterUtil.getAll().length; k++) {
                 let find = listToAdd.indexOf(k);
                 if (find >= 0) {
-                    CarFilterUtil.addValueToInclude(k);
+                    CarFilterUtil.addValueToInclude(k,"modele");
                 } else if (find < 0) {
-                    CarFilterUtil.removeValueFromInclude(k);
+                    CarFilterUtil.removeValueFromInclude(k,"modele");
                 }
             }
         }

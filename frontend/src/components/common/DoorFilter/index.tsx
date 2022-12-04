@@ -29,9 +29,9 @@ export default function DoorFilter() {
     for(let k = 0; k < CarFilterUtil.getAll().length; k++) {
         let find = listToAdd.indexOf(k);
         if (find >= 0) {
-            CarFilterUtil.addValueToInclude(k);
+            CarFilterUtil.addValueToInclude(k,"porte");
         } else if (find < 0) {
-            CarFilterUtil.removeValueFromInclude(k);
+            CarFilterUtil.removeValueFromInclude(k,"porte");
         }
     }
 

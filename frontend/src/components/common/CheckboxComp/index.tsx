@@ -19,14 +19,14 @@ export default function CheckboxComp( brand: any, changeChecked: any): any {
             let cars: ICar[] = CarFilterUtil.getAll();
             for(let i = 0; i < cars.length; i++) {
                 if(cars[i].marque == nom) {
-                    CarFilterUtil.addValueToInclude(i);
+                    CarFilterUtil.addValueToInclude(i,"marque");
                 }
             }
         } else if (marque == false) {
             let cars: ICar[] = CarFilterUtil.getAll();
             for(let i = 0; i < cars.length; i++) {
                 if(cars[i].marque == nom) {
-                    CarFilterUtil.removeValueFromInclude(i);
+                    CarFilterUtil.removeValueFromInclude(i,"marque");
                 }
             }
         }

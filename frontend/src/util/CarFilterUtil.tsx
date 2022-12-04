@@ -3,6 +3,8 @@ import { ICar } from '../models/cars';
 
 let include: any[] = [];
 let filter: any = "score";
+let excludeNo: any[] = [];
+let excludeType: string[] = [];
 
 const getAll = () => {
   return carsData;
@@ -47,16 +49,43 @@ const sortCars = (cars: ICar[]) => {
     return cars;
 }
 
-const addValueToInclude = (value: any) => {
+const addValueToInclude = (value: any, type: string) => {
+
     if(value < carsData.length) {
-        let find = include.indexOf(value);
-        if(find < 0) {
-            include.push(value);
+        
+        let remove: number = -1;
+        
+        for(let i = 0; i < excludeNo.length; i++) {
+            if(excludeNo[i] == value) {
+                let typeFind = excludeType[i];
+                if (typeFind === type) {
+                    remove = i;
+                } 
+            }
+        }
+
+        if(remove >= 0) {
+            for(let i = remove; i < excludeNo.length ; i++) {
+                excludeNo[i] = excludeNo[i+1];
+                excludeType[i] = excludeType[i+1];
+            } 
+            excludeNo.pop();
+            excludeType.pop();
+        }
+
+        let findExclude = excludeNo.indexOf(value);
+        if(findExclude < 0) {
+            let find = include.indexOf(value);
+            if(find < 0) {
+                include.push(value);
+            }
         }
     }
+
 }
 
-const removeValueFromInclude = (value: any) => {
+const removeValueFromInclude = (value: any, type: string) => {
+
     if(value < carsData.length) {
         let find = include.indexOf(value);
         if(find >= 0) {
@@ -65,6 +94,23 @@ const removeValueFromInclude = (value: any) => {
             }
             include.pop();
         } 
+
+
+        let add: boolean = true;
+
+        for(let i = 0; i < excludeNo.length; i++) {
+            if(excludeNo[i] == value) {
+                let typeFind = excludeType[i];
+                if (typeFind === type) {
+                    add = false;
+                } 
+            }
+        }
+
+        if(add) {
+            excludeNo.push(value);
+            excludeType.push(type);
+        }
     }
 }
 
