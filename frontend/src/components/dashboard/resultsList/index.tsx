@@ -7,8 +7,12 @@ import ListItemCar from './listItemCar';
 
 import './style.css';
 
+interface ResultsListProps {
+    handleResultClick: (result: ICar) => void;
+}
 
-const ResultsList = () => {
+
+const ResultsList = (props: ResultsListProps) => {
     const [orderByAnchorEl, setOrderByAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [orderBy, setOrderBy] = useState<string>('score');
     const [carsList, setCarsList] = useState<ICar[]>([]);
@@ -30,7 +34,7 @@ const ResultsList = () => {
         setOrderByAnchorEl(null);
     };
 
-    const getCarsList = () => carsList.map((car: ICar, index: number) => ListItemCar(car, index));
+    const getCarsList = () => carsList.map((car: ICar, index: number) => ListItemCar({car, index, handleClick: props.handleResultClick}));
 
     const openOrderBy = Boolean(orderByAnchorEl);
 

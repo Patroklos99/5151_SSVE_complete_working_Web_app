@@ -1,3 +1,4 @@
+import ICar from "../types/Car";
 import axios from "../http-commons";
 
 /**
@@ -8,9 +9,12 @@ import axios from "../http-commons";
  */
 const getAllCars = async () => {
   try {
-    const res = await axios.get("/vehicle/evaluate");
-    const data = await res.data;
-    return data;
+    const res = await axios.get("/vehicle/tempDummy");
+    const data = res.data;
+    data.forEach((car: ICar) => {
+      car.imgLink = car.imgLink.substring(car.imgLink.lastIndexOf('/') + 1)
+    });
+    return await data;
   } catch (err) {
     console.log(err);
     return [];
