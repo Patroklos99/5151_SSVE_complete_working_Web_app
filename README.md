@@ -14,7 +14,7 @@ destinée aux développeurs.
 Cadriciel utilisé et liens
 ---------------------------
 
-- Java : [jdk 17](https://woracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- Java : [jdk 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 - Maven : [version 3.8.6](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/) 
 (Installation facultative)
 - Docker : [derniere version](https://www.docker.com/products/docker-desktop/)

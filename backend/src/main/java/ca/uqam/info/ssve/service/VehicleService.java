@@ -72,8 +72,7 @@ public class VehicleService {
                 && validateImgLink(vehicle.getImgLink())
                 && validateDescription(vehicle.getDescription())
                 && vehicleRepository.findById(vehicle.getId()).isPresent()) {
-            vehicleRepository.save(vehicle);
-            return vehicleRepository.findById(vehicle.getId()).get();
+            return vehicleRepository.save(vehicle);
         }
         throw new IllegalArgumentException();
     }
