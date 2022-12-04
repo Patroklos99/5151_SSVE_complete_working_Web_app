@@ -1,4 +1,4 @@
-package java.ca.uqam.info.ssve.server;
+package ca.uqam.info.ssve.server;
 
 import java.io.*;
 

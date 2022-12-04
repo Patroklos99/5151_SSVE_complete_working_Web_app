@@ -64,7 +64,7 @@
     </dependencies>
 
 	<build>
-		<sourceDirectory>backend/src/main</sourceDirectory>
+		<sourceDirectory>backend/src/main/java</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>backend/src/main/resources</directory>

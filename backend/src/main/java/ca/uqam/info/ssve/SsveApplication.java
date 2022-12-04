@@ -1,7 +1,7 @@
-package java.ca.uqam.info.ssve;
+package ca.uqam.info.ssve;
 
-import java.ca.uqam.info.ssve.model.Vehicle;
-import java.ca.uqam.info.ssve.repository.VehicleRepository;
+import ca.uqam.info.ssve.model.Vehicle;
+import ca.uqam.info.ssve.repository.VehicleRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

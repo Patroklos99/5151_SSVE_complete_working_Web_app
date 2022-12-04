@@ -1,4 +1,4 @@
-package java.ca.uqam.info.ssve.model;
+package ca.uqam.info.ssve.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;

@@ -3,9 +3,9 @@
  * with a set of trip data sent by the front end
  *
  */
-package java.ca.uqam.info.ssve.controller;
+package ca.uqam.info.ssve.controller;
 
-import java.ca.uqam.info.ssve.model.TripNeeds;
+import ca.uqam.info.ssve.model.TripNeeds;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

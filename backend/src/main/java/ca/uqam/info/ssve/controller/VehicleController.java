@@ -1,13 +1,13 @@
-package java.ca.uqam.info.ssve.controller;
+package ca.uqam.info.ssve.controller;
 
 import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.ca.uqam.info.ssve.model.Deplacement;
-import java.ca.uqam.info.ssve.model.Evaluation;
-import java.ca.uqam.info.ssve.model.Vehicle;
-import java.ca.uqam.info.ssve.service.VehicleService;
+import ca.uqam.info.ssve.model.Deplacement;
+import ca.uqam.info.ssve.model.Evaluation;
+import ca.uqam.info.ssve.model.Vehicle;
+import ca.uqam.info.ssve.service.VehicleService;
 
 import java.io.IOException;
 import java.util.ArrayList;

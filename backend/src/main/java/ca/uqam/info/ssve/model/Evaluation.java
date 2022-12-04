@@ -1,4 +1,4 @@
-package java.ca.uqam.info.ssve.model;
+package ca.uqam.info.ssve.model;
 
 import java.util.Random;
 

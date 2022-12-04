@@ -1,4 +1,4 @@
-package java.ca.uqam.info.ssve.controller;
+package ca.uqam.info.ssve.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

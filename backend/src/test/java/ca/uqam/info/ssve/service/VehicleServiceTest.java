@@ -1,7 +1,7 @@
-package java.ca.uqam.info.ssve.service;
+package ca.uqam.info.ssve.service;
 
-import java.ca.uqam.info.ssve.model.Vehicle;
-import java.ca.uqam.info.ssve.repository.VehicleRepository;
+import ca.uqam.info.ssve.model.Vehicle;
+import ca.uqam.info.ssve.repository.VehicleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

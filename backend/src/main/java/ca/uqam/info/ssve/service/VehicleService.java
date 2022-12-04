@@ -1,8 +1,8 @@
-package java.ca.uqam.info.ssve.service;
+package ca.uqam.info.ssve.service;
 
-import java.ca.uqam.info.ssve.model.*;
-import java.ca.uqam.info.ssve.repository.VehicleRepository;
-import java.ca.uqam.info.ssve.server.ADVEConnection;
+import ca.uqam.info.ssve.model.*;
+import ca.uqam.info.ssve.repository.VehicleRepository;
+import ca.uqam.info.ssve.server.ADVEConnection;
 import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -347,12 +347,15 @@ public class VehicleService {
     private List<Deplacement> createDeplacementList() {
         List<Deplacement> deplacementList = new ArrayList<>();
         // normal -----------------------------------------------------------
-        deplacementList.add(new Deplacement(1, new GeoPoint("dummy1", 45.1138, -72.3623), new GeoPoint("dummy2", 45.5382, -73.9159),
-                new Trip()));
-        deplacementList.add(new Deplacement(1, new GeoPoint("dummy3", 48.0293, -71.7262), new GeoPoint("dummy4", 45.0393, -72.5376),
-                new Trip()));
-        deplacementList.add(new Deplacement(1, new GeoPoint("dummy5", 47.6861, -70.3343), new GeoPoint("dummy6", 48.2191, -68.9323),
-                new Trip()));
+        deplacementList.add(
+                new Deplacement(1, new GeoPoint("dummy1", 45.1138, -72.3623), new GeoPoint("dummy2", 45.5382, -73.9159),
+                        new Trip()));
+        deplacementList.add(
+                new Deplacement(1, new GeoPoint("dummy3", 48.0293, -71.7262), new GeoPoint("dummy4", 45.0393, -72.5376),
+                        new Trip()));
+        deplacementList.add(
+                new Deplacement(1, new GeoPoint("dummy5", 47.6861, -70.3343), new GeoPoint("dummy6", 48.2191, -68.9323),
+                        new Trip()));
         /*
          * //Min --------------------------------------------------------------
          * deplacementList.add(new Deplacement(1, new PointGeo(45.51963513223519,

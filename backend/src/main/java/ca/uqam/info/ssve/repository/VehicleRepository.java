@@ -1,6 +1,6 @@
-package java.ca.uqam.info.ssve.repository;
+package ca.uqam.info.ssve.repository;
 
-import java.ca.uqam.info.ssve.model.Vehicle;
+import ca.uqam.info.ssve.model.Vehicle;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
