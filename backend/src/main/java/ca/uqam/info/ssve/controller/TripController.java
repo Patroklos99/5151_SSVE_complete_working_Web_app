@@ -6,11 +6,7 @@
 package java.ca.uqam.info.ssve.controller;
 
 import java.ca.uqam.info.ssve.model.TripNeeds;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/tripneeds")

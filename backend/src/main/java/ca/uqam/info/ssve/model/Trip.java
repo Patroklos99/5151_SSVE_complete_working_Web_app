@@ -35,7 +35,7 @@ public class Trip implements Serializable {
      */
     public Trip() {
         this.name = "";
-        this.stops = new ArrayList();
+        this.stops = new ArrayList<GeoPoint>();
         this.annualFreq = 0;
     }
 

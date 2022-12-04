@@ -38,7 +38,7 @@ public class TripNeeds implements Serializable {
     public TripNeeds() {
         this.chargeTime = 0;
         this.autonomy = 0;
-        this.trips = new ArrayList();
+        this.trips = new ArrayList<Trip>();
     }
 
     /**
@@ -50,7 +50,7 @@ public class TripNeeds implements Serializable {
     public TripNeeds(int chargeTime, int autonomy) {
         this.chargeTime = chargeTime;
         this.autonomy = autonomy;
-        this.trips = new ArrayList();
+        this.trips = new ArrayList<Trip>();
     }
 
     /**

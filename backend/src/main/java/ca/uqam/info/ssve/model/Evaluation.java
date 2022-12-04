@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Evaluation extends Vehicle {
     private double score;
+    private int trajetTotal;
+    private int nbTrajetSansRecharge;
 
     public Evaluation() {
         Random r = new Random();
@@ -14,11 +16,17 @@ public class Evaluation extends Vehicle {
         this.setId(vehicle.getId());
         this.setBrand(vehicle.getBrand());
         this.setModelName(vehicle.getModelName());
-        this.setNbDoors(vehicle.getNbDoors());
+        this.setNbPlaces(vehicle.getNbPlaces());
         this.setType(vehicle.getType());
         this.setPrice(vehicle.getPrice());
-        this.setRange(vehicle.getRange());
-        this.setBatteryCapacity(vehicle.getBatteryCapacity());
+        this.setMaintainCosts(vehicle.getMaintainCosts());
+        this.setElectricalCapacity(vehicle.getElectricalCapacity());
+        this.setElectricalStreetConsumption(vehicle.getElectricalStreetConsumption());
+        this.setElectricalHighwayConsumption(vehicle.getElectricalHighwayConsumption());
+        this.setGasCapacity(vehicle.getGasCapacity());
+        this.setGasStreetConsumption(vehicle.getGasStreetConsumption());
+        this.setGasHighwayConsumption(vehicle.getGasHighwayConsumption());
+        this.setLoadCapacity(vehicle.getLoadCapacity());
         this.setSafetyScore(vehicle.getSafetyScore());
         this.setRefLink(vehicle.getRefLink());
         this.setImgLink(vehicle.getImgLink());
@@ -30,6 +38,22 @@ public class Evaluation extends Vehicle {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public int getTrajetTotal() {
+        return trajetTotal;
+    }
+
+    public void setTrajetTotal(int trajetTotal) {
+        this.trajetTotal = trajetTotal;
+    }
+
+    public double getNbTrajetSansRecharge() {
+        return nbTrajetSansRecharge;
+    }
+
+    public void setNbTrajetSansRecharge(int nbTrajetSansRecharge) {
+        this.nbTrajetSansRecharge = nbTrajetSansRecharge;
     }
 
 }
