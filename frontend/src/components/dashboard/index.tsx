@@ -2,7 +2,6 @@ import React from "react";
 import {  Container, Grid} from '@mui/material';
 import ResultsList from './resultsList';
 import Trip from "../trip/trip"
-import MakeResearch from "../makeResearch/makeResearch";
 
 const Dashboard = () => {
     
@@ -17,8 +16,6 @@ const Dashboard = () => {
                     <ResultsList/>
                 </Grid>
             </Grid>
-       
-        
         </Container>
     );
 };
