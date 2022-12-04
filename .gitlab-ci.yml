@@ -29,7 +29,7 @@ build-job:
     - docker build -f frontend/DockerfileReact -t ssve-react . 
     - docker build -f backend/src/DockerfileSpring -t ssve-spring .
     - docker run -itd -p 3000:3000 --name pipelinereact ssve-react
-    - docker run -itd -p 8080:8080 --name pipelinespring ssve-spring
+    - docker run -itd -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name pipelinespring ssve-spring
     
 unit-test-job:
   stage: test
