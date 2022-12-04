@@ -1,12 +1,12 @@
 package java.ca.uqam.info.ssve.service;
 
+import java.ca.uqam.info.ssve.model.*;
+import java.ca.uqam.info.ssve.repository.VehicleRepository;
+import java.ca.uqam.info.ssve.server.ADVEConnection;
 import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.ca.uqam.info.ssve.model.*;
-import java.ca.uqam.info.ssve.repository.VehicleRepository;
-import java.ca.uqam.info.ssve.server.ADVEConnection;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;

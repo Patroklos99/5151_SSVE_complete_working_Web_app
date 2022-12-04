@@ -8,6 +8,7 @@ import java.ca.uqam.info.ssve.model.Deplacement;
 import java.ca.uqam.info.ssve.model.Evaluation;
 import java.ca.uqam.info.ssve.model.Vehicle;
 import java.ca.uqam.info.ssve.service.VehicleService;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
