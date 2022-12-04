@@ -6,8 +6,6 @@ import java.ca.uqam.info.ssve.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +61,6 @@ public class VehicleController {
     // todo
     @GetMapping("evaluate")
     public @ResponseBody List<Evaluation> evaluateVehicle() throws IOException {
-        return vehicleService.evaluateVehicle();
+        return new ArrayList<Evaluation>();
     }
 }
