@@ -25,9 +25,9 @@ public class Deplacement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private final Long id;
-    private final PointGeo start;
-    private final PointGeo end;
-    private final FrequenceDeplacement fd;
+    private final GeoPoint start;
+    private final GeoPoint end;
+    private final Trip fd;
 
     /**
      * Constructeur
@@ -36,7 +36,7 @@ public class Deplacement {
      * @param end   Point d'arrivée du déplacement
      * @param fd    La frequence du déplacement
      */
-    public Deplacement(long id, PointGeo start, PointGeo end, FrequenceDeplacement fd) {
+    public Deplacement(long id, GeoPoint start, GeoPoint end, Trip fd) {
         this.id = id;
         this.start = start;
         this.end = end;
@@ -48,7 +48,7 @@ public class Deplacement {
      * 
      * @return Le point de départ du déplacement
      */
-    public PointGeo getStart() {
+    public GeoPoint getStart() {
         return start;
     }
 
@@ -57,7 +57,7 @@ public class Deplacement {
      * 
      * @return Le point d'arrivée du déplacement
      */
-    public PointGeo getEnd() {
+    public GeoPoint getEnd() {
         return end;
     }
 
@@ -66,7 +66,7 @@ public class Deplacement {
      * 
      * @return La fréquence du déplacement
      */
-    public FrequenceDeplacement getFd() {
+    public Trip getFd() {
         return fd;
     }
 }

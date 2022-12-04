@@ -159,7 +159,7 @@ public class VehicleService {
         // --------Détermination de la fréquence total et du poid de chaque route
         for (Deplacement x : coordinateList) {
             Route route = new Route();
-            route.setFrequence(x.getFd().getNb_days());
+            route.setFrequence(x.getFd().getFreq());
             route.setDeplacement(x);
             frequenceTotale += route.getFrequence();
             routeList.add(route);
@@ -331,7 +331,7 @@ public class VehicleService {
         // --------Détermination de la fréquence total et du poid de chaque route
         for (Deplacement x : coordinateList) {
             Route route = new Route();
-            route.setFrequence(x.getFd().getNb_days());
+            route.setFrequence(x.getFd().getFreq());
             route.setDeplacement(x);
             frequenceTotale += route.getFrequence();
             routeList.add(route);
@@ -378,12 +378,12 @@ public class VehicleService {
     private List<Deplacement> createDeplacementList() {
         List<Deplacement> deplacementList = new ArrayList<>();
         // normal -----------------------------------------------------------
-        deplacementList.add(new Deplacement(1, new PointGeo(45.1138, -72.3623), new PointGeo(45.5382, -73.9159),
-                FrequenceDeplacement.TWICE_A_YEAR));
-        deplacementList.add(new Deplacement(1, new PointGeo(48.0293, -71.7262), new PointGeo(45.0393, -72.5376),
-                FrequenceDeplacement.ONCE_A_YEAR));
-        deplacementList.add(new Deplacement(1, new PointGeo(47.6861, -70.3343), new PointGeo(48.2191, -68.9323),
-                FrequenceDeplacement.ONCE_A_YEAR));
+        deplacementList.add(new Deplacement(1, new GeoPoint("dummy1", 45.1138, -72.3623), new GeoPoint("dummy2", 45.5382, -73.9159),
+                new Trip()));
+        deplacementList.add(new Deplacement(1, new GeoPoint("dummy3", 48.0293, -71.7262), new GeoPoint("dummy4", 45.0393, -72.5376),
+                new Trip()));
+        deplacementList.add(new Deplacement(1, new GeoPoint("dummy5", 47.6861, -70.3343), new GeoPoint("dummy6", 48.2191, -68.9323),
+                new Trip()));
         /*
          * //Min --------------------------------------------------------------
          * deplacementList.add(new Deplacement(1, new PointGeo(45.51963513223519,
