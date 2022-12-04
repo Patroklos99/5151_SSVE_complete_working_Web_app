@@ -3,9 +3,9 @@
  * with a set of trip data sent by the front end
  *
  */
-package ca.uqam.info.ssve.controller;
+package java.ca.uqam.info.ssve.controller;
 
-import ca.uqam.info.ssve.model.TripNeeds;
+import java.ca.uqam.info.ssve.model.TripNeeds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +17,7 @@ import java.util.Map;
 public class TripController {
 
 	@PostMapping("")
-	public @ResponseBody
-	TripNeeds postTrip(@RequestBody TripNeeds tripNeeds) {
+	public @ResponseBody TripNeeds postTrip(@RequestBody TripNeeds tripNeeds) {
 		System.out.println(tripNeeds.toString());
 		return tripNeeds;
 	}

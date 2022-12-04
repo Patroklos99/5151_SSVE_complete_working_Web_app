@@ -1,4 +1,4 @@
-package ca.uqam.info.ssve.controller;
+package java.ca.uqam.info.ssve.controller;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

@@ -1,13 +1,13 @@
-package ca.uqam.info.ssve.model;
+package java.ca.uqam.info.ssve.model;
 
 import java.util.Random;
 
-public class Evaluation extends Vehicle{
+public class Evaluation extends Vehicle {
     private double score;
 
     public Evaluation() {
         Random r = new Random();
-        this.score = r.nextDouble(0,10);
+        this.score = r.nextDouble(0, 10);
     }
 
     public Evaluation(Vehicle vehicle) {

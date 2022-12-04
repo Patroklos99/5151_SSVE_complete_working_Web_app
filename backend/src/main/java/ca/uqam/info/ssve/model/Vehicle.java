@@ -1,4 +1,4 @@
-package ca.uqam.info.ssve.model;
+package java.ca.uqam.info.ssve.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,8 +38,8 @@ public class Vehicle {
     @NotEmpty
     private String imgLink;
 
-
-    public Vehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity, int safetyScore, String refLink, String imgLink) {
+    public Vehicle(String brand, String modelName, int nbDoors, String type, int price, int range, int batteryCapacity,
+            int safetyScore, String refLink, String imgLink) {
         this.brand = brand;
         this.modelName = modelName;
         this.nbDoors = nbDoors;
