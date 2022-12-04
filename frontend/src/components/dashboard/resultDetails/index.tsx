@@ -8,6 +8,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import BuildIcon from '@mui/icons-material/Build';
 import PersonIcon from '@mui/icons-material/Person';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import { getCarImage } from "../../../utils/utils";
 
 
 
@@ -84,7 +85,7 @@ const ResultDetails = (props: ResultDetailsProps) => {
     return (
         <Container className="result-details-container">
             <div className="main-img">
-                <img src={require(`../../../assets/images/${car.imgLink}`)} alt="" />
+                <img src={getCarImage(car.imgLink)} alt="" />
             </div>
             <Container className="result-details-infos-container">
                 <div className="title">
@@ -149,7 +150,6 @@ const ResultDetails = (props: ResultDetailsProps) => {
                                 </Grid>
                             </Grid>
                         </div>
-
                         <h3>Electric informations</h3>
                         <div className="eletric-infos-container">
                             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -186,15 +186,10 @@ const ResultDetails = (props: ResultDetailsProps) => {
                             </Grid>
                         </div>
                         {gasInformationsRender()}
-
                     </div>
                 </span>
             </Container>
-
-
-
         </Container>
-
     )
 }
 

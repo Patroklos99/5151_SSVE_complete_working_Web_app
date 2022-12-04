@@ -1,5 +1,6 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText, Paper } from "@mui/material"
 import ICar from "../../../../types/Car"
+import { getCarImage } from "../../../../utils/utils";
 import { LinearProgressWithLabel } from "../linearProgressWithLabel"
 import './style.css'
 
@@ -19,7 +20,7 @@ const ListItemCar = (props: ListItemCarProps) => {
             <Paper elevation={4} onClick={() => props.handleClick(props.car)}>
                 <ListItem key={props.index} alignItems="flex-start">
                     <ListItemAvatar>
-                        <Avatar alt="img" src={require(`../../../../assets/images/${props.car.imgLink}`)} />
+                        <Avatar alt="img" src={getCarImage(props.car.imgLink)} />
                     </ListItemAvatar>
                     <div className="desc">
                         <ListItemText
