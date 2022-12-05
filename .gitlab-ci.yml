@@ -43,6 +43,7 @@ unit-test-job:
     - ./mvnw verify
     
 postman_tests:
+  allow_failure: true
   stage: test
   image:
       name: postman/newman:alpine
