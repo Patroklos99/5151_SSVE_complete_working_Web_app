@@ -65,8 +65,8 @@ sonarqube-check:
   script: 
     - mvn verify sonar:sonar -Dsonar.projectKey=ssve
   allow_failure: true
-  only:
-    - master
+  #only:
+  #  - master
 
 deploy:
   stage: deploy
