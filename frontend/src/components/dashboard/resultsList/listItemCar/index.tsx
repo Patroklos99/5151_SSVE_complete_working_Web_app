@@ -20,17 +20,13 @@ const ListItemCar = (props: ListItemCarProps) => {
     if (process.env.NODE_ENV === 'production') {
         imgSrc = "http://adve.info.uqam.ca/img/";
     }
-
+    
     return (
         <div key={props.index} className="list-item-car">
             <Paper elevation={4} onClick={() => props.handleClick(props.car)}>
                 <ListItem key={props.index} alignItems="flex-start">
                     <ListItemAvatar>
-<<<<<<< HEAD
-                        <Avatar alt="img" src={`${imgSrc}${car.imgLink}`} />
-=======
                         <Avatar alt="img" src={getCarImage(props.car.imgLink)} />
->>>>>>> FE-vehiculeDetails
                     </ListItemAvatar>
                     <div className="desc">
                         <ListItemText
