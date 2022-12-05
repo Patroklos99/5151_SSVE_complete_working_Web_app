@@ -12,10 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.lenient;
 
@@ -31,12 +28,9 @@ public class VehicleServiceTest {
 
     @BeforeEach
     public void setUp() {
-        vehicleRepository.save(new Vehicle("Audi", "e-tron", 4, "SUV", 87342, 364,95, 5, "https://www.audi.ca/ca/web/en/models/etron/e-tron-quattro.html", "imgLink"));
-        vehicleRepository.save(new Vehicle("BMW", "i4", 4, "Sedan", 54990, 484, 84, 4, "https://www.bmw.ca/en/all-models/bmw-i/i4/2021/bmw-i4-highlights.html", "imgLink"));
-        vehicleRepository.save(new Vehicle("Citroen", "e-C4", 4, "SUV", 34252, 352, 50, 4, "https://www.citroen.co.uk/models/c4-e-c4.html", "imgLink"));
-
-        //lenient().when(vehicleRepository.findById(anyLong())).thenReturn(Optional.of(vehicle));
-        //lenient().when(vehicleRepository.save(any())).thenReturn(vehicle);
+        Vehicle v = new Vehicle("Audi", "e-tron", 4, "SUV", 87342, 364,95, 5, "https://www.audi.ca/ca/web/en/models/etron/e-tron-quattro.html", "imgLink");
+        v.setId(1L);
+        lenient().when(vehicleRepository.findById(anyLong())).thenReturn(Optional.of(v));
     }
 
 
@@ -83,8 +77,7 @@ public class VehicleServiceTest {
 
     @Test
     public void testFindVehicleById() {
-        Long id = 1L;
-        Vehicle vehicle = vehicleService.getVehicle(id);
+        Vehicle vehicle = vehicleService.getVehicle(1L);
         Vehicle vehicleTest = setUpTestVehicle();
 
         assertTrue(isEqual(vehicle, vehicleTest));
