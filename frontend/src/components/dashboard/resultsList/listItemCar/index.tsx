@@ -5,12 +5,18 @@ import './style.css'
 
 const ListItemCar = (car:ICar, index: number) => {
 
+    let imgSrc = "" // Definiser votre source d'image local ici
+
+    if (process.env.NODE_ENV === 'production') {
+        imgSrc = "http://adve.info.uqam.ca/img/";
+    }
+
     return (
         <div key={index} className="list-item-car">
             <Paper elevation={4}>
                 <ListItem key={index} alignItems="flex-start">
                     <ListItemAvatar>
-                        <Avatar alt="img" src={require(`../../../../assets/images/${car.imgLink}`)} />
+                        <Avatar alt="img" src={`${imgSrc}${car.imgLink}`} />
                     </ListItemAvatar>
                     <div className="desc">
                         <ListItemText
