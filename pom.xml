@@ -17,7 +17,9 @@
 		<java.version>17</java.version>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
-       <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
+	    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.sources>backend/src</sonar.sources>
+        <sonar.tests>backend/src/test</sonar.tests>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -79,5 +81,33 @@
 			</plugin>
 		</plugins>
 	</build>
+	<build>
+        <plugins>
+         	<plugin>
+               <groupId>org.sonarsource.scanner.maven</groupId>
+               <artifactId>sonar-maven-plugin</artifactId>
+               <version>3.7.0.1746</version>
+            </plugin>
+         	<plugin>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.6</version>
+			<executions>
+				<execution>
+					<id>prepare-agent</id>
+					<goals>
+						<goal>prepare-agent</goal>
+					</goals>
+				</execution>
+				<execution>
+					<id>report</id>
+					<goals>
+						<goal>report</goal>
+					</goals>
+				</execution>
+			</executions>
+			</plugin>
+        </plugins>
+    </build>
 
 </project>
