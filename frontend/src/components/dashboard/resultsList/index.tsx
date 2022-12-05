@@ -52,6 +52,7 @@ const ResultsList = (props: ResultsListProps) => {
                 setCarsList([...carsList.sort((a, b) => b.score - a.score)]);
                 break;
             
+
         }
         setOrderBy(orderBy);
     }
