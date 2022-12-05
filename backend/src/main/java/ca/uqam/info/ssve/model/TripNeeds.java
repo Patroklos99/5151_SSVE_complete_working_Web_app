@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import ca.uqam.info.ssve.googleTimeline.TimelineData;
 
 /**
  * Objet contenant les données des besoins de déplacement de l'usager.
