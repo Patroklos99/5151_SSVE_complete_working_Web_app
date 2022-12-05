@@ -1,7 +1,7 @@
 # Configuration pour la BD Postgres
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://adve.info.uqam.ca:5432/postgres
     username: ADVE
     password: ADVE
     driverClassName: org.postgresql.Driver
