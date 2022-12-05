@@ -14,13 +14,8 @@
     "@types/node": "^16.11.64",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-<<<<<<< HEAD
-    "axios": "^1.2.0",
-    "cors": "^2.8.5",
-=======
     "axios": "^1.0.0",
     "leaflet": "^1.9.3",
->>>>>>> origin/develop
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.0",
