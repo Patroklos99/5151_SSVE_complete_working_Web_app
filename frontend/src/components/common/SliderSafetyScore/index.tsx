@@ -64,7 +64,7 @@ export default function SliderSafetyScore(props: { minValue: number | undefined;
 
     return (
         <div className='scoreSecuriteSlider'>
-            <Box sx={{ width: 400}}>
+            <Box sx={{ width: 4/5}}>
                 <Slider
                     min={0}
                     max={100}

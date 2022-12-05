@@ -87,7 +87,7 @@ export default function DropDownSelect() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, width: 4/5 }}>
         <InputLabel id="models-label">Modele</InputLabel>
         <Select
           labelId="car-model-label"

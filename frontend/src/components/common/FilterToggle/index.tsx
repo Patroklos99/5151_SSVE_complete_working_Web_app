@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ClassNames } from '@emotion/react';
-import { makeStyles, ToggleButtonGroup } from '@mui/material';
+import { makeStyles, ToggleButtonGroup, useMediaQuery } from '@mui/material';
 import { ToggleButton } from '@mui/material';
 import CarFilterUtil from '../../../util/CarFilterUtil';
 import { ICar } from '../../../models/cars';
@@ -8,6 +8,7 @@ import { ICar } from '../../../models/cars';
 
 export default function FilterToggle() {
     const [carType, setCarType] = useState<string[]>(['Berline','VUS'])
+    const matches = useMediaQuery ("(min-width : 800px)");
   
     const handleChange = (
     _event: React.MouseEvent<HTMLElement>,
@@ -43,6 +44,7 @@ export default function FilterToggle() {
       onChange={handleChange}
       aria-label="car type"
       size='large'
+      orientation = {`${matches ? `horizontal` : `vertical`}`}
       >
         <ToggleButton value="Berline" aria-label='Berline'>Berline</ToggleButton>
         <ToggleButton value="VUS" aria-label='VUS'>VUS</ToggleButton>

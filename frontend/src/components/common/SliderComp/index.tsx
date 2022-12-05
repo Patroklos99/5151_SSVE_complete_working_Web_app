@@ -15,6 +15,16 @@ const marks = [
     },
 
     {
+        value:100000,
+        
+    },
+
+    {
+        value:200000,
+        
+    },
+
+    {
         value:300000,
         label:'300 000$',
     },
@@ -48,7 +58,7 @@ export default function SliderComp(props: { minValue: number | undefined; maxVal
 
     return (
         <div className='priceSlider'>
-            <Box sx={{ width: 400}}>
+            <Box sx={{ width: 4/5 }}>
                 <Slider
                     min={0}
                     max={300000}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ClassNames } from '@emotion/react';
-import { ToggleButtonGroup } from '@mui/material';
+import { ToggleButtonGroup, useMediaQuery } from '@mui/material';
 import { ToggleButton } from '@mui/material';
 import CarFilterUtil from '../../../util/CarFilterUtil';
 import { ICar } from '../../../models/cars';
@@ -9,6 +9,8 @@ import { ICar } from '../../../models/cars';
   
 export default function DoorFilter() {
   const [carDoorNum, setCarDoorNum] = useState<number[]>([2,3,4,5])
+  const matches = useMediaQuery ("(min-width : 800px)");
+  
 
 
   const handleChange = (
@@ -47,6 +49,7 @@ export default function DoorFilter() {
           onChange={handleChange}
           aria-label="car type"
           size='large'
+          orientation = {`${matches ? `horizontal` : `vertical`}`}
           >
             <ToggleButton value={2} aria-label='two doors'>2</ToggleButton>
             <ToggleButton value={3} aria-label='three doors'>3</ToggleButton>

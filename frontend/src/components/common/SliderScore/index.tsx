@@ -64,7 +64,7 @@ export default function SliderScore(props: { minValue: number | undefined; maxVa
 
     return (
         <div className='scoreSlider'>
-            <Box sx={{ width: 400}}>
+            <Box sx={{ width: 4/5}}>
                 <Slider
                     min={0}
                     max={100}
