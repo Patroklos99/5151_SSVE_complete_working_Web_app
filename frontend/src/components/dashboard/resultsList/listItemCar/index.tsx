@@ -1,5 +1,6 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText, Paper } from "@mui/material"
 import ICar from "../../../../types/Car"
+import { getCarImage } from "../../../../utils/utils";
 import { LinearProgressWithLabel } from "../linearProgressWithLabel"
 import './style.css'
 
@@ -14,12 +15,18 @@ interface ListItemCarProps {
 
 const ListItemCar = (props: ListItemCarProps) => {
 
+    let imgSrc = "" // Definiser votre source d'image local ici
+
+    if (process.env.NODE_ENV === 'production') {
+        imgSrc = "http://adve.info.uqam.ca/img/";
+    }
+    
     return (
         <div key={props.index} className="list-item-car">
             <Paper elevation={4} onClick={() => props.handleClick(props.car)}>
                 <ListItem key={props.index} alignItems="flex-start">
                     <ListItemAvatar>
-                        <Avatar alt="img" src={require(`../../../../assets/images/${props.car.imgLink}`)} />
+                        <Avatar alt="img" src={getCarImage(props.car.imgLink)} />
                     </ListItemAvatar>
                     <div className="desc">
                         <ListItemText

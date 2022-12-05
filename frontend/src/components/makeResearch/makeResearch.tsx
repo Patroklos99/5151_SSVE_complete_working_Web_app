@@ -16,28 +16,24 @@ const MakeResearch: FC<MakeResearchProps> = () => (
                 <h2>Veuillez saisir vos données de déplacement:</h2>
             </div>
 
-
             {/*** 3 columns **/}
             <div className="row">
                 <div className="column column1">
                     <div className="card-overlay2">
                         <img src={formIcone} className="filter-image"/>
-
                         <Link to="/researchMan">
-                            <button
-                                style={{width: "auto", position: "relative"}}>Manuellement
+                            <button style={{ width: "auto", position: "relative" }}>
+                                Manuellement
                             </button>
                         </Link>
-
-
                     </div>
                 </div>
 
                 <div className=" column column2">
                     <div className=" card-overlay2">
                         <img src={mapIcone} alt=" formation-icone" className=" filter-image"/>
-                        <button
-                            style={{width: "auto", position: "relative"}}>Par Google Maps Timeline
+                        <button style={{ width: "auto", position: "relative" }}>
+                            Par Google Maps Timeline
                         </button>
                     </div>
                 </div>
@@ -45,7 +41,8 @@ const MakeResearch: FC<MakeResearchProps> = () => (
                 <div className="column column3">
                     <div className="card-overlay2">
                         <img src={jsonIcone} alt="inventaire-icone" className="filter-image"/>
-                        <button style={{width: "auto", position: "relative"}}>Par liste préformatée
+                        <button style={{ width: "auto", position: "relative" }}>
+                            Par liste préformatée
                         </button>
 
                     </div>

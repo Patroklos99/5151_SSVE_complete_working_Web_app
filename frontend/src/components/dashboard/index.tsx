@@ -4,7 +4,6 @@ import ResultsList from "./resultsList";
 import ResultDetails from "./resultDetails";
 import ICar from "../../types/Car";
 import Trip from "../trip/trip";
-import MakeResearch from "../makeResearch/makeResearch";
 
 const Dashboard = () => {
   //used to switch between search and results
