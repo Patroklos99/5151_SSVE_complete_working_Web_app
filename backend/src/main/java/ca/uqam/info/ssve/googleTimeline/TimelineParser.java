@@ -1,16 +1,15 @@
 package ca.uqam.info.ssve.googleTimeline;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import ca.uqam.info.ssve.model.PointGeo;
-
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 
 
 public class TimelineParser {
@@ -49,7 +48,9 @@ public class TimelineParser {
             collectTripData(iterator);
         } while (iterator.hasNext());
         calculateFrequency(tripList);
-        //printData();
+        for (int i = 0; i < this.getTimelineData().size(); i++){
+            this.getTimelineData().get(i).finalizeTripData(this.getTimelineData().get(i).getID());
+        }
         return tripList;
     }
 
@@ -98,7 +99,6 @@ public class TimelineParser {
      * @return String of the identification (ID) of the visited location
      */
     private static String extractId(JSONObject placeVisit) {
-
         JSONObject location = (JSONObject) placeVisit.get("location");
         String Id = location.get("placeId").toString();
         return Id;
