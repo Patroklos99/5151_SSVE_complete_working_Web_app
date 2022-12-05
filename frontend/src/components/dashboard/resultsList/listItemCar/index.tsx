@@ -1,9 +1,19 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText, Paper } from "@mui/material"
 import ICar from "../../../../types/Car"
+import { getCarImage } from "../../../../utils/utils";
 import { LinearProgressWithLabel } from "../linearProgressWithLabel"
 import './style.css'
 
-const ListItemCar = (car:ICar, index: number) => {
+
+interface ListItemCarProps {
+    car: ICar;
+    index: number;
+    handleClick: (result: ICar) => void;
+}
+
+
+
+const ListItemCar = (props: ListItemCarProps) => {
 
     let imgSrc = "" // Definiser votre source d'image local ici
 
@@ -12,24 +22,28 @@ const ListItemCar = (car:ICar, index: number) => {
     }
     
     return (
-        <div key={index} className="list-item-car">
-            <Paper elevation={4}>
-                <ListItem key={index} alignItems="flex-start">
+        <div key={props.index} className="list-item-car">
+            <Paper elevation={4} onClick={() => props.handleClick(props.car)}>
+                <ListItem key={props.index} alignItems="flex-start">
                     <ListItemAvatar>
+<<<<<<< HEAD
                         <Avatar alt="img" src={`${imgSrc}${car.imgLink}`} />
+=======
+                        <Avatar alt="img" src={getCarImage(props.car.imgLink)} />
+>>>>>>> FE-vehiculeDetails
                     </ListItemAvatar>
                     <div className="desc">
                         <ListItemText
                             primary={
                                 <div className="primary">
-                                    <div className='modele'>{car.brand +" "+ car.modelName}</div>
-                                    <div className='prix'>{car.price}$</div>
+                                    <div className='modele'>{props.car.brand +" "+ props.car.modelName}</div>
+                                    <div className='prix'>{props.car.price}$</div>
                                 </div> 
                             }
-                            secondary={car.description}
+                            secondary={props.car.description}
                             color="black"
                         />
-                        <LinearProgressWithLabel variant="determinate" value={car.score * 10}/>
+                        <LinearProgressWithLabel variant="determinate" value={props.car.score * 10}/>
                     </div>
                 </ListItem>
             </Paper>
