@@ -32,7 +32,8 @@ build-job:
     - docker build -f frontend/DockerfileReact -t ssve-react . 
     - docker build -f backend/src/DockerfileSpring -t ssve-spring .
     - docker run -itd -p 3000:3000 --name pipelinereact ssve-react
-    - docker run -itd -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name pipelinespring ssve-spring
+    - docker run -itd -p 8080:8080 --name pipelinespring ssve-spring
+
     
 unit-test-job:
   stage: test
@@ -81,6 +82,5 @@ deploy:
         docker container ls -a | grep -q $containerName || exit_code=$?
         if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
       done
-      
     - docker run -itd -p 6969:3000 --name deployreact ssve-react
-    - docker run -itd -p 420:8080 --name deployspring ssve-spring
+    - docker run -itd -p 420:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspring ssve-spring

@@ -10,7 +10,7 @@ const ListItemCar = (car:ICar, index: number) => {
     if (process.env.NODE_ENV === 'production') {
         imgSrc = "http://adve.info.uqam.ca/img/";
     }
-    
+
     return (
         <div key={index} className="list-item-car">
             <Paper elevation={4}>
