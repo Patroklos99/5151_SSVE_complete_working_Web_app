@@ -1,18 +1,20 @@
 image:
   name: docker:dind
 
-before_script:
-  - apk update
-  - apk upgrade
-
 stages:
   - build
   - test
   - sonar
   - deploy
 
+.before_script_template: &apk_update
+  before_script:
+    - apk update
+    - apk upgrade
+
 build-job:
   stage: build
+  <<: *apk_update
   script:
     - TZ=Canada/Eastern
     - ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone # définir le timezone pour éviter qu'il soit demandé et que ça stall pendant l'install de docker
@@ -34,6 +36,7 @@ build-job:
     
 unit-test-job:
   stage: test
+  <<: *apk_update
   script:
     - apk add openjdk17
     - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::") # smort
@@ -69,6 +72,7 @@ deploy:
   stage: deploy
   only:
     - master
+  <<: *apk_update
   script:
     - |-
       for containerName in deployreact deployspring; do
