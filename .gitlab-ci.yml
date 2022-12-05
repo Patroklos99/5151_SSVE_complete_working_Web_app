@@ -79,6 +79,3 @@ deploy:
       
     - docker run -itd -p 6969:3000 --name deployreact ssve-react
     - docker run -itd -p 420:8080 --name deployspring ssve-spring
-
-
-
