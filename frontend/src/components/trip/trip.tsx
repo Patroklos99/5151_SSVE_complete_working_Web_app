@@ -227,5 +227,6 @@ const Trip: React.FC = () => {
         </div >
     );
 };
+}
 
 export default Trip;
