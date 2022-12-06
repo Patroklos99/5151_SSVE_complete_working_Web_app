@@ -91,7 +91,7 @@ deploy-master:
 deploy-develop:
   stage: deploy
   only:
-    - develop
+    - fix/deploy-on-develop
   <<: *apk_update
   script:
     - |-
