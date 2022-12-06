@@ -4,23 +4,11 @@ import TimelineNeedsState from '../../types/timelineNeeds';
 import "./timeline.css";
 
 function App() {
-  
-  const[needsState, setNeedsState] = React.useState<TimelineNeedsState>()
-  const [timelineFile, setTimelineFile] = useState<string>("")
 
-  function handleNeedsChange(event: { target: { value: any; name: any; }; }){
-    const value = event.target.value;
-    setNeedsState({
-      ...needsState,
-      [event.target.name]: value
-    });
-   console.log(needsState);
-  }
+  const [timelineFile, setTimelineFile] = useState<string>("")
 
   function formSubmit(e: any) {
     e.preventDefault();
-    TripService.postTimelineNeeds(needsState!)
-
     TripService.postTimelineTrips(timelineFile).then((response: any) => {
       console.log(response.data);
     }).catch((e: Error) => {
@@ -43,54 +31,32 @@ function App() {
       }
     }
   }
+
   return (
     <div className="App">
       <header className="App-header">
-      <div className="form-style-3" >
-        Entréz vos besoins et téléversez votre fichier Google Timeline (.json)
+       <div className="form-style-3" >
+      <fieldset  className="form-input">
+
+        Téléversez votre fichier Google Timeline (.json)
         <br></br>
         <br></br>
-        <fieldset>
-        <form>
-
-          <label> <span> Autonomie désiré: </span>
-            <input
-              type="number"
-              name="autonomy"
-              value={needsState?.autonomy}
-              onChange={handleNeedsChange}
-            />
-            </label>
-            <br></br>
-            <label> <span> Temps de recharge désiré: </span>
-            <input
-              type="number"
-              name="chargeTime"
-              value={needsState?.chargeTime}
-              onChange={handleNeedsChange}
-            />
-            </label>
-
-          </form>
-          </fieldset>
-
-          <div className="choose-btn">
-        <form  onSubmit={formSubmit} >
+          <div>
+            <form  onSubmit={formSubmit} >
             <input type="file" onChange={(e)=> handleTimeline(e.target.files)}/>
           { timelineFile &&
             <>
             <hr/>
-            <button> Téléverser </button>
+            <button> <span> Téléverser </span>  </button>
             </>
           }
-
-
-        </form>
-</div>
-
-        </div>
+            </form>
+           </div>
+        </fieldset>
+            </div>
       </header>
     </div>
+
   );
 }
 export default App;  

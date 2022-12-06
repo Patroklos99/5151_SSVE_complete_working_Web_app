@@ -43,7 +43,7 @@ out/
 .pnp.js
 
 # testing
-/frontend/coverage
+/coverage
 
 # production
 /frontend/build

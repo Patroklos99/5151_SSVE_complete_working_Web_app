@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import ca.uqam.info.ssve.googleTimeline.TimelineData;
 
 /**
  * Objet contenant les données des besoins de déplacement de l'usager.
@@ -62,6 +63,19 @@ public class TripNeeds implements Serializable {
     public TripNeeds(int chargeTime, int autonomy, ArrayList<TimelineData> timelineData) {
         this.chargeTime = chargeTime;
         this.autonomy = autonomy;
+        this.trips = new ArrayList();
+        for (int i = 0; i < timelineData.size(); i++) {
+            addTravel(new Trip(timelineData.get(i)));
+        }
+    }
+
+    /**
+     * Constructeur
+     * @param list de trips retrait d'un fichier google timeline
+     */
+    public TripNeeds(ArrayList<TimelineData> timelineData) {
+        this.chargeTime = 0;
+        this.autonomy = 0;
         this.trips = new ArrayList();
         for (int i = 0; i < timelineData.size(); i++) {
             addTravel(new Trip(timelineData.get(i)));
