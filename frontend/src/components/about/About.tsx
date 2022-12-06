@@ -1,31 +1,35 @@
-import { Container, SvgIcon, SvgIconProps, Typography } from "@mui/material";
 import React from "react";
 import "./About.css";
 
-function CustomIcon(props: SvgIconProps) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M23 8A7 7 0 0 0 9.68 5H7v2H4.5a1.5 1.5 0 0 0-1.42 1.01L1 14v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-7.68A7.01 7.01 0 0 0 23 8zm-18.5.5h4.53a6.93 6.93 0 0 0 2.08 4.5H3l1.5-4.5zm0 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm2.93-5.63-.21.11-.18.09a4.97 4.97 0 0 1-.42.16l-.22.07-.23.06-.2.05a5 5 0 0 1-5.94-4.41A4.07 4.07 0 0 1 11 8l.02-.47.02-.17.04-.28.04-.21.05-.21.07-.24.05-.13a4.99 4.99 0 0 1 9.69 1.7 4.96 4.96 0 0 1-2.55 4.38zM15 4h2v5h-2zm0 6h2v2h-2z" />
-    </SvgIcon>
-  );
-}
 const About = () => {
   return (
-    <section className="homePage">
-    <div className="ellipse"></div>
-    <Container maxWidth="xl">
-      <h1>À propos</h1>
-      <Typography color="inherit" variant="h5">
+    <section className="about">
+      <div className="ellipse"></div>
+      <div className="about-content">
+        <h1>À propos</h1>
         <h2>Historique</h2>
-        <text>Notre équipe a développé ce programme dans le but de faciliter la location d'automobiles pour les usages qui sont fatigués des autres systèmes archaiques et peu pratiques.</text>
+        <p>
+          Notre équipe a développé ce programme dans le but de faciliter la
+          location d'automobiles pour les usages qui sont fatigués des autres
+          systèmes archaiques et peu pratiques.
+        </p>
         <h2>Clientèles</h2>
-        <text>Les clients desservies recherchent à trouver une automobile qui corresponde à leurs besoins et qui veulent un service de qualité.</text>
+        <p>
+          Les clients desservies recherchent à trouver une automobile qui
+          corresponde à leurs besoins et qui veulent un service de qualité.
+        </p>
         <h2>Modèle d'affaire</h2>
-        <text>Le programme conçus est le produit que nous offrons à notre clientèle.</text>
+        <p>
+          Le programme conçus est le produit que nous offrons à notre clientèle.
+        </p>
         <h2>Membres de l'équipe</h2>
-        <text>Tous les membres de l'équipe sont des étudiants de l'UQAM au Baccalauréat en informatique et génie logiciel. Ce projet a été effectué dans le cadre des cours INF6150 et INM5151 lors de la session d'automne 2022.</text>
-      </Typography>
-    </Container>
+        <p>
+          Tous les membres de l'équipe sont des étudiants de l'UQAM au
+          Baccalauréat en informatique et génie logiciel. Ce projet a été
+          effectué dans le cadre des cours INF6150 et INM5151 lors de la session
+          d'automne 2022.
+        </p>
+      </div>
     </section>
   );
 };
