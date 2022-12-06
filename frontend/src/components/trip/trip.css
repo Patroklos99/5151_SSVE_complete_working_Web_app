@@ -1,13 +1,30 @@
 body {
-    margin: 0;
-  }
- 
-  [id^=map] {
-    width: 0;
-    height: 0;
-    background-color: transparent;
-    display: none;
-  }
+  margin: 0;
+}
+
+[id^="map"] {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  display: none;
+}
+.trip-form .header h2 {
+  color: #1c3d5b;
+  text-align: left;
+}
+
+.trip-form .header-container .MuiDivider-root {
+  background-color: #1c3d5b;
+  height: 2px;
+  margin-left: 0px;
+  margin-bottom: 1em;
+}
+
+.trip-form .header {
+  width: 100%;
+  display: inline-flex;
+  position: relative;
+}
 
 .btn {
   background-color: #009978;
@@ -20,28 +37,28 @@ body {
   opacity: 0.9;
 }
 
-  [id^=search-box] {
-    padding-bottom: 20px;
-    width: 100%;
-  }
- 
-  [id=search-box2] {
-    z-index: 1;
-  }
- 
-  [id^=result] {
-    padding-left: 20px;
-    padding-top: 20px;
-  }
- 
-  [class^=leaflet-locationiq-control] {
-    width: 100%;
-  }
- 
-  [class^=leaflet-locationiq-results] {
-    top: 55px !important;
-  }
- 
-  #textsup {
-    text-align: left;
-  }
+[id^="search-box"] {
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+[id="search-box2"] {
+  z-index: 1;
+}
+
+[id^="result"] {
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+[class^="leaflet-locationiq-control"] {
+  width: 100%;
+}
+
+[class^="leaflet-locationiq-results"] {
+  top: 55px !important;
+}
+
+#textsup {
+  text-align: left;
+}

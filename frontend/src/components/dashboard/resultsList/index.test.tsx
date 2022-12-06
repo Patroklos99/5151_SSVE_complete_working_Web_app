@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import ResultsList from ".";
 
 test("Should renders the ResultsList component", () => {
-  render(<ResultsList handleResultClick={() => ""} />, {
+  render(<ResultsList handleResultClick={() => ""} evaluateRes={[]}/>, {
     wrapper: BrowserRouter,
   });
   const title = screen.getByText(/Résultats/i, { selector: "h2" });

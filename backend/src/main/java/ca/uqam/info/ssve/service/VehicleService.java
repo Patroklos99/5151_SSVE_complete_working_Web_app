@@ -207,12 +207,17 @@ public class VehicleService {
     }
 
     public static double getPercentage(double part, double whole) {
-        return new BigDecimal(part * 100 / whole).doubleValue();
+        if (whole != 0) {
+            return new BigDecimal(part * 100 / whole).doubleValue();
+        } else {
+            return 0;
+        }
+
     }
 
     /**
      * Méthode pour arrondire un nombre
-     * 
+     *
      * @param value:  valeur a arrondire
      * @param places: nombre de chiffre après la virgule
      * @return
@@ -234,10 +239,6 @@ public class VehicleService {
      * @param data:  String à traduire
      */
     private void stringToRoute(Route route, String data) {
-        int valueNum = 0;
-        int space1 = 0;
-        int space2 = 0;
-        int space3 = 0;
         String[] splited = data.split(" ");
         route.setDistance(Double.parseDouble(splited[0]));
         route.setTripTime(Double.parseDouble(splited[1]));
@@ -248,7 +249,8 @@ public class VehicleService {
     private String requeteString(Route route, int index) {
         String start = "(" + route.getTrip().getStops().get(index).getLat() + ","
                 + route.getTrip().getStops().get(index).getLgt() + ")";
-        String end = "(" + route.getTrip().getStops().get(index+1).getLat() + "," + route.getTrip().getStops().get(index+1).getLgt()
+        String end = "(" + route.getTrip().getStops().get(index + 1).getLat() + ","
+                + route.getTrip().getStops().get(index + 1).getLgt()
                 + ")";
         return start + " " + end + " ";
     }

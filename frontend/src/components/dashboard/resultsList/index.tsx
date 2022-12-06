@@ -9,6 +9,7 @@ import './style.css';
 
 interface ResultsListProps {
     handleResultClick: (result: ICar) => void;
+    evaluateRes: ICar[];
 }
 
 
@@ -18,12 +19,15 @@ const ResultsList = (props: ResultsListProps) => {
     const [carsList, setCarsList] = useState<ICar[]>([]);
 
     useEffect(() => {
-        const getCars = async()=> {
-            const data = await CarServices.getAllCars();
-            setCarsList([...data.sort((a: ICar, b: ICar) => b.score - a.score)]);
-        }
-        getCars();
-      }, []);
+        setCarsList([...props.evaluateRes.sort((a: ICar, b: ICar) => b.score - a.score)]);
+    }, [props.evaluateRes]);
+    // useEffect(() => {
+    //     const getCars = async()=> {
+    //         const data = await CarServices.getAllCars();
+    //         setCarsList([...data.sort((a: ICar, b: ICar) => b.score - a.score)]);
+    //     }
+    //     getCars();
+    //   }, []);
 
 
     const handleOrderByClick = (event: React.MouseEvent<HTMLButtonElement>) => {

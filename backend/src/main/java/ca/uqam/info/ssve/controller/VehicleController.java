@@ -8,14 +8,13 @@ import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.TripNeeds;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.service.VehicleService;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:3000/" })
+@CrossOrigin
 @RequestMapping("api/vehicle")
 public class VehicleController {
 
@@ -61,20 +60,9 @@ public class VehicleController {
         return vehicleService.modifyVehicle(vehicle);
     }
 
-    @GetMapping("evaluate")
+    @PostMapping("evaluate")
     public @ResponseBody List<Evaluation> evaluateVehicle(@RequestBody TripNeeds tripNeeds)
             throws IOException, JSchException, InterruptedException {
         return vehicleService.evaluateVehicle(tripNeeds);
-    }
-
-
-
-
-    //-------------------TEMPORAIRE---------------------------------------------
-
-    @GetMapping("evaluateTest")
-    public @ResponseBody List<Evaluation> evaluateVehicle()
-            throws IOException, JSchException, InterruptedException {
-        return vehicleService.evaluateVehicleTest();
     }
 }
