@@ -17,6 +17,10 @@ nav {
   gap: 40px;
 }
 
+.nav-left {
+  gap: 4em;
+}
+
 a {
   color: white;
   text-decoration: none;

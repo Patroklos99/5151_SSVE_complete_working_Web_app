@@ -1,103 +1,90 @@
+:root {
+  --white: #ffffff;
+  --pale-blue: #1c3d5b;
+  --dark-blue: #0a2640;
+  --pale-green: #65e4a3;
+  --dark-green: #3e9d73;
+}
+
+.App-header {
+  /* background-color: var(--dark-blue) !important; */
+}
+
 .homePage {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0px; 
-    top: -4px;
-    background: #0A2640; 
-    overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--dark-blue);
+  overflow: hidden;
 }
 
-.content{
-    position: relative;
-    margin-top: 40px;
+.ellipse {
+  position: absolute;
+  width: 1293px;
+  height: 1293px;
+  left: 777px;
+  top: -793px;
+  border-radius: 646.5px;
+  background: var(--pale-blue);
 }
 
-
-.title2{
-    position: absolute;
-    width: 1567px;
-    height: 1380px;
-
-    font-family: 'Arial';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 48px;
-    line-height: 72px;
-
-    display: flex;
-    align-items: center;
-
-    color: #FFFFFF;
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-
-    width: 567px;
-    height: 138px;
-
-    margin-top: 170px;
-    margin-left: 100.77px;
+.content {
+  position: relative;
 }
 
-.description{
-    position: absolute;
-    font-family: 'Roboto', sans-serif;
-    width: 567px;
-    height: 112px;
-
-    margin-top:  350px;
-    margin-left: 100.77px;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 28px;
-
-    color: #F1F1F1;
+.content img {
+  border-radius: 25px;
 }
 
-.textButton{
-   
-    font-family: 'Roboto', sans-serif;
-    font-style: medium;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 28px;
-    text-transform: initial;
-    color: #000204;
-
-  
+.text-header {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #ffffff;
+  margin-left: 6rem;
 }
 
-
-.ellipse{
-    position: absolute;
-    width: 1293px;
-    height: 1293px;
-    left: 777px;
-    top: -793px;
-    border-radius:646.5px;
-    background: #1C3D5B;
+.text-header h1 {
+  margin-bottom: 0;
 }
 
-.textEllipse{
-    position: absolute;
-    text-decoration:none;
-    width: 69px;
-    height: 28px;
+.title2 {
+  font-family: "Arial";
+  font-size: 48px;
+  line-height: 72px;
+  color: var(--white);
+  width: 50%;
+  margin-left: 6rem;
+}
 
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 28px;
+.description {
+  font-family: "Roboto", sans-serif;
+  width: 50%;
+  margin-left: 6rem;
+  font-style: normal;
+  line-height: 28px;
 
-    display: flex;
-    align-items: center;
+  color: #f1f1f1;
+}
 
-    color: #FFFFFF;
-    margin-left: 1050px;
-    margin-top: 48px;
+.demo {
+  position: absolute;
+  left: 45vw;
+  top: 20vh;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 1em;
+}
+
+.textButton {
+  font-family: "Roboto", sans-serif;
+  font-style: medium;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  text-transform: initial;
+  color: #000204;
 }

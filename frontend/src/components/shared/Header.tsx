@@ -2,14 +2,14 @@ import Button from "@mui/material/Button";
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-
+import Logo from "./Logo";
 
 const NavBar: React.FC = () => {
   return (
     <nav data-testid="nav">
       <div className="nav-left">
         <Link to="/" data-testid="test">
-          Logo
+          <Logo />
         </Link>
       </div>
       <div className="nav-right">
@@ -38,7 +38,7 @@ const NavBar: React.FC = () => {
 const Header: React.FC = () => {
   return (
     <header className="App-header" data-testid="header">
-      <NavBar/>
+      <NavBar />
     </header>
   );
 };
