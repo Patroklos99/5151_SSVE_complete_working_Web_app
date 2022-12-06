@@ -100,6 +100,7 @@ deploy-develop:
         docker container ls -a | grep -q $containerName || exit_code=$?
         if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
       done
+      
     # on override la config globale avec une url qui pointe vers notre backend sur le port 666 (et non sur le port 420 par défaut)
     - echo "REACT_APP_BASE_URL=http://dev.uqam.info" > env.production.local 
     - docker run -itd -p 1337:3000 --name deployreactdevelop ssve-react
