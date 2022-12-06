@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ScriptTarget } from 'typescript';
 import './trip.css'
 import TripData from "../../types/trip";
 import TripService from '../../services/tripServices';
 import TripNeeds from '../../types/tripNeeds';
-import { Button, FormControl, IconButton, NativeSelect, Table, TableCell, TableRow, TextField } from '@mui/material';
+import { Button, FormControl, IconButton, NativeSelect, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material';
 import { Add } from "@mui/icons-material";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { v4 as uuidv4 } from 'uuid';
 import GeoPoint from '../../types/geoPoint';
 
 const Trip: React.FC = () => {
@@ -41,198 +39,193 @@ const Trip: React.FC = () => {
           console.log(e);
         });
     }
-  }
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = "trip.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    }
-  }, []);
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = "trip.js";
+        script.async = true;
+        document.body.appendChild(script);
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, []);
 
-  const handleGeoPointAdd = () => {
-    const stop = document.getElementById('search') as HTMLInputElement
+    const handleGeoPointAdd = () => {
+        const stop = document.getElementById('search') as HTMLInputElement
 
-    const vStops = stop?.value;
+        const vStops = stop?.value;
 
-    if (vStops !== null && vStops !== "") {
+        if (vStops !== null && vStops !== "") {
 
-      var cal: number = 0;
+            var splitStop = vStops.split("\\");
 
-      var splitStop = vStops.split("\\");
+            var geoPointStop: GeoPoint = {
+                name: splitStop[0],
+                lat: +splitStop[1],
+                lgt: +splitStop[2],
+            };
 
-      var geoPointStop: GeoPoint = {
-        name: splitStop[0],
-        lat: +splitStop[1],
-        lgt: +splitStop[2],
-      };
-
-      setGeoPointList([...GeoPointList, geoPointStop]);
+            setGeoPointList([...GeoPointList, geoPointStop]);
+        }
     }
 
-  }
-
-  const handleGeoPointRemove = (index: number) => {
-    const list = [...GeoPointList]
-    list.splice(index, 1)
-    setGeoPointList(list)
-  }
-
-
-  const handleTripAdd = () => {
-    const name = document.getElementById('name') as HTMLInputElement
-    const stop = GeoPointList;
-    const freqNb = document.getElementById('freqNb') as HTMLInputElement
-    const freq = document.getElementById('frequences') as HTMLInputElement
-
-    const vName = name?.value;
-    const vStops = stop;
-    const vFreqNb = freqNb?.value;
-    const vFreq = freq?.value;
-
-    if (vName !== null && vName !== "" &&
-    vStops !== null &&
-      vFreqNb !== null && vFreqNb !== "" &&
-      vFreq !== null && vFreq !== "") {
-
-      var cal: number = 0;
-
-      if (vFreq === "Jour") {
-        cal = +vFreqNb * 365;
-      } else if (vFreq === "Semaine") {
-        cal = +vFreqNb * 52;
-      } else if (vFreq === "Mois") {
-        cal = +vFreqNb * 12;
-      } else if (vFreq === "Année") {
-        cal = +vFreqNb * 1;
-      }
-
-
-      var data = {
-        name: vName,
-        stops: vStops,
-        annualFreq: cal,
-      };
-      console.log(data);
-
-      setTripList([...TripList, data])
-      setTripNeeds({ ...tripNeeds, trips: [...tripNeeds.trips, data] });
+    const handleGeoPointRemove = (index: number) => {
+        const list = [...GeoPointList]
+        list.splice(index, 1)
+        setGeoPointList(list)
     }
-    name.value = "";
-    setGeoPointList([]);
-    freqNb.value = "";
 
-  }
+    const handleTripAdd = () => {
+        const name = document.getElementById('name') as HTMLInputElement
+        const stop = GeoPointList;
+        const freqNb = document.getElementById('freqNb') as HTMLInputElement
+        const freq = document.getElementById('frequences') as HTMLInputElement
 
-  const handleTripRemove = (index: number) => {
-    const list = [...TripList]
-    list.splice(index, 1)
-    setTripList(list)
-    setTripNeeds({ ...tripNeeds, trips: [...list] });
-  }
+        const vName = name?.value;
+        const vStops = stop;
+        const vFreqNb = freqNb?.value;
+        const vFreq = freq?.value;
 
-  return (
-    <div>
-      <FormControl variant="filled">
-        <label id="textsup">Nom du trajet</label>
-        <TextField
-          id="name"
-          type="text"
-          placeholder={"Nom du trajet"}
-          required
-          sx={{ boxShadow: 5 }}
-        />
-        <div id="map"></div>
-        <br />
-        <label id="textsup">Arrêt</label>
+        if (vName !== null && vName !== "" && vStops !== null &&
+            vFreqNb !== null && vFreqNb !== "" && vFreq !== null && vFreq !== "") {
 
-        <div id="search-box"></div>
-        <input id='search' type={"text"} required hidden />
-        <div id="result" hidden></div>
+            var cal: number = 0;
 
-        <Button variant="outlined" onClick={handleGeoPointAdd}>
-          <Add /> Ajouter une destination
-        </Button>
+            if (vFreq === "Jour") { cal = +vFreqNb * 365; }
+            else if (vFreq === "Semaine") { cal = +vFreqNb * 52; }
+            else if (vFreq === "Mois") { cal = +vFreqNb * 12; }
+            else if (vFreq === "Année") { cal = +vFreqNb * 1; }
+
+            var data = {
+                name: vName,
+                stops: vStops,
+                annualFreq: cal,
+            };
+
+            setTripList([...TripList, data])
+            setTripNeeds({ ...tripNeeds, trips: [...tripNeeds.trips, data] });
+        }
+        name.value = "";
+        setGeoPointList([]);
+        freqNb.value = "";
+    }
+
+    const handleTripRemove = (index: number) => {
+        const list = [...TripList]
+        list.splice(index, 1)
+        setTripList(list)
+        setTripNeeds({ ...tripNeeds, trips: [...list] });
+    }
+
+    return (
         <div>
-          {GeoPointList.map((geoPoint, index) => (
-            <div>
-              <Table size="small">
-                <TableRow >
-                  <div>
-                    <TableCell sx={{ width: "100%" }}>{geoPoint.name}</TableCell>
-                    <TableCell >
-                      <IconButton aria-label="delete">
-                        <DeleteIcon
-                          onClick={() => handleGeoPointRemove(index)} />
-                      </IconButton>
+            <FormControl variant="filled">
+                <label id="textsup">Nom du trajet</label>
+                <TextField
+                    id="name"
+                    type="text"
+                    placeholder={"Nom du trajet"}
+                    required
+                    sx={{ boxShadow: 5 }}
+                />
+                <div id="map"></div>
+                <br />
+                <label id="textsup">Arrêt</label>
 
-                    </TableCell>
-                  </div>
-                </TableRow>
-              </Table>
-            </div>
-          ))
-          }
+                <div id="search-box"></div>
+                <input id='search' type={"text"} required hidden />
+                <div id="result" hidden></div>
+
+                <Button variant="outlined" onClick={handleGeoPointAdd}>
+                    <Add /> Ajouter une destination
+                </Button>
+                <div>
+                    {GeoPointList.map((geoPoint, index) => (
+                        <div>
+                            <Table size="small">
+                                <TableBody>
+                                <TableRow>
+                                    <div>
+                                        <TableCell sx={{ width: "100%" }}>
+                                            {geoPoint.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            <IconButton aria-label="delete">
+                                                <DeleteIcon 
+                                                onClick={() => handleGeoPointRemove(index)}/>
+                                            </IconButton>
+                                        </TableCell>
+                                    </div>
+                                </TableRow>
+                                </TableBody>
+                            </Table>
+                        </div>
+                    ))
+                    }
+                </div>
+
+                <Table size="small">
+                    <TableBody>
+                    <TableRow>
+                        <TableCell>
+                            Je fais ce trajet
+                        </TableCell>
+                        <TableCell>
+                            <TextField
+                                type="number"
+                                id='freqNb'
+                                placeholder="Fréquence"
+                                required
+                                sx={{ boxShadow: 5, width: 150 }} />
+                        </TableCell>
+                        <TableCell>
+                            fois par
+                        </TableCell>
+                        <TableCell>
+                            <NativeSelect id="frequences" required>
+                                <option value="Jour">Jour</option>
+                                <option value="Semaine">Semaine</option>
+                                <option value="Mois">Mois</option>
+                                <option value="Année">Année</option>
+                            </NativeSelect>
+                        </TableCell>
+                    </TableRow>
+                    </TableBody>
+                </Table>
+                <Button variant="outlined" onClick={() => handleTripAdd()} type={"submit"}>
+                    <Add /> Ajouter un trajet
+                </Button>
+                <div>
+                    {TripList.map((trip, index) => (
+                        <div>
+                            <Table size="small">
+                                <TableBody>
+                                <TableRow>
+                                    <div>
+                                        <TableCell sx={{ width: "100%" }}>
+                                            {trip.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            <IconButton aria-label="delete">
+                                                <DeleteIcon 
+                                                onClick={() => handleTripRemove(index)}/>
+                                            </IconButton>
+                                        </TableCell>
+                                    </div>
+                                </TableRow>
+                                </TableBody>
+                            </Table>
+                        </div>
+                    ))
+                    }
+                </div >
+                < Button variant="outlined" onClick={() => submitForm()} type={"submit"}>
+                    Soumettre
+                </Button>
+                <label id='submitted'>NON-SOUMIS</label>
+            </FormControl>
         </div >
-
-        <Table size="small">
-          <TableRow>
-            <TableCell>
-              Je fais ce trajet
-            </TableCell>
-            <TableCell>
-              <TextField
-                type="number"
-                id='freqNb'
-                placeholder="Fréquence"
-                required
-                sx={{ boxShadow: 5, width: 150 }} />
-            </TableCell>
-            <TableCell>
-              fois par
-            </TableCell>
-            <TableCell>
-              <NativeSelect id="frequences" required>
-                <option value="Jour">Jour</option>
-                <option value="Semaine">Semaine</option>
-                <option value="Mois">Mois</option>
-                <option value="Année">Année</option>
-              </NativeSelect>
-            </TableCell>
-          </TableRow>
-        </Table>
-        <Button variant="outlined" onClick={() => handleTripAdd()} type={"submit"}>
-          <Add /> Ajouter un trajet
-        </Button>
-        <div>
-          {TripList.map((trip, index) => (
-            <div>
-              <Table size="small">
-                <TableRow >
-                  <div>
-                    <TableCell sx={{ width: "100%" }}>{trip.name}</TableCell>
-                    <TableCell >
-                      <IconButton aria-label="delete">
-                        <DeleteIcon
-                          onClick={() => handleTripRemove(index)} />
-                      </IconButton>
-
-                    </TableCell>
-                  </div>
-                </TableRow>
-              </Table>
-            </div>
-          ))
-          }
-        </div >
-        < Button variant="outlined" onClick={() => submitForm()} type={"submit"} >Soumettre</Button >
-        <label id='submitted'>NON-SOUMIS</label>
-      </FormControl >
-    </div >
-  );
+    );
 };
 
 export default Trip;
