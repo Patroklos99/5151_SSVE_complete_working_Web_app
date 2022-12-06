@@ -11,6 +11,8 @@ function CustomIcon(props: SvgIconProps) {
 }
 const About = () => {
   return (
+    <section className="homePage">
+    <div className="ellipse"></div>
     <Container maxWidth="xl">
       <h1>À propos</h1>
       <Typography color="inherit" variant="h5">
@@ -21,9 +23,10 @@ const About = () => {
         <h2>Modèle d'affaire</h2>
         <text>Le programme conçus est le produit que nous offrons à notre clientèle.</text>
         <h2>Membres de l'équipe</h2>
-        <text>Tous les membres de l'équipe sont des étudiants de l'UQAM en informatique et génie logiciel</text>
+        <text>Tous les membres de l'équipe sont des étudiants de l'UQAM au Baccalauréat en informatique et génie logiciel. Ce projet a été effectué dans le cadre des cours INF6150 et INM5151 lors de la session d'automne 2022.</text>
       </Typography>
     </Container>
+    </section>
   );
 };
 
