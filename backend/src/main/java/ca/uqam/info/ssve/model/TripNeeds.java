@@ -23,13 +23,13 @@ import java.util.List;
 public class TripNeeds implements Serializable {
 
     @JsonProperty("trips")
-    private List<Trip> trips;
+    public List<Trip> trips;
 
     @JsonProperty("chargeTime")
-    private final int chargeTime;
+    public final int chargeTime;
 
     @JsonProperty("autonomy")
-    private final int autonomy;
+    public final int autonomy;
 
     /**
      * Constructeur par défaut
