@@ -100,8 +100,10 @@ deploy-develop:
         docker container ls -a | grep -q $containerName || exit_code=$?
         if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
       done
-      
-    # on override la config globale avec une url qui pointe vers notre backend sur le port 666 (et non sur le port 420 par défaut)
-    - echo "REACT_APP_BASE_URL=dev.api.uqam.info" > env.production.local 
-    - docker run -itd -p 1337:3000 --name deployreactdevelop ssve-react
+    
+    # On override la config globale avec une url qui pointe vers notre backend sur le port 666 (et non sur le port 420 par défaut)
+    - echo "REACT_APP_BASE_URL=http://dev.api.uqam.info" > frontend/.env.production.local 
+    # Il faut recréer l'image car on a créé un nouveau fichier de config
+    - docker build -f frontend/DockerfileReact -t ssve-react-develop . 
+    - docker run -itd -p 1337:3000 --name deployreactdevelop ssve-react-develop
     - docker run -itd -p 666:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspringdevelop ssve-spring
