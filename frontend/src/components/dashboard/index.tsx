@@ -10,10 +10,17 @@ const Dashboard = () => {
   const [dashboardStatus, setDashboardStatus] =
     React.useState<string>("search");
   const [selectedCar, setSelectedCar] = React.useState<ICar | null>(null);
+  const [evaluateRes, setEvaluateRes] = React.useState<ICar[]>([]);
 
   const handleResultClick = (result: ICar) => {
     setSelectedCar(result);
     setDashboardStatus("results");
+  };
+  const handleEvaluateRes = (res: any) => {
+    setEvaluateRes(res.map((data:any)=> {
+      return {...data.vehicle, score: data.score};
+    }));
+    
   };
   return (
     <Container maxWidth="xl">
@@ -21,11 +28,11 @@ const Dashboard = () => {
       <Grid container spacing={2}>
         {dashboardStatus === "search" && (
           <Grid item xs={4}>
-            <Trip />
+            <Trip handleEvaluateRes={handleEvaluateRes}/>
           </Grid>
         )}
         <Grid item xs={dashboardStatus === "search" ? 8 : 4}>
-          <ResultsList handleResultClick={handleResultClick} />
+          <ResultsList handleResultClick={handleResultClick} evaluateRes={evaluateRes}/>
         </Grid>
         {dashboardStatus === "results" && selectedCar && (
           <Grid item xs={8}>
