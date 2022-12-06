@@ -69,7 +69,6 @@ sonarqube-check:
   allow_failure: true
   only:
     - master
-    - develop
 
 deploy-master:
   stage: deploy
