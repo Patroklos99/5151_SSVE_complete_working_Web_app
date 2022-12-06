@@ -70,6 +70,6 @@ public class VehicleController {
     public @ResponseBody
     List<Evaluation> evaluateVehicle(@RequestBody TripNeeds tripNeeds) throws IOException {
 		System.out.println(tripNeeds.toString());
-        return vehicleService.evaluateVehicle();
+        return vehicleService.evaluateVehicle(tripNeeds);
     }
 }
