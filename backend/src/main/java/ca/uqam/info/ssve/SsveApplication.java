@@ -30,7 +30,7 @@ public class SsveApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(VehicleRepository repository) {
 		return args -> {
-
+			/*
 			repository.save(new Vehicle(
 					"Audi",
 					"e-tron",
@@ -531,6 +531,61 @@ public class SsveApplication {
 					31495,
 					150,
 					100,
+					15.0,
+					13.0,
+					60,
+					6,
+					4,
+					5000,
+					5,
+					"https://www.volkswagen.co.uk/en/new/golf.html",
+					"src/main/resources/images/volkswagenGolf.png",
+					""));
+			*/
+			repository.save(new Vehicle(
+					"voiture",
+					"Min",
+					5,
+					"Hatchback",
+					31495,
+					90,
+					90,
+					15.0,
+					13.0,
+					60,
+					6,
+					4,
+					5000,
+					5,
+					"https://www.volkswagen.co.uk/en/new/golf.html",
+					"src/main/resources/images/volkswagenGolf.png",
+					""));
+			repository.save(new Vehicle(
+					"Voiture",
+					"Moyen",
+					5,
+					"Hatchback",
+					31495,
+					120,
+					320,
+					15.0,
+					13.0,
+					60,
+					6,
+					4,
+					5000,
+					5,
+					"https://www.volkswagen.co.uk/en/new/golf.html",
+					"src/main/resources/images/volkswagenGolf.png",
+					""));
+			repository.save(new Vehicle(
+					"Voiture",
+					"Max",
+					5,
+					"Hatchback",
+					31495,
+					150,
+					550,
 					15.0,
 					13.0,
 					60,

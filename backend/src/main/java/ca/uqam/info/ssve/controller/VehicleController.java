@@ -66,4 +66,15 @@ public class VehicleController {
             throws IOException, JSchException, InterruptedException {
         return vehicleService.evaluateVehicle(tripNeeds);
     }
+
+
+
+
+    //-------------------TEMPORAIRE---------------------------------------------
+
+    @GetMapping("evaluateTest")
+    public @ResponseBody List<Evaluation> evaluateVehicle()
+            throws IOException, JSchException, InterruptedException {
+        return vehicleService.evaluateVehicleTest();
+    }
 }
