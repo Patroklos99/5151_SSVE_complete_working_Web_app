@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { ClassNames } from '@emotion/react';
 import { ToggleButtonGroup, useMediaQuery } from '@mui/material';
 import { ToggleButton } from '@mui/material';
 import CarFilterUtil from '../../../util/CarFilterUtil';
-import { ICar } from '../../../models/cars';
+import ICar from '../../../types/Car';
 
 
   
@@ -21,7 +20,7 @@ export default function DoorFilter() {
     let listToAdd: number[] = []
     for ( let i = 0; i < cars.length; i++) {
       for ( let j = 0; j < newCarDoorNum.length; j++)
-        if ( cars[i].nbPortes == newCarDoorNum[j]) {
+        if ( cars[i].nbDoors == newCarDoorNum[j]) {
             let find = listToAdd.indexOf(i);
             if(find < 0) {
                 listToAdd.push(i);

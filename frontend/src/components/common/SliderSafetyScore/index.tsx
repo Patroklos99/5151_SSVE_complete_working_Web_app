@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import CarFilterUtil from '../../../util/CarFilterUtil';
-import { ICar } from '../../../models/cars';
+import ICar from '../../../types/Car';
 import { green } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
@@ -60,7 +60,7 @@ export default function SliderSafetyScore(props: { minValue: number | undefined;
 
         let cars: ICar[] = CarFilterUtil.getAll();
         for ( let i = 0; i < cars.length; i++) {
-            if ( cars[i].scoreSecurite <= value) {
+            if ( cars[i].safetyScore <= value) {
                 CarFilterUtil.addValueToInclude(i,"safety");
             } else {
                 CarFilterUtil.removeValueFromInclude(i,"safety");

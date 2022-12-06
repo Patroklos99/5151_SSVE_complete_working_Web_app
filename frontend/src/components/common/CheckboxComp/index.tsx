@@ -1,10 +1,9 @@
-import { ClassNames } from '@emotion/react';
 import FormControlLabel  from '@mui/material/FormControlLabel';
 import React from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import CarFilterUtil from '../../../util/CarFilterUtil';
-import { ICar } from '../../../models/cars';
+import ICar from '../../../types/Car';
 
 export default function CheckboxComp( brand: any, changeChecked: any): any {
 
@@ -18,14 +17,14 @@ export default function CheckboxComp( brand: any, changeChecked: any): any {
         if(marque == true) {
             let cars: ICar[] = CarFilterUtil.getAll();
             for(let i = 0; i < cars.length; i++) {
-                if(cars[i].marque == nom) {
+                if(cars[i].brand == nom) {
                     CarFilterUtil.addValueToInclude(i,"marque");
                 }
             }
         } else if (marque == false) {
             let cars: ICar[] = CarFilterUtil.getAll();
             for(let i = 0; i < cars.length; i++) {
-                if(cars[i].marque == nom) {
+                if(cars[i].brand == nom) {
                     CarFilterUtil.removeValueFromInclude(i,"marque");
                 }
             }

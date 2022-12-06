@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import CarFilterUtil from '../../../util/CarFilterUtil';
-import { ICar } from '../../../models/cars';
+import ICar from '../../../types/Car';
 import { green } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
@@ -55,7 +54,7 @@ export default function SliderComp(props: { minValue: number | undefined; maxVal
 
         let cars: ICar[] = CarFilterUtil.getAll();
         for ( let i = 0; i < cars.length; i++) {
-            if ( cars[i].prix <= value) {
+            if ( cars[i].price <= value) {
                 CarFilterUtil.addValueToInclude(i,"prix");
             } else {
                 CarFilterUtil.removeValueFromInclude(i,"prix");

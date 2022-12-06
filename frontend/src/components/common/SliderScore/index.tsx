@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import CarFilterUtil from '../../../util/CarFilterUtil';
-import { ICar } from '../../../models/cars';
+import ICar from '../../../types/Car';
 import { green } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 

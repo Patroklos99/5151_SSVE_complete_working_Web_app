@@ -10,7 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import CarFilterUtil from '../../../util/CarFilterUtil';
-import { ICar } from '../../../models/cars';
+import ICar from '../../../types/Car';
 
 const ITEM_HEIGHT = 36;
 const ITEM_PADDING_TOP = 6;
@@ -54,7 +54,7 @@ export default function DropDownSelect() {
             let listToAdd: number[] = []
             for ( let i = 0; i < cars.length; i++) {
             for ( let j = 0; j < newModel.length; j++)
-                if ( cars[i].modele == newModel[j]) {
+                if ( cars[i].modelName == newModel[j]) {
                     let find = listToAdd.indexOf(i);
                     if(find < 0) {
                         listToAdd.push(i);

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { ClassNames } from '@emotion/react';
 import { makeStyles, ToggleButtonGroup, useMediaQuery } from '@mui/material';
 import { ToggleButton } from '@mui/material';
 import CarFilterUtil from '../../../util/CarFilterUtil';
-import { ICar } from '../../../models/cars';
+import ICar from '../../../types/Car';
 
 
 export default function FilterToggle() {
