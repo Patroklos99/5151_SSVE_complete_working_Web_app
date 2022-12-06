@@ -24,11 +24,8 @@
 									"    pm.expect(jsonData.id).to.eql(2);\r",
 									"    pm.expect(jsonData.brand).to.eql(\"Ferari\");\r",
 									"    pm.expect(jsonData.modelName).to.eql(\"dolore\");\r",
-									"    pm.expect(jsonData.nbDoors).to.eql(3);\r",
 									"    pm.expect(jsonData.type).to.eql(\"VUS\");\r",
 									"    pm.expect(jsonData.price).to.eql(2);\r",
-									"    pm.expect(jsonData.range).to.eql(3);\r",
-									"    pm.expect(jsonData.batteryCapacity).to.eql(10);\r",
 									"    pm.expect(jsonData.safetyScore).to.eql(4);\r",
 									"    pm.expect(jsonData.refLink).to.eql(\"https://abca\");\r",
 									"    pm.expect(jsonData.imgLink).to.eql(\"qui\");\r",
@@ -52,7 +49,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 2,\n  \"batteryCapacity\": 10,\n  \"brand\": \"Ferari\",\n  \"imgLink\": \"qui\",\n  \"modelName\": \"dolore\",\n  \"nbDoors\": 3,\n  \"price\": 2,\n  \"range\": 3,\n  \"refLink\": \"https://abca\",\n  \"safetyScore\": 4,\n  \"type\": \"VUS\"\n}",
+							"raw": "{\n  \"id\": 2,\n  \"batteryCapacity\": 10,\n  \"brand\": \"Ferari\",\n  \"imgLink\": \"qui\",\n  \"modelName\": \"dolore\",\n  \"nbPlaces\": 3,\n  \"price\": 2,\n  \"range\": 3,\n  \"refLink\": \"https://abca\",\n  \"safetyScore\": 4,\n  \"type\": \"VUS\",\n  \"maintainCosts\": 5,\n  \"electricalCapacity\": 4,\n  \"electricalStreetConsumption\": 3,\n  \"electricalHighwayConsumption\": 4,\n  \"gasCapacity\": 3,\n  \"gasStreetConsumption\": 3,\n  \"gasHighwayConsumption\": 3,\n  \"loadCapacity\": 3,\n  \"description\": \"string\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -139,11 +136,6 @@
 									"\r",
 									"pm.test('Nombre de véhicules = ' + pm.response.json().length, function () {\r",
 									"    pm.expect(pm.response.json().length).greaterThan(23);\r",
-									"});\r",
-									"\r",
-									"pm.test('Id corrects', function () {\r",
-									"    pm.expect(pm.response.json()[0].id).to.equal(1);\r",
-									"    pm.expect(pm.response.json()[23].id).to.equal(24);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -188,7 +180,6 @@
 									"\r",
 									"pm.test('Vehicule correct', function () {\r",
 									"    pm.expect(pm.response.json()[0].id).to.equal(2);\r",
-									"    pm.expect(pm.response.json()[0].modelName).to.equal(\"dolore\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -251,7 +242,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/api/vehicle?id=1000000",
+							"raw": "{{baseUrl}}/api/vehicle?id=10000000",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -262,7 +253,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1000000"
+									"value": "10000000"
 								}
 							]
 						}
@@ -289,11 +280,9 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData.brand).to.eql(\"Ferari\");\r",
 									"    pm.expect(jsonData.modelName).to.eql(\"dolore\");\r",
-									"    pm.expect(jsonData.nbDoors).to.eql(3);\r",
+									"    pm.expect(jsonData.nbPlaces).to.eql(3);\r",
 									"    pm.expect(jsonData.type).to.eql(\"VUS\");\r",
 									"    pm.expect(jsonData.price).to.eql(2);\r",
-									"    pm.expect(jsonData.range).to.eql(3);\r",
-									"    pm.expect(jsonData.batteryCapacity).to.eql(10);\r",
 									"    pm.expect(jsonData.safetyScore).to.eql(4);\r",
 									"    pm.expect(jsonData.refLink).to.eql(\"https://abca\");\r",
 									"    pm.expect(jsonData.imgLink).to.eql(\"qui\");\r",
@@ -313,7 +302,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"batteryCapacity\": 10,\r\n  \"brand\": \"Ferari\",\r\n  \"imgLink\": \"qui\",\r\n  \"modelName\": \"dolore\",\r\n  \"nbDoors\": 3,\r\n  \"price\": 2,\r\n  \"range\": 3,\r\n  \"refLink\": \"https://abca\",\r\n  \"safetyScore\": 4,\r\n  \"type\": \"VUS\"\r\n}",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"batteryCapacity\": 10,\r\n  \"brand\": \"Ferari\",\r\n  \"imgLink\": \"qui\",\r\n  \"modelName\": \"dolore\",\r\n  \"nbPlaces\": 3,\r\n  \"price\": 2,\r\n  \"range\": 3,\r\n  \"refLink\": \"https://abca\",\r\n  \"safetyScore\": 4,\r\n  \"type\": \"VUS\",\r\n  \"maintainCosts\": 5,\r\n  \"electricalCapacity\": 4,\r\n  \"electricalStreetConsumption\": 3,\r\n  \"electricalHighwayConsumption\": 4,\r\n  \"gasCapacity\": 3,\r\n  \"gasStreetConsumption\": 3,\r\n  \"gasHighwayConsumption\": 3,\r\n  \"loadCapacity\": 3,\r\n  \"description\": \"string\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -394,14 +383,65 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/api/vehicle/evaluateVehicle",
+							"raw": "{{baseUrl}}/api/vehicle/evaluate",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"vehicle",
-								"evaluateVehicle"
+								"evaluate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "trip",
+			"item": [
+				{
+					"name": "get TripNeeds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tripneeds/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tripneeds",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add TripNeeds",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_trip_needs\": 0,\r\n  \"trips\": [\r\n    {\r\n      \"freq\": 3,\r\n      \"id_trip\": 0,\r\n      \"name\": \"string\",\r\n      \"startPoint\": {\r\n        \"id_geopoint\": 0,\r\n        \"name\": \"a\",\r\n        \"lat\": 1,\r\n        \"lgt\": 2\r\n      },\r\n      \"endPoint\": {\r\n        \"id_geopoint\": 0,\r\n        \"name\": \"b\",\r\n        \"lat\": 3,\r\n        \"lgt\": 4\r\n      }\r\n    }\r\n  ],\r\n  \"chargeTime\": 10,\r\n  \"autonomy\": 11\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tripneeds",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tripneeds"
 							]
 						}
 					},
