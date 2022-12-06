@@ -1,5 +1,7 @@
-import {carsData} from '../assets/data_exemples/cars';
-import { ICar } from '../models/cars';
+import ICar from "../types/Car";
+
+// Toutes les autos
+let carsData: ICar[] = [];
 
 // Autos à afficher:
 let include: any[] = [];
@@ -11,20 +13,15 @@ let excludeType: string[] = [];
 // Type de tri des autos: 
 let filter: any = "score";
 
+// Défini toutes les autos dans une variable
+const setCars = (cars: ICar[]) => {
+    carsData = cars;
+}
 
-// Obtient toutes les autos de la BD
+// Obtient toutes les autos de la variable d'autos
 const getAll = () => {
   return carsData;
 };
-
-// Obtient une auto de la BD selon son index
-const get = (index: any) => {
-    if(index >= carsData.length) {
-      return "error";
-    } else {
-      return carsData[index];
-    }
-  };
 
 // Remplir les autos à inclure par toutes les autos de la BD
 const fillOriginalPartial = () => {
@@ -54,10 +51,10 @@ const getPartial = () => {
 const sortCars = (cars: ICar[]) => {
     switch (filter) {
         case 'priceAsc':
-            cars.sort((a, b) => a.prix - b.prix);
+            cars.sort((a, b) => a.price - b.price);
             break;
         case 'priceDesc':
-            cars.sort((a, b) => b.prix - a.prix);
+            cars.sort((a, b) => b.price - a.price);
             break;
         case 'score':
             cars.sort((a, b) => b.score - a.score);
@@ -139,8 +136,8 @@ const removeValueFromInclude = (value: any, type: string) => {
 }
 
 const CarFilterUtil = {
+  setCars,
   getAll,
-  get,
   fillOriginalPartial,
   getPartial,
   setFilter,

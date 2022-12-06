@@ -21,6 +21,7 @@ const ResultsList = (props: ResultsListProps) => {
             const data = await CarServices.getAllCars();
             setCarsList([...data.sort((a: ICar, b: ICar) => b.score - a.score)]);
             CarFilterUtil.setCars(data);
+            CarFilterUtil.fillOriginalPartial();
         }
         getCars();
       }, []);
