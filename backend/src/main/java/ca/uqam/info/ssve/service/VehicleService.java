@@ -241,10 +241,6 @@ public class VehicleService {
      * @param data:  String à traduire
      */
     private void stringToRoute(Route route, String data) {
-        int valueNum = 0;
-        int space1 = 0;
-        int space2 = 0;
-        int space3 = 0;
         String[] splited = data.split(" ");
         route.setDistance(Double.parseDouble(splited[0]));
         route.setTripTime(Double.parseDouble(splited[1]));
