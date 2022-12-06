@@ -70,17 +70,33 @@ sonarqube-check:
   only:
     - master
 
-deploy:
+deploy-master:
   stage: deploy
   only:
     - master
   <<: *apk_update
   script:
     - |-
-      for containerName in deployreact deployspring; do
+      for containerName in deployreactmaster deployspringmaster; do
         exit_code=0
         docker container ls -a | grep -q $containerName || exit_code=$?
         if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
       done
-    - docker run -itd -p 6969:3000 --name deployreact ssve-react
-    - docker run -itd -p 420:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspring ssve-spring
+    - docker run -itd -p 6969:3000 --name deployreactmaster ssve-react
+    - docker run -itd -p 420:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspringmaster ssve-spring
+
+deploy-develop:
+  stage: deploy
+  only:
+    - develop
+  <<: *apk_update
+  script:
+    - |-
+      for containerName in deployreactdevelop deployspringdevelop; do
+        exit_code=0
+        docker container ls -a | grep -q $containerName || exit_code=$?
+        if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
+      done
+    - echo REACT_APP_BASE_URL=mon_url > env.production.local
+    - docker run -itd -p 1337:3000 --name deployreactdevelop ssve-react
+    - docker run -itd -p 666:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspringdevelop ssve-spring
