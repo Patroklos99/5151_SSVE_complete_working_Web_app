@@ -20,66 +20,130 @@ import static org.mockito.Mockito.lenient;
 @SpringBootTest
 public class VehicleServiceTest {
 
-    @InjectMocks
-    VehicleService vehicleService;
+        @InjectMocks
+        VehicleService vehicleService;
 
-    @Mock
-    VehicleRepository vehicleRepository;
+        @Mock
+        VehicleRepository vehicleRepository;
 
-    @BeforeEach
-    public void setUp() {
-        Vehicle v = new Vehicle("Audi", "e-tron", 4, "SUV", 87342, 364,95, 5, "https://www.audi.ca/ca/web/en/models/etron/e-tron-quattro.html", "imgLink");
-        v.setId(1L);
-        lenient().when(vehicleRepository.findById(anyLong())).thenReturn(Optional.of(v));
-    }
+        @BeforeEach
+        public void setUp() {
+                vehicleRepository.save(new Vehicle(
+                                "Tesla",
+                                "Model 3",
+                                5,
+                                "Sedan",
+                                59990,
+                                40,
+                                50,
+                                12,
+                                12,
+                                0,
+                                0,
+                                0,
+                                300,
+                                5,
+                                "https://www.tesla.com/en_ca/model3",
+                                "src/main/resources/images/teslaModel3.png",
+                                "La Model 3 propose en option la traction intégrale à double moteur, des roues Überturbine de 20 po et des freins Performance pour une maîtrise totale en toute condition."));
 
+                vehicleRepository.save(new Vehicle(
+                                "Toyota",
+                                "Mirai",
+                                5,
+                                "Sedan",
+                                54990,
+                                72,
+                                0,
+                                0,
+                                0,
+                                142,
+                                7,
+                                8,
+                                480,
+                                5,
+                                "https://www.toyota.com/mirai/",
+                                "src/main/resources/images/toyotaMirai.png",
+                                "Voici la Mirai 2022. La deuxième génération du véhicule électrique à pile à combustible à hydrogène révolutionnaire de Toyota offre plus de tout que jamais. Plus de style. Plus d'espace. Plus de technologies intelligentes et intuitives."));
 
-    public Vehicle setUpTestVehicle() {
-        Vehicle vehicleTest = new Vehicle();
-        vehicleTest.setId(1L);
-        vehicleTest.setBrand("audi");
-        vehicleTest.setModelName("e-tron");
-        vehicleTest.setNbDoors(4);
-        vehicleTest.setType("SUV");
-        vehicleTest.setPrice(87342);
-        vehicleTest.setRange(364);
-        vehicleTest.setBatteryCapacity(95);
-        vehicleTest.setSafetyScore(5);
-        vehicleTest.setRefLink("https://www.audi.ca/ca/web/en/models/etron/e-tron-quattro.html");
-        vehicleTest.setImgLink("imgLink");
-        return vehicleTest;
-    }
-
-    public boolean isEqual(Vehicle vehicle, Vehicle vehicleTest) {
-        if (!vehicle.getId().equals(vehicleTest.getId())) {
-            return false;
-        } else if (!vehicle.getModelName().equals(vehicleTest.getModelName())) {
-            return false;
-        } else if (vehicle.getNbDoors() != vehicleTest.getNbDoors()) {
-            return false;
-        } else if (!vehicle.getType().equals(vehicleTest.getType())) {
-            return false;
-        } else if (vehicle.getPrice() != vehicleTest.getPrice()) {
-            return false;
-        } else if (vehicle.getRange() != vehicleTest.getRange()) {
-            return false;
-        } else if (vehicle.getBatteryCapacity() != vehicleTest.getBatteryCapacity()) {
-            return false;
-        } else if (vehicle.getSafetyScore() != vehicleTest.getSafetyScore()) {
-            return false;
-        } else if (!vehicle.getRefLink().equals(vehicleTest.getRefLink())) {
-            return false;
-        } else if (!vehicle.getImgLink().equals(vehicleTest.getImgLink())) {
-            return false;
+                vehicleRepository.save(new Vehicle(
+                                "Volkswagen",
+                                "e-Up",
+                                5,
+                                "Hatchback",
+                                35417,
+                                72,
+                                32,
+                                13.5,
+                                10.7,
+                                0,
+                                0,
+                                0,
+                                480,
+                                5,
+                                "https://www.volkswagen.co.uk/en/new/e-up.html",
+                                "src/main/resources/images/volkswagenEUp.png",
+                                "Plus d'autonomie que jamais. Plus d'équipements à un meilleur prix. Pour tous ceux qui évoluent avec leur temps : l'e-up! facilite encore plus l'éléctro-mobilité. Et même mieux."));
         }
-        return true;
-    }
 
-    @Test
-    public void testFindVehicleById() {
-        Vehicle vehicle = vehicleService.getVehicle(1L);
-        Vehicle vehicleTest = setUpTestVehicle();
+        public Vehicle setUpTestVehicle() {
+                Vehicle vehicleTest = new Vehicle();
+                vehicleTest.setId(1L);
+                vehicleTest.setBrand("Volkswagen");
+                vehicleTest.setModelName("e-Up");
+                vehicleTest.setNbPlaces(5);
+                vehicleTest.setType("Hatchback");
+                vehicleTest.setPrice(35417);
+                vehicleTest.setMaintainCosts(72);
+                vehicleTest.setElectricalCapacity(32);
+                vehicleTest.setElectricalStreetConsumption(13.5);
+                vehicleTest.setElectricalHighwayConsumption(10.7);
+                vehicleTest.setGasCapacity(0);
+                vehicleTest.setGasStreetConsumption(0);
+                vehicleTest.setGasHighwayConsumption(0);
+                vehicleTest.setLoadCapacity(480);
+                vehicleTest.setSafetyScore(5);
+                vehicleTest.setRefLink("https://www.volkswagen.co.uk/en/new/e-up.html");
+                vehicleTest.setImgLink("src/main/resources/images/volkswagenEUp.png");
+                vehicleTest.setDescription(
+                                "Plus d'autonomie que jamais. Plus d'équipements à un meilleur prix. Pour tous ceux qui évoluent avec leur temps : l'e-up! facilite encore plus l'éléctro-mobilité. Et même mieux.");
+                return vehicleTest;
+        }
 
-        assertTrue(isEqual(vehicle, vehicleTest));
-    }
+        public boolean isEqual(Vehicle vehicle, Vehicle vehicleTest) {
+                return vehicle.getId().equals(vehicleTest.getId()) &&
+                                vehicle.getBrand().equals(vehicleTest.getBrand()) &&
+                                vehicle.getModelName().equals(vehicleTest.getModelName()) &&
+                                vehicle.getNbPlaces() == vehicleTest.getNbPlaces() &&
+                                vehicle.getType().equals(vehicleTest.getType()) &&
+                                vehicle.getPrice() == vehicleTest.getPrice() &&
+                                vehicle.getMaintainCosts() == vehicleTest.getMaintainCosts() &&
+                                vehicle.getElectricalCapacity() == vehicleTest.getElectricalCapacity() &&
+                                vehicle.getElectricalStreetConsumption() == vehicleTest.getElectricalStreetConsumption()
+                                &&
+                                vehicle.getElectricalHighwayConsumption() == vehicleTest
+                                                .getElectricalStreetConsumption()
+                                &&
+                                vehicle.getGasCapacity() == vehicleTest.getGasCapacity() &&
+                                vehicle.getGasStreetConsumption() == vehicleTest.getGasStreetConsumption() &&
+                                vehicle.getGasHighwayConsumption() == vehicleTest.getGasHighwayConsumption() &&
+                                vehicle.getLoadCapacity() == vehicleTest.getLoadCapacity() &&
+                                vehicle.getSafetyScore() == vehicleTest.getSafetyScore() &&
+                                vehicle.getRefLink().equals(vehicleTest.getRefLink()) &&
+                                vehicle.getImgLink().equals(vehicleTest.getImgLink()) &&
+                                vehicle.getDescription().equals(vehicleTest.getDescription());
+        }
+
+        @Test
+        public void testFindVehicleById() {
+                Vehicle vehicle = vehicleService.getVehicle(1L);
+                Vehicle vehicleTest = setUpTestVehicle();
+
+                assertTrue(isEqual(vehicle, vehicleTest));
+        }
+
+        @Test
+        public void testEvaluateVehicle() {
+
+        }
 }

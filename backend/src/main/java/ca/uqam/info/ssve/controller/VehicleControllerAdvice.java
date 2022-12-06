@@ -18,7 +18,7 @@ public class VehicleControllerAdvice {
     }
 
     @ExceptionHandler(NotFoundException.class)
-        public ResponseEntity<ErrorResponse> handleNotFoundExceptions(Exception e) {
+    public ResponseEntity<ErrorResponse> handleNotFoundExceptions(Exception e) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         return new ResponseEntity<>(new ErrorResponse(status, e.getMessage()), status);
     }
