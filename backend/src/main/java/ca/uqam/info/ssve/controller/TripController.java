@@ -6,20 +6,23 @@
 package ca.uqam.info.ssve.controller;
 
 import ca.uqam.info.ssve.model.TripNeeds;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import ca.uqam.info.ssve.service.VehicleService;
+import ca.uqam.info.ssve.model.Evaluation;
 
 import java.util.List;
-import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/tripneeds")
 public class TripController {
 
+	@Autowired
+	VehicleService vehicleService;
+
 	@PostMapping("")
-	public @ResponseBody
-	TripNeeds postTrip(@RequestBody TripNeeds tripNeeds) {
-		System.out.println(tripNeeds.toString());
-		return tripNeeds;
+	public @ResponseBody List<Evaluation> postTrip(@RequestBody TripNeeds tripNeeds) {
+		return vehicleService.evaluateVehicle(tripNeeds);
 	}
 }
