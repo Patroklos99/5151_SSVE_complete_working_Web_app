@@ -5,7 +5,7 @@ import axios from "axios";
  * modify it at your own risk
  */
 export default axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: "http://adve.info.uqam.ca/api",
   headers: {
     "Content-Type": "application/json"
   }

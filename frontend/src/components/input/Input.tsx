@@ -9,7 +9,6 @@ const Input: React.FC = () => {
   return (
     <Container maxWidth="xl">
       <h1>Utilisation</h1>
-
       <button onClick={() => navigate("/Dashboard")}>Afficher Dashboard</button>
     </Container>
   );

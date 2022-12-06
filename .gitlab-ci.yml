@@ -1,22 +1,86 @@
-image: maven:3.8.4-openjdk-17
+image:
+  name: docker:dind
 
 stages:
   - build
   - test
+  - sonar
   - deploy
+
+.before_script_template: &apk_update
+  before_script:
+    - apk update
+    - apk upgrade
 
 build-job:
   stage: build
+  <<: *apk_update
   script:
-    - mvn clean install
-    - echo "Compile complete."
+    - TZ=Canada/Eastern
+    - ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone # définir le timezone pour éviter qu'il soit demandé et que ça stall pendant l'install de docker
+    - apk add openjdk17 grep
+    - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+    - ./mvnw clean install # on n'a besoin de rouler ça qu'une seule fois puisque les artéfacts (ici un jar) sont partagés entre les stages par défaut
+    - |-
+      for containerName in pipelinereact pipelinespring; do
+        exit_code=0
+        docker container ls -a | grep -q $containerName || exit_code=$?
+        if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
+      done
+      
+    - docker image prune -f # enlever les anciennes images sinon ça pile up
+    - docker build -f frontend/DockerfileReact -t ssve-react . 
+    - docker build -f backend/src/DockerfileSpring -t ssve-spring .
+    - docker run -itd -p 3000:3000 --name pipelinereact ssve-react
+    - docker run -itd -p 8080:8080 --name pipelinespring ssve-spring
+
     
 unit-test-job:
   stage: test
+  <<: *apk_update
   script:
-    - mvn verify
+    - apk add openjdk17
+    - export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::") # smort
+    - ./mvnw verify
+    
+postman_tests:
+  allow_failure: true
+  stage: test
+  image:
+      name: postman/newman:alpine
+      entrypoint: [""]
+  script:
+    - sleep 10
+    - newman --version
+    - newman run postman/SSVE.postman_collection.json -e postman/serveurADVE.postman_environment.json
+    
+sonarqube-check:
+  stage: sonar
+  image: maven:3.8.3-openjdk-17
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+    - mvn verify sonar:sonar -Dsonar.projectKey=ssve
+  allow_failure: true
+  #only:
+  #  - master
 
-deploy-job:
+deploy:
   stage: deploy
+  only:
+    - master
+  <<: *apk_update
   script:
-    - echo "TODO"
+    - |-
+      for containerName in deployreact deployspring; do
+        exit_code=0
+        docker container ls -a | grep -q $containerName || exit_code=$?
+        if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
+      done
+    - docker run -itd -p 6969:3000 --name deployreact ssve-react
+    - docker run -itd -p 420:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspring ssve-spring

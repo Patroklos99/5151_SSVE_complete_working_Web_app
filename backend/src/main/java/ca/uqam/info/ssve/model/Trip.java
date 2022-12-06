@@ -1,70 +1,91 @@
 package ca.uqam.info.ssve.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-public class Trip {
+/**
+ * Objet contenant les données d'un déplacement de l'usager.
+ *
+ * @author David Daoud
+ * Code permanent: DAOD80070006
+ * Courriel: daoud.david@courrier.uqam.ca
+ *
+ * @author Christopher Chamberland-Rémillard
+ * Code permanent: CHAC29089704
+ * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
+ *
+ * @version 2022-11-30
+ */
+public class Trip implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    @JsonProperty("name")
+    private final String name;
 
-    private String name;
-    private String start;
-    private String tripEnd;
-    private String freq;
+    @JsonProperty("stops")
+    private List<GeoPoint> stops;
 
-    public Trip() {
+    @JsonProperty("annualFreq")
+    private final int annualFreq;
+
+
+    /**
+     * Constructeur par défaut
+     */
+    public Trip () {
+        this.name = "";
+        this.stops = new ArrayList();
+        this.annualFreq = 0;
     }
 
-    public Trip(Long id, String name, String start, String tripEnd, String freq) {
-        this.id = id;
+    /**
+     * Constructeur
+     * @param name Nom du déplacement
+     * @param list List de points de déplacement
+     * @param freq La frequence du déplacement
+     */
+    public Trip(String name, List<GeoPoint> list, int freq) {
         this.name = name;
-        this.start = start;
-        this.tripEnd = tripEnd;
-        this.freq = freq;
+        this.stops = list;
+        this.annualFreq = freq;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    /**
+     * Retourne le nom de déplacement
+     * @return Le nom de déplacement
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Retourne les arrêts du déplacement 
+     * @return Les arrêts du déplacement 
+     */
+    public List<GeoPoint> getStops() {
+        return Collections.unmodifiableList(stops);
     }
 
-    public String getStart() {
-        return start;
+    /**
+     * Retourne la fréquence du déplacement
+     * @return La fréquence du déplacement
+     */
+    public int getFreq() {
+        return annualFreq;
     }
 
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getEnd() {
-        return tripEnd;
-    }
-
-    public void setEnd(String tripEnd) {
-        this.tripEnd = tripEnd;
-    }
-
-    public String getFreq() {
-        return freq;
-    }
-
-    public void setFreq(String freq) {
-        this.freq = freq;
-    }
+    /**
+     * Permet l'affichage d'un objet Trip
+     */
+        public String toString(){
+            String r = "";
+            for(GeoPoint g: stops) {
+                r += g.toString() + "\n\t\t";
+            }
+    return "\n\tname: " + name +
+        "\n\tstops: " + r +
+        "\n\tfreq: " + annualFreq;
+ }  
 }

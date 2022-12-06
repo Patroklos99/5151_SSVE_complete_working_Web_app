@@ -1,29 +1,40 @@
 import React from "react";
-import {Container, Grid} from '@mui/material';
-import ResultsList from './resultsList';
-import FilterPanel from "./filterPanel";
-import CarFilterUtil from "../../util/CarFilterUtil"
-
+import { Container, Grid } from "@mui/material";
+import ResultsList from "./resultsList";
+import ResultDetails from "./resultDetails";
+import ICar from "../../types/Car";
+import Trip from "../trip/trip";
 
 const Dashboard = () => {
-    CarFilterUtil.fillOriginalPartial();
+  //used to switch between search and results
+  const [dashboardStatus, setDashboardStatus] =
+    React.useState<string>("search");
+  const [selectedCar, setSelectedCar] = React.useState<ICar | null>(null);
 
-    return (
-        <Container maxWidth="xl">
-            <h1>Dashboard</h1>
-            <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    <h1>Formulaire de deplacement</h1>
-                    <FilterPanel/>
-                </Grid>     
-                <Grid item xs={8}>
-                    <ResultsList/>
-                </Grid>
-            </Grid>
-       
-        
-        </Container>
-    );
+  const handleResultClick = (result: ICar) => {
+    setSelectedCar(result);
+    setDashboardStatus("results");
+  };
+  return (
+    <Container maxWidth="xl">
+      <h1 hidden>Dashboard</h1>
+      <Grid container spacing={2}>
+        {dashboardStatus === "search" && (
+          <Grid item xs={4}>
+            <Trip />
+          </Grid>
+        )}
+        <Grid item xs={dashboardStatus === "search" ? 8 : 4}>
+          <ResultsList handleResultClick={handleResultClick} />
+        </Grid>
+        {dashboardStatus === "results" && selectedCar && (
+          <Grid item xs={8}>
+            <ResultDetails car={selectedCar} />
+          </Grid>
+        )}
+      </Grid>
+    </Container>
+  );
 };
 
 export default Dashboard;
