@@ -42,7 +42,7 @@ function getStyles(aModel: string, model: readonly string[], theme: Theme) {
 
 export default function DropDownSelect() {
   const theme = useTheme();
-  const [model, setModel] = React.useState<string[]>([]);
+  const [model, setModel] = React.useState<string[]>([])
 
   const updateCarList = (newModel: any) => {
         if(newModel.length == 0) {

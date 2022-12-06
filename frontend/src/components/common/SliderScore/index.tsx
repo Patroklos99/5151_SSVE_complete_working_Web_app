@@ -4,7 +4,18 @@ import { Typography } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import CarFilterUtil from '../../../util/CarFilterUtil';
 import { ICar } from '../../../models/cars';
+import { green } from '@mui/material/colors';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
+
+const theme = createTheme({
+    palette : {
+        primary: {
+            main: green[700],
+
+        },
+    },
+});
 
 
 const marks = [
@@ -44,7 +55,7 @@ function valueText(value: number) {
 
 export default function SliderScore(props: { minValue: number | undefined; maxValue: number | undefined; }) : any{
 
-    const [score, setScore] = useState();
+    const [score, setScore] = useState()
 
     const filterSlider = (event: any, value: any) => {
 
@@ -63,9 +74,11 @@ export default function SliderScore(props: { minValue: number | undefined; maxVa
 
 
     return (
-        <div className='scoreSlider'>
+        <div>
             <Box sx={{ width: 4/5}}>
+            <ThemeProvider theme={theme}>
                 <Slider
+                    className='scoreSlider'
                     min={0}
                     max={100}
                     value={score}
@@ -76,7 +89,9 @@ export default function SliderScore(props: { minValue: number | undefined; maxVa
                     aria-labelledby="non-linear-slider"
                     step={5}
                     marks={marks} 
+                    color='primary'
                 />
+                </ThemeProvider>
             </Box>
         </div>
     )

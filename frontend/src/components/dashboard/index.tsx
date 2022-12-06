@@ -4,6 +4,7 @@ import ResultsList from './resultsList';
 import FilterPanel from "./filterPanel";
 import CarFilterUtil from "../../util/CarFilterUtil"
 
+
 const Dashboard = () => {
     CarFilterUtil.fillOriginalPartial();
 

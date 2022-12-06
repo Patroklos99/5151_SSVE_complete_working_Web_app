@@ -49,7 +49,7 @@ export default function DoorFilter() {
           onChange={handleChange}
           aria-label="car type"
           size='large'
-          orientation = {`${matches ? `horizontal` : `vertical`}`}
+          orientation = {`${matches ? `horizontal` : `vertical`}`} 
           >
             <ToggleButton value={2} aria-label='two doors'>2</ToggleButton>
             <ToggleButton value={3} aria-label='three doors'>3</ToggleButton>

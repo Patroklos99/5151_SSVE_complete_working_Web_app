@@ -10,6 +10,8 @@ import "./style.css";
 import SliderSafetyScore from '../../common/SliderSafetyScore';
 import SliderScore from '../../common/SliderScore';
 
+
+
 const FilterPanel = ({
     
 
@@ -19,48 +21,50 @@ const FilterPanel = ({
             <h1><em>Filtres</em></h1>
 
             <div className="input-group">
-                <Typography id="non-linear-slider" gutterBottom>
+                <Typography id="non-linear-slider" gutterBottom style={{lineHeight : "24px"}}>
                     Type de voiture
                 </Typography>
-                <FilterToggle/>
+                <FilterToggle/> 
             </div>
 
             <div className="input-group">
                 <p className="label">Marque</p>
-                <CheckboxComp/>
+                <CheckboxComp/> 
             </div>
 
             <div className="input-group">
                 <p className="label">Modele</p>
-                <DropDownSelect/>
+                <DropDownSelect/> 
                 
             </div>
 
             <div className="input-group">
                 <p className="label">Nombre de portes</p>
-                <DoorFilter/>
+                <DoorFilter/> 
                 
             </div>
 
             <div className="input-group">
                 <Typography id="non-linear-slider" gutterBottom>
                     Prix
+
                 </Typography>
-                <SliderComp minValue={undefined} maxValue={undefined} />
+             <SliderComp minValue={undefined} maxValue={undefined} />
             </div>
 
             <div className="input-group">
                 <Typography id="non-linear-slider" gutterBottom>
                     Score
+
                 </Typography>
-                <SliderScore minValue={undefined} maxValue={undefined} />
+                <SliderScore minValue={undefined} maxValue={undefined} /> 
             </div>
                    
             <div className="input-group">
                 <Typography id="non-linear-slider" gutterBottom>
                     Score de Securite
                 </Typography>
-                <SliderSafetyScore minValue={undefined} maxValue={undefined} />
+                <SliderSafetyScore minValue={undefined} maxValue={undefined} /> 
             </div>
 
  

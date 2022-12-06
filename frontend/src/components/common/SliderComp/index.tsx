@@ -4,7 +4,18 @@ import { Typography } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import CarFilterUtil from '../../../util/CarFilterUtil';
 import { ICar } from '../../../models/cars';
+import { green } from '@mui/material/colors';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
+
+const theme = createTheme({
+    palette : {
+        primary: {
+            main: green[700],
+
+        },
+    },
+});
 
 
 const marks = [
@@ -38,7 +49,7 @@ function valueText(value: number) {
 
 export default function SliderComp(props: { minValue: number | undefined; maxValue: number | undefined; }) : any{
 
-    const [price, setPrice] = useState();
+    const [price, setPrice] = useState()
 
     const filterSlider = (event: any, value: any) => {
 
@@ -50,16 +61,18 @@ export default function SliderComp(props: { minValue: number | undefined; maxVal
                 CarFilterUtil.removeValueFromInclude(i,"prix");
             }
         }
-        setPrice(value.target.valueAsNumber)
+        setPrice(value.target.valueAsNumber);
     };
 
 
 
 
     return (
-        <div className='priceSlider'>
+        <div>
             <Box sx={{ width: 4/5 }}>
+                <ThemeProvider theme={theme}>
                 <Slider
+                    className='priceSlider'
                     min={0}
                     max={300000}
                     value={price}
@@ -69,8 +82,10 @@ export default function SliderComp(props: { minValue: number | undefined; maxVal
                     valueLabelDisplay="on"
                     aria-labelledby="non-linear-slider"
                     step={10000}
-                    marks={marks} 
+                    marks={marks}
+                    color='primary'
                 />
+                </ThemeProvider>
             </Box>
         </div>
     )

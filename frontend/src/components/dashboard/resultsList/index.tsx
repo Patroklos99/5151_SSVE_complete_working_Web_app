@@ -12,7 +12,7 @@ const ResultsList = () => {
 
     useEffect(() => {
         setCars(CarFilterUtil.getPartial);
-    });
+    },[]);
 
 
     const handleOrderByClick = (event: React.MouseEvent<HTMLButtonElement>) => {
