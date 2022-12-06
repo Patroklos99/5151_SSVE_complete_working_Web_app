@@ -65,4 +65,10 @@ public class VehicleController {
             throws IOException, JSchException, InterruptedException {
         return vehicleService.evaluateVehicle(tripNeeds);
     }
+
+    @PostMapping("evaluateTest")
+    public @ResponseBody List<Evaluation> evaluateVehicleTest()
+            throws IOException, JSchException, InterruptedException {
+        return vehicleService.evaluateVehicleTest();
+    }
 }
