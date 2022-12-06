@@ -1,6 +1,5 @@
 package ca.uqam.info.ssve.controller;
 
-import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,18 +7,13 @@ import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.TripNeeds;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.service.VehicleService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import ca.uqam.info.ssve.model.TripNeeds;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:3000/" })
+@CrossOrigin
 @RequestMapping("api/vehicle")
 public class VehicleController {
 
