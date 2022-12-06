@@ -142,71 +142,79 @@ public class VehicleService {
 
     // --------------------------------- ---------------------------------------
 
-    public List<Evaluation> evaluateVehicle(TripNeeds tripNeeds) throws IOException, JSchException, InterruptedException {
-         adveConnection.connectServer();
-         ArrayList<Route> routeList = new ArrayList<>();
-         ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
-         int frequenceTotale = 0;
+    public List<Evaluation> evaluateVehicle(TripNeeds tripNeeds)
+            throws IOException, JSchException, InterruptedException {
+        adveConnection.connectServer();
+        ArrayList<Route> routeList = new ArrayList<>();
+        ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
+        int frequenceTotale = 0;
 
-         // --------Détermination de la fréquence total et du poid de chaque route
-         for (Trip x : tripNeeds.getTrips()) {
-             Route route = new Route();
-             route.setFrequence(x.getFreq());
-             route.setTrip(x);
-             frequenceTotale += route.getFrequence();
-             routeList.add(route);
-         }
+        // --------Détermination de la fréquence total et du poid de chaque route
+        for (Trip x : tripNeeds.getTrips()) {
+            Route route = new Route();
+            route.setFrequence(x.getFreq());
+            route.setTrip(x);
+            frequenceTotale += route.getFrequence();
+            routeList.add(route);
+        }
 
-         for (Route route : routeList) {
+        for (Route route : routeList) {
             route.setWeight(getPercentage(route.getFrequence(), frequenceTotale));
-         }
+        }
 
-         // --------Évaluation de chaque route pour chaque voiture et calcule de la
-         //note
-         List<Vehicle> allVehicle = getAllVehicle();
-         allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
+        // --------Évaluation de chaque route pour chaque voiture et calcule de la
+        // note
+        List<Vehicle> allVehicle = getAllVehicle();
+        allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
 
-         int nbTrajetSansRecharge = 0;
+        int nbTrajetSansRecharge = 0;
 
-         for (int i = 0; i < allVehicle.size(); i++) {
-             double score = 0;
-             boolean routeATempsDeRecharge = false;
-             for (Route route : routeList) {
-                 // --------Obtient les infos du déplacement avec la boite noire
-                 for (int indexStop = 0; indexStop < route.getTrip().getStops().size(); indexStop++){
-                     if(indexStop + 1 >= route.getTrip().getStops().size())
-                         break;
+        for (int i = 0; i < allVehicle.size(); i++) {
+            double score = 0;
+            boolean routeATempsDeRecharge = false;
+            for (Route route : routeList) {
+                // --------Obtient les infos du déplacement avec la boite noire
+                for (int indexStop = 0; indexStop < route.getTrip().getStops().size(); indexStop++) {
+                    if (indexStop + 1 >= route.getTrip().getStops().size())
+                        break;
 
-                     String data = adveConnection.doRequest(requeteString(route, indexStop) + allVehicle.get(i).getElectricalCapacity() *
-                             100);
-                     stringToRoute(route, data);
+                    String data = adveConnection
+                            .doRequest(requeteString(route, indexStop) + allVehicle.get(i).getElectricalCapacity() *
+                                    1000);
+                    stringToRoute(route, data);
 
-                     if (route.getChargingTime() != 0)
-                         routeATempsDeRecharge = true;
-                 }
+                    if (route.getChargingTime() != 0)
+                        routeATempsDeRecharge = true;
+                }
 
-                 if(!routeATempsDeRecharge)
+                if (!routeATempsDeRecharge)
                     nbTrajetSansRecharge++;
 
-                 evaluateRoute(route, allVehicle, i);
-                 score = score + (route.getWeight() * route.getScore());
-             }
+                evaluateRoute(route, allVehicle, i);
+                score = score + (route.getWeight() * route.getScore());
+            }
 
-             // --------Ajoute le score final a la voiture et l'ajoute dans la liste a retourner
-             Evaluation evaluation = new Evaluation(allVehicle.get(i));
-             evaluation.setScore(score);
-             evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
-             evaluation.setTrajetTotal(routeList.size());
-             vehicleFinalScore.add(evaluation);
-         }
-         adveConnection.closeServer();
-         vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
-         Collections.reverse(vehicleFinalScore);
-         return vehicleFinalScore;
+            // --------Ajoute le score final a la voiture et l'ajoute dans la liste a
+            // retourner
+            Evaluation evaluation = new Evaluation(allVehicle.get(i));
+            evaluation.setScore(score / 100);
+            evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
+            evaluation.setTrajetTotal(routeList.size());
+            vehicleFinalScore.add(evaluation);
+        }
+        adveConnection.closeServer();
+        vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
+        Collections.reverse(vehicleFinalScore);
+        return vehicleFinalScore;
     }
 
     public static double getPercentage(double part, double whole) {
-        return new BigDecimal(part * 100 / whole).doubleValue();
+        if (whole != 0) {
+            return new BigDecimal(part * 100 / whole).doubleValue();
+        } else {
+            return 0;
+        }
+
     }
 
     /**
@@ -247,7 +255,8 @@ public class VehicleService {
     private String requeteString(Route route, int index) {
         String start = "(" + route.getTrip().getStops().get(index).getLat() + ","
                 + route.getTrip().getStops().get(index).getLgt() + ")";
-        String end = "(" + route.getTrip().getStops().get(index+1).getLat() + "," + route.getTrip().getStops().get(index+1).getLgt()
+        String end = "(" + route.getTrip().getStops().get(index + 1).getLat() + ","
+                + route.getTrip().getStops().get(index + 1).getLgt()
                 + ")";
         return start + " " + end + " ";
     }
@@ -274,9 +283,7 @@ public class VehicleService {
         route.setScore(poid1 * note1 + poid2 * note2);
     }
 
-
-    //------------------------------TEMPORAIRE--------------------------------------------------------------------------
-
+    // ------------------------------TEMPORAIRE--------------------------------------------------------------------------
 
     public List<Evaluation> evaluateVehicleTest() throws IOException, JSchException, InterruptedException {
         TripNeeds tripNeeds = newTripNeed();
@@ -299,7 +306,7 @@ public class VehicleService {
         }
 
         // --------Évaluation de chaque route pour chaque voiture et calcule de la
-        //note
+        // note
         List<Vehicle> allVehicle = getAllVehicle();
         allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
 
@@ -310,11 +317,12 @@ public class VehicleService {
             boolean routeATempsDeRecharge = false;
             for (Route route : routeList) {
                 // --------Obtient les infos du déplacement avec la boite noire
-                for (int indexStop = 0; indexStop < route.getTrip().getStops().size(); indexStop++){
-                    if(indexStop + 1 >= route.getTrip().getStops().size())
+                for (int indexStop = 0; indexStop < route.getTrip().getStops().size(); indexStop++) {
+                    if (indexStop + 1 >= route.getTrip().getStops().size())
                         break;
-                    String data = adveConnection.doRequest(requeteString(route, indexStop) + allVehicle.get(i).getElectricalCapacity() *
-                            1000);
+                    String data = adveConnection
+                            .doRequest(requeteString(route, indexStop) + allVehicle.get(i).getElectricalCapacity() *
+                                    1000);
                     System.out.println("data --> " + data);
                     stringToRoute(route, data);
 
@@ -322,15 +330,16 @@ public class VehicleService {
                         routeATempsDeRecharge = true;
                 }
 
-                if(!routeATempsDeRecharge)
+                if (!routeATempsDeRecharge)
                     nbTrajetSansRecharge++;
 
                 evaluateRoute(route, allVehicle, i);
-                score = score + ((route.getWeight()/100) * route.getScore());
+                score = score + ((route.getWeight() / 100) * route.getScore());
                 score = round(score, 2);
             }
 
-            // --------Ajoute le score final a la voiture et l'ajoute dans la liste a retourner
+            // --------Ajoute le score final a la voiture et l'ajoute dans la liste a
+            // retourner
             Evaluation evaluation = new Evaluation(allVehicle.get(i));
             evaluation.setScore(score);
             evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
@@ -344,41 +353,49 @@ public class VehicleService {
     }
 
     private TripNeeds newTripNeed() {
-        /*//---------MIN------------------
-        GeoPoint minGeo1 = new GeoPoint("min1", 45.51963513223519, -73.64121842695846);
-        GeoPoint minGeo2 = new GeoPoint("min2", 45.51934642873574, -73.64017685359295);
-        List<GeoPoint> geoPointMinList = new ArrayList<>();
-        geoPointMinList.add(minGeo1);
-        geoPointMinList.add(minGeo2);
-        Trip trip = new Trip("Min", geoPointMinList, 2);
-        TripNeeds tripNeeds = new TripNeeds();
-        tripNeeds.trips.add(trip);
-        return tripNeeds;
+        /*
+         * //---------MIN------------------
+         * GeoPoint minGeo1 = new GeoPoint("min1", 45.51963513223519,
+         * -73.64121842695846);
+         * GeoPoint minGeo2 = new GeoPoint("min2", 45.51934642873574,
+         * -73.64017685359295);
+         * List<GeoPoint> geoPointMinList = new ArrayList<>();
+         * geoPointMinList.add(minGeo1);
+         * geoPointMinList.add(minGeo2);
+         * Trip trip = new Trip("Min", geoPointMinList, 2);
+         * TripNeeds tripNeeds = new TripNeeds();
+         * tripNeeds.trips.add(trip);
+         * return tripNeeds;
+         * 
+         * 
+         * //---------MAX------------------
+         * GeoPoint maxGeo1 = new GeoPoint("max1", 48.829245888782516,
+         * -64.48377519433731);
+         * GeoPoint maxGeo2 = new GeoPoint("max2", 45.461830145587854,
+         * -75.69938395612203);
+         * List<GeoPoint> geoPointMaxList = new ArrayList<>();
+         * geoPointMaxList.add(maxGeo1);
+         * geoPointMaxList.add(maxGeo2);
+         * Trip trip = new Trip("Max", geoPointMaxList, 2);
+         * TripNeeds tripNeeds = new TripNeeds();
+         * tripNeeds.trips.add(trip);
+         * return tripNeeds;
+         * 
+         * //---------Impossible------------------
+         * GeoPoint impGeo1 = new GeoPoint("imp1", 61.59780702431485,
+         * -71.9571001824064);
+         * GeoPoint impGeo2 = new GeoPoint("imp2", 45.461830145587854,
+         * -75.69938395612203);
+         * List<GeoPoint> geoPointImpList = new ArrayList<>();
+         * geoPointMinList.add(impGeo1);
+         * geoPointMinList.add(impGeo2);
+         * Trip trip = new Trip("Impossible", geoPointImpList, 2);
+         * TripNeeds tripNeeds = new TripNeeds();
+         * tripNeeds.trips.add(trip);
+         * return tripNeeds
+         */
 
-
-        //---------MAX------------------
-        GeoPoint maxGeo1 = new GeoPoint("max1", 48.829245888782516, -64.48377519433731);
-        GeoPoint maxGeo2 = new GeoPoint("max2", 45.461830145587854, -75.69938395612203);
-        List<GeoPoint> geoPointMaxList = new ArrayList<>();
-        geoPointMaxList.add(maxGeo1);
-        geoPointMaxList.add(maxGeo2);
-        Trip trip = new Trip("Max", geoPointMaxList, 2);
-        TripNeeds tripNeeds = new TripNeeds();
-        tripNeeds.trips.add(trip);
-        return tripNeeds;
-
-        //---------Impossible------------------
-        GeoPoint impGeo1 = new GeoPoint("imp1", 61.59780702431485, -71.9571001824064);
-        GeoPoint impGeo2 = new GeoPoint("imp2", 45.461830145587854, -75.69938395612203);
-        List<GeoPoint> geoPointImpList = new ArrayList<>();
-        geoPointMinList.add(impGeo1);
-        geoPointMinList.add(impGeo2);
-        Trip trip = new Trip("Impossible", geoPointImpList, 2);
-        TripNeeds tripNeeds = new TripNeeds();
-        tripNeeds.trips.add(trip);
-        return tripNeeds*/
-
-        //---------MOYEN------------------
+        // ---------MOYEN------------------
         GeoPoint maxGeo1 = new GeoPoint("max1", 45.5382, -73.9159);
         GeoPoint maxGeo2 = new GeoPoint("max2", 45.1138, -72.3623);
         List<GeoPoint> geoPointMaxList = new ArrayList<>();
