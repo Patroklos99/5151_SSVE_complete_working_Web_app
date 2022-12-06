@@ -33,9 +33,6 @@ const Trip: React.FC = () => {
 
       TripService.postTripNeeds(dataTripNeeds)
         .then((response: any) => {
-          setTripNeeds({
-            trips: response.trips
-          });
           setSubmitted(true);
           console.log(response.data);
           label.innerHTML = "Soumis!";

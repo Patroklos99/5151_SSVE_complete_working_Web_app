@@ -5,7 +5,7 @@ import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import ca.uqam.info.ssve.model.TripNeeds;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
@@ -63,9 +63,10 @@ public class VehicleController {
     }
 
     //todo
-    @GetMapping("evaluate")
+    @PostMapping("evaluate")
     public @ResponseBody
-    List<Evaluation> evaluateVehicle() throws IOException {
+    List<Evaluation> evaluateVehicle(@RequestBody TripNeeds tripNeeds) throws IOException {
+		System.out.println(tripNeeds.toString());
         return vehicleService.evaluateVehicle();
     }
 }
