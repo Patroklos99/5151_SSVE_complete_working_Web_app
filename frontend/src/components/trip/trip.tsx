@@ -24,7 +24,6 @@ const Trip: React.FC = () => {
     trips: [],
   };
 
-<<<<<<< HEAD
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [TripList, setTripList] = useState<TripData[]>([]);
   const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
@@ -80,38 +79,6 @@ const Trip: React.FC = () => {
       setGeoPointList([...GeoPointList, geoPointStop]);
     }
   };
-=======
-  const tripNeedsState = {
-    trips: []
-  };
-
-  const [submitted, setSubmitted] = useState<boolean>(false);
-  const [TripList, setTripList] = useState<TripData[]>([]);
-  const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
-  const [GeoPointList, setGeoPointList] = useState<GeoPoint[]>([]);
-
-  const submitForm = () => {
-
-    if (TripList.length > 0) {
-      const label = document.getElementById('submitted') as HTMLLabelElement;
-
-      var dataTripNeeds = {
-        id: null,
-        trips: tripNeeds.trips
-      };
-
-      TripService.postTripNeeds(dataTripNeeds)
-        .then((response: any) => {
-          setSubmitted(true);
-          console.log(response.data);
-          label.innerHTML = "Soumis!";
-        })
-        .catch((e: Error) => {
-          console.log(e);
-        });
-    }
-    };
->>>>>>> bc55af5fba5e09c36f257f61f697f64a9f0ca97f
 
   const handleGeoPointRemove = (index: number) => {
     const list = [...GeoPointList];
