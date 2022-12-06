@@ -3,42 +3,46 @@ import './trip.css'
 import TripData from "../../types/trip";
 import TripService from '../../services/tripServices';
 import TripNeeds from '../../types/tripNeeds';
-import { Button, FormControl, IconButton, NativeSelect, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material';
+import { Button, FormControl, FormHelperText, IconButton, NativeSelect, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material';
 import { Add } from "@mui/icons-material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import GeoPoint from '../../types/geoPoint';
 
 const Trip: React.FC = () => {
 
-  const tripNeedsState = {
-    trips: []
-  };
+    const tripNeedsState = {
+        trips: []
+    };
 
-  const [submitted, setSubmitted] = useState<boolean>(false);
-  const [TripList, setTripList] = useState<TripData[]>([]);
-  const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
-  const [GeoPointList, setGeoPointList] = useState<GeoPoint[]>([]);
+    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [TripList, setTripList] = useState<TripData[]>([]);
+    const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
+    const [GeoPointList, setGeoPointList] = useState<GeoPoint[]>([]);
+    const [nameHelperText, setNameHelperText] = useState("")
+    const [stopHelperText, setStopHelperText] = useState("")
+    const [freqHelperText, setFreqHelperText] = useState("")
+    const [selectBool, setSelectBool] = useState(false);
 
-  const submitForm = () => {
+    const submitForm = () => {
 
-    if (TripList.length > 0) {
-      const label = document.getElementById('submitted') as HTMLLabelElement;
+        if (TripList.length > 0) {
+            const label = document.getElementById('submitted') as HTMLLabelElement;
 
-      var dataTripNeeds = {
-        id: null,
-        trips: tripNeeds.trips
-      };
+            var dataTripNeeds = {
+                id: null,
+                trips: tripNeeds.trips
+            };
 
-      TripService.postTripNeeds(dataTripNeeds)
-        .then((response: any) => {
-          setSubmitted(true);
-          console.log(response.data);
-          label.innerHTML = "Soumis!";
-        })
-        .catch((e: Error) => {
-          console.log(e);
-        });
-    }
+            TripService.postTripNeeds(dataTripNeeds)
+                .then((response: any) => {
+                    setSubmitted(true);
+                    console.log(response.data);
+                    label.innerHTML = "Soumis!";
+                })
+                .catch((e: Error) => {
+                    console.log(e);
+                });
+        }
     };
 
     useEffect(() => {
@@ -87,7 +91,7 @@ const Trip: React.FC = () => {
         const vFreqNb = freqNb?.value;
         const vFreq = freq?.value;
 
-        if (vName !== null && vName !== "" && vStops !== null &&
+        if (vName !== null && vName !== "" && vStops.length > 1 &&
             vFreqNb !== null && vFreqNb !== "" && vFreq !== null && vFreq !== "") {
 
             var cal: number = 0;
@@ -97,6 +101,11 @@ const Trip: React.FC = () => {
             else if (vFreq === "Mois") { cal = +vFreqNb * 12; }
             else if (vFreq === "Année") { cal = +vFreqNb * 1; }
 
+            setSelectBool(false)
+            setNameHelperText("")
+            setStopHelperText("")
+            setFreqHelperText("")
+
             var data = {
                 name: vName,
                 stops: vStops,
@@ -105,10 +114,27 @@ const Trip: React.FC = () => {
 
             setTripList([...TripList, data])
             setTripNeeds({ ...tripNeeds, trips: [...tripNeeds.trips, data] });
+
+            name.value = "";
+            setGeoPointList([]);
+            freqNb.value = "";
         }
-        name.value = "";
-        setGeoPointList([]);
-        freqNb.value = "";
+
+        if (vName.length < 1) {
+            setSelectBool(true)
+            setNameHelperText("Erreur : Veuillez entrer un nom")
+        }
+
+        if (vStops.length < 2) {
+            setSelectBool(true)
+            setStopHelperText("Erreur : Veuillez entrer au moins deux lieux")
+        }
+
+        if (vFreqNb.length < 1) {
+            setSelectBool(true)
+            setFreqHelperText("Erreur : Veuillez entrer une fréquence")
+        }
+
     }
 
     const handleTripRemove = (index: number) => {
@@ -129,6 +155,9 @@ const Trip: React.FC = () => {
                     required
                     sx={{ boxShadow: 5 }}
                 />
+                <FormHelperText id="name-helper"
+                    error={selectBool}>{nameHelperText}
+                </FormHelperText>
                 <div id="map"></div>
                 <br />
                 <label id="textsup">Arrêt</label>
@@ -136,6 +165,9 @@ const Trip: React.FC = () => {
                 <div id="search-box"></div>
                 <input id='search' type={"text"} required hidden />
                 <div id="result" hidden></div>
+                <FormHelperText id="stop-helper"
+                    error={selectBool}>{stopHelperText}
+                </FormHelperText>
 
                 <Button variant="outlined" onClick={handleGeoPointAdd}>
                     <Add /> Ajouter une destination
@@ -145,19 +177,19 @@ const Trip: React.FC = () => {
                         <div>
                             <Table size="small">
                                 <TableBody>
-                                <TableRow>
-                                    <div>
-                                        <TableCell sx={{ width: "100%" }}>
-                                            {geoPoint.name}
-                                        </TableCell>
-                                        <TableCell>
-                                            <IconButton aria-label="delete">
-                                                <DeleteIcon 
-                                                onClick={() => handleGeoPointRemove(index)}/>
-                                            </IconButton>
-                                        </TableCell>
-                                    </div>
-                                </TableRow>
+                                    <TableRow>
+                                        <div>
+                                            <TableCell sx={{ width: "100%" }}>
+                                                {geoPoint.name}
+                                            </TableCell>
+                                            <TableCell>
+                                                <IconButton aria-label="delete">
+                                                    <DeleteIcon
+                                                        onClick={() => handleGeoPointRemove(index)} />
+                                                </IconButton>
+                                            </TableCell>
+                                        </div>
+                                    </TableRow>
                                 </TableBody>
                             </Table>
                         </div>
@@ -167,30 +199,34 @@ const Trip: React.FC = () => {
 
                 <Table size="small">
                     <TableBody>
-                    <TableRow>
-                        <TableCell>
-                            Je fais ce trajet
-                        </TableCell>
-                        <TableCell>
-                            <TextField
-                                type="number"
-                                id='freqNb'
-                                placeholder="Fréquence"
-                                required
-                                sx={{ boxShadow: 5, width: 150 }} />
-                        </TableCell>
-                        <TableCell>
-                            fois par
-                        </TableCell>
-                        <TableCell>
-                            <NativeSelect id="frequences" required>
-                                <option value="Jour">Jour</option>
-                                <option value="Semaine">Semaine</option>
-                                <option value="Mois">Mois</option>
-                                <option value="Année">Année</option>
-                            </NativeSelect>
-                        </TableCell>
-                    </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                Je fais ce trajet
+                            </TableCell>
+                            <TableCell>
+                                <TextField
+                                    type="number"
+                                    id='freqNb'
+                                    placeholder="Fréquence"
+                                    required
+                                    sx={{ boxShadow: 5, width: 150 }}
+                                    inputProps={{ min: "1" }} />
+                                <FormHelperText id="freq-helper"
+                                    error={selectBool}>{freqHelperText}
+                                </FormHelperText>
+                            </TableCell>
+                            <TableCell>
+                                fois par
+                            </TableCell>
+                            <TableCell>
+                                <NativeSelect id="frequences" required>
+                                    <option value="Jour">Jour</option>
+                                    <option value="Semaine">Semaine</option>
+                                    <option value="Mois">Mois</option>
+                                    <option value="Année">Année</option>
+                                </NativeSelect>
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
                 <Button variant="outlined" onClick={() => handleTripAdd()} type={"submit"}>
@@ -201,19 +237,19 @@ const Trip: React.FC = () => {
                         <div>
                             <Table size="small">
                                 <TableBody>
-                                <TableRow>
-                                    <div>
-                                        <TableCell sx={{ width: "100%" }}>
-                                            {trip.name}
-                                        </TableCell>
-                                        <TableCell>
-                                            <IconButton aria-label="delete">
-                                                <DeleteIcon 
-                                                onClick={() => handleTripRemove(index)}/>
-                                            </IconButton>
-                                        </TableCell>
-                                    </div>
-                                </TableRow>
+                                    <TableRow>
+                                        <div>
+                                            <TableCell sx={{ width: "100%" }}>
+                                                {trip.name}
+                                            </TableCell>
+                                            <TableCell>
+                                                <IconButton aria-label="delete">
+                                                    <DeleteIcon
+                                                        onClick={() => handleTripRemove(index)} />
+                                                </IconButton>
+                                            </TableCell>
+                                        </div>
+                                    </TableRow>
                                 </TableBody>
                             </Table>
                         </div>
