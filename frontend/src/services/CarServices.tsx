@@ -9,7 +9,7 @@ import axios from "../http-commons";
  */
 const getAllCars = async () => {
   try {
-    const res = await axios.get("/vehicle/tempDummy");
+    const res = await axios.get("/vehicle/evaluate");
     const data = res.data;
     data.forEach((car: ICar) => {
       car.imgLink = car.imgLink.substring(car.imgLink.lastIndexOf('/') + 1)
