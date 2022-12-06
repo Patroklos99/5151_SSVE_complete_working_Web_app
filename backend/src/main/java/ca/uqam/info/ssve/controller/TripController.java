@@ -9,8 +9,10 @@ import ca.uqam.info.ssve.model.TripNeeds;
 import ca.uqam.info.ssve.service.VehicleService;
 import ca.uqam.info.ssve.model.Evaluation;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +24,7 @@ public class TripController {
 	VehicleService vehicleService;
 
 	@PostMapping("")
-	public @ResponseBody List<Evaluation> postTrip(@RequestBody TripNeeds tripNeeds) {
+	public @ResponseBody List<Evaluation> postTrip(@RequestBody TripNeeds tripNeeds) throws IOException, JSchException, InterruptedException {
 		return vehicleService.evaluateVehicle(tripNeeds);
 	}
 }
