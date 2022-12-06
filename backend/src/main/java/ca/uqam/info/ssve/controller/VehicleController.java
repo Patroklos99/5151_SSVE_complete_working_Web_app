@@ -1,5 +1,6 @@
 package ca.uqam.info.ssve.controller;
 
+import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
