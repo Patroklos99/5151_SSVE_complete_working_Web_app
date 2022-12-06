@@ -11,4 +11,5 @@ public class Route {
     private double weight;
     private double score;
     private int frequence;
+    private Trip trip;
 }

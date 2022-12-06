@@ -1,4 +1,5 @@
 package ca.uqam.info.ssve.model;
+
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -6,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Objet contenant les données d'un point géographique.
  *
  * @author David Daoud
- * Code permanent: DAOD80070006
- * Courriel: daoud.david@courrier.uqam.ca
+ *         Code permanent: DAOD80070006
+ *         Courriel: daoud.david@courrier.uqam.ca
  *
  * @author Christopher Chamberland-Rémillard
- * Code permanent: CHAC29089704
- * Courriel: chamberland-remillard.christopher@courrier.uqam.ca
+ *         Code permanent: CHAC29089704
+ *         Courriel: chamberland-remillard.christopher@courrier.uqam.ca
  *
  * @version 2022-11-30
  */
@@ -38,9 +39,10 @@ public class GeoPoint implements Serializable {
 
     /**
      * Constructeur
+     * 
      * @param name Nom de l'endroit
-     * @param lat Latitude du point géographique
-     * @param lgt Longitude du point géographique
+     * @param lat  Latitude du point géographique
+     * @param lgt  Longitude du point géographique
      */
     public GeoPoint(String name, double lat, double lgt) {
         this.name = name;
@@ -50,6 +52,7 @@ public class GeoPoint implements Serializable {
 
     /**
      * Retourne le nom du point géographique
+     * 
      * @return Le nom du point géographique
      */
     public String getName() {
@@ -58,6 +61,7 @@ public class GeoPoint implements Serializable {
 
     /**
      * Retourne la latitude du point géographique
+     * 
      * @return La latitude du point géographique
      */
     public double getLat() {
@@ -66,6 +70,7 @@ public class GeoPoint implements Serializable {
 
     /**
      * Retourne la longitude du point géographique
+     * 
      * @return La longitude du point géographique
      */
     public double getLgt() {
@@ -74,8 +79,8 @@ public class GeoPoint implements Serializable {
 
     /**
      * Permet l'affichage d'un objet GeoPoint
-     */   
+     */
     public String toString() {
         return name + ", " + lat + ", " + lgt;
-    }  
+    }
 }

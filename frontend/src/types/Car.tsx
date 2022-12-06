@@ -5,13 +5,14 @@ export default interface ICar {
     nbPlaces: number;
     imgLink: string;
     price: number;
-    nbDoors: number;
+    nbDoors?: number | null;
     type: string;
     safetyScore: number;
-    batteryCapacity: number;
-    range: number;
+    batteryCapacity?: number | null;
+    range?: number | null;
     refLink: string;
     description: string;
+    //score?: number | null;
     score: number;
 
     maintainCosts: number;

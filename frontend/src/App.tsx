@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import About from "./components/about/About";
-import Contact from "./components/contact/Contact";
 
 import Dashboard from "./components/dashboard";
 import HomePage from "./components/homepage/HomePage";
@@ -13,12 +12,10 @@ function App() {
       <div className="App-body">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
-
     </div>
   );
 }

@@ -67,20 +67,43 @@ sonarqube-check:
   script: 
     - mvn verify sonar:sonar -Dsonar.projectKey=ssve
   allow_failure: true
-  #only:
-  #  - master
+  only:
+    - master
 
-deploy:
+deploy-master:
   stage: deploy
   only:
     - master
   <<: *apk_update
   script:
     - |-
-      for containerName in deployreact deployspring; do
+      for containerName in deployreactmaster deployspringmaster; do
         exit_code=0
         docker container ls -a | grep -q $containerName || exit_code=$?
         if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
       done
-    - docker run -itd -p 6969:3000 --name deployreact ssve-react
-    - docker run -itd -p 420:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspring ssve-spring
+
+    # On réutilise l'image créée lors du stage de build
+    - docker run -itd -p 6969:3000 --name deployreactmaster ssve-react
+    - docker run -itd -p 420:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspringmaster ssve-spring
+
+# Le stage ci-dessus est très similaire au stage ci-bas. Trouver une manière de paramètrer si possible.
+deploy-develop:
+  stage: deploy
+  only:
+    - develop
+  <<: *apk_update
+  script:
+    - |-
+      for containerName in deployreactdevelop deployspringdevelop; do
+        exit_code=0
+        docker container ls -a | grep -q $containerName || exit_code=$?
+        if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
+      done
+    
+    # On override la config globale avec une url qui pointe vers notre backend sur le port 666 (et non sur le port 420 par défaut)
+    - echo "REACT_APP_BASE_URL=http://dev.api.uqam.info" > frontend/.env.production.local 
+    # Il faut recréer l'image car on a créé un nouveau fichier de config
+    - docker build -f frontend/DockerfileReact -t ssve-react-develop . 
+    - docker run -itd -p 1337:3000 --name deployreactdevelop ssve-react-develop
+    - docker run -itd -p 666:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspringdevelop ssve-spring
