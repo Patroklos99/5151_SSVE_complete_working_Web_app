@@ -6,10 +6,6 @@
   --dark-green: #3e9d73;
 }
 
-.App-header {
-  /* background-color: var(--dark-blue) !important; */
-}
-
 .homePage {
   position: absolute;
   width: 100%;
@@ -52,7 +48,6 @@
 }
 
 .title2 {
-  font-family: "Arial";
   font-size: 48px;
   line-height: 72px;
   color: var(--white);
@@ -61,7 +56,6 @@
 }
 
 .description {
-  font-family: "Roboto", sans-serif;
   width: 50%;
   margin-left: 6rem;
   font-style: normal;
@@ -80,7 +74,6 @@
 }
 
 .textButton {
-  font-family: "Roboto", sans-serif;
   font-style: medium;
   font-weight: 700;
   font-size: 20px;
