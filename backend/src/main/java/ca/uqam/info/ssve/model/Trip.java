@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Objet contenant les données d'un déplacement de l'usager.
  *
- * @autor D
- * 
- *        Code permanent: DAOD80070006
- *        Courriel: daoud.david@courrier.uqam.ca
+ * @author David Daoud
+ *         Code permanent: DAOD80070006
+ *         Courriel: daoud.david@courrier.uqam.ca
  *
  * @author Christopher Chamberland-Rémillard
  *         Code permanent: CHAC29089704

@@ -1,7 +1,5 @@
 package ca.uqam.info.ssve.model;
 
-import lombok.Data;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +17,6 @@ import javax.persistence.Id;
  *
  * @version 2022-10-22
  */
-@Data
 public class Deplacement {
 
     @Id
