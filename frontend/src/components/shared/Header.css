@@ -1,4 +1,4 @@
-.App-header {
+.app-header {
   background-color: #009978;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -9,12 +9,17 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.4em;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
   gap: 40px;
+}
+
+.nav-left {
+  gap: 4em;
 }
 
 a {
