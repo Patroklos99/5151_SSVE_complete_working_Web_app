@@ -47,7 +47,7 @@
   margin-bottom: 0;
 }
 
-.title2 {
+.text h2 {
   font-size: 48px;
   line-height: 72px;
   color: var(--white);
@@ -71,13 +71,4 @@
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   gap: 1em;
-}
-
-.textButton {
-  font-style: medium;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 28px;
-  text-transform: initial;
-  color: #000204;
 }
