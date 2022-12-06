@@ -384,6 +384,7 @@ public class VehicleService {
         List<GeoPoint> geoPointMaxList = new ArrayList<>();
         geoPointMaxList.add(maxGeo1);
         geoPointMaxList.add(maxGeo2);
+        geoPointMaxList.add(maxGeo1);
         Trip trip = new Trip("Max", geoPointMaxList, 2);
         TripNeeds tripNeeds = new TripNeeds();
         tripNeeds.trips.add(trip);
