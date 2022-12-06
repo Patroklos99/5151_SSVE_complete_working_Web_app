@@ -141,58 +141,75 @@ public class VehicleService {
 
     // --------------------------------- ---------------------------------------
 
-    public List<Evaluation> evaluateVehicle(List<Deplacement> coordinateList)
-            throws IOException, JSchException, InterruptedException {
-        adveConnection.connectServer();
-        ArrayList<Route> routeList = new ArrayList<>();
+    public List<Evaluation> evaluateVehicle(TripNeeds tripNeeds) {
+        List<Vehicle> vehicles = getAllVehicle();
         ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
-        int frequenceTotale = 0;
 
-        // --------Détermination de la fréquence total et du poid de chaque route
-        for (Deplacement x : coordinateList) {
-            Route route = new Route();
-            route.setFrequence(x.getFd().getFreq());
-            route.setDeplacement(x);
-            frequenceTotale += route.getFrequence();
-            routeList.add(route);
-        }
-        for (Route route : routeList) {
-            route.setWeight(getPercentage(route.getFrequence(), frequenceTotale));
+        for (Vehicle v : vehicles) {
+            Evaluation e = new Evaluation(v);
+            e.setNbTrajetSansRecharge((int) (Math.random() * 10));
+            e.setScore((int) (Math.random() * 100));
+            e.setTrajetTotal((int) (Math.random() * 10));
+            vehicleFinalScore.add(e);
         }
 
-        // --------Évaluation de chaque route pour chaque voiture et calcule de la note
-        List<Vehicle> allVehicle = getAllVehicle();
-        allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
-
-        int nbTrajetSansRecharge = 0;
-
-        for (int i = 0; i < allVehicle.size(); i++) {
-            double score = 0;
-            for (Route route : routeList) {
-                // --------Obtient les infos du déplacement avec la boite noire
-                String data = adveConnection
-                        .doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() * 100);
-                stringToRoute(route, data);
-
-                if (route.getChargingTime() == 0)
-                    nbTrajetSansRecharge++;
-
-                evaluateRoute(route, allVehicle, i);
-                score = score + (route.getWeight() * route.getScore());
-            }
-
-            // --------Ajoute le score final a la voiture et l'ajoute dans la liste a
-            // retourner
-            Evaluation evaluation = new Evaluation(allVehicle.get(i));
-            evaluation.setScore(score);
-            evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
-            evaluation.setTrajetTotal(routeList.size());
-            vehicleFinalScore.add(evaluation);
-        }
-        adveConnection.closeServer();
         vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
         Collections.reverse(vehicleFinalScore);
+
         return vehicleFinalScore;
+
+        // adveConnection.connectServer();
+        // ArrayList<Route> routeList = new ArrayList<>();
+        // ArrayList<Evaluation> vehicleFinalScore = new ArrayList<>();
+        // int frequenceTotale = 0;
+
+        // // --------Détermination de la fréquence total et du poid de chaque route
+        // for (Trip x : tripNeeds.getTrips()) {
+        // Route route = new Route();
+        // // route.setFrequence(x.getFd().getFreq());
+        // // route.setDeplacement(x);
+        // // frequenceTotale += route.getFrequence();
+        // // routeList.add(route);
+        // }
+        // for (Route route : routeList) {
+        // route.setWeight(getPercentage(route.getFrequence(), frequenceTotale));
+        // }
+
+        // // --------Évaluation de chaque route pour chaque voiture et calcule de la
+        // note
+        // List<Vehicle> allVehicle = getAllVehicle();
+        // allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
+
+        // int nbTrajetSansRecharge = 0;
+
+        // for (int i = 0; i < allVehicle.size(); i++) {
+        // double score = 0;
+        // for (Route route : routeList) {
+        // // --------Obtient les infos du déplacement avec la boite noire
+        // String data = adveConnection
+        // .doRequest(requeteString(route) + allVehicle.get(i).getElectricalCapacity() *
+        // 100);
+        // stringToRoute(route, data);
+
+        // if (route.getChargingTime() == 0)
+        // nbTrajetSansRecharge++;
+
+        // evaluateRoute(route, allVehicle, i);
+        // score = score + (route.getWeight() * route.getScore());
+        // }
+
+        // // --------Ajoute le score final a la voiture et l'ajoute dans la liste a
+        // // retourner
+        // Evaluation evaluation = new Evaluation(allVehicle.get(i));
+        // evaluation.setScore(score);
+        // evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
+        // evaluation.setTrajetTotal(routeList.size());
+        // vehicleFinalScore.add(evaluation);
+        // }
+        // adveConnection.closeServer();
+        // vehicleFinalScore.sort(Comparator.comparing(Evaluation::getScore));
+        // Collections.reverse(vehicleFinalScore);
+        // return vehicleFinalScore;
     }
 
     private String requeteString(Route route) {

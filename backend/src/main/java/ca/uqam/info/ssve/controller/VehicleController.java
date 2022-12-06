@@ -4,8 +4,8 @@ import com.jcraft.jsch.JSchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import ca.uqam.info.ssve.model.Deplacement;
 import ca.uqam.info.ssve.model.Evaluation;
+import ca.uqam.info.ssve.model.TripNeeds;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.service.VehicleService;
 
@@ -62,8 +62,8 @@ public class VehicleController {
     }
 
     @GetMapping("evaluate")
-    public @ResponseBody List<Evaluation> evaluateVehicle(@RequestBody List<Deplacement> listCoord)
+    public @ResponseBody List<Evaluation> evaluateVehicle(@RequestBody TripNeeds tripNeeds)
             throws IOException, JSchException, InterruptedException {
-        return vehicleService.evaluateVehicle(listCoord);
+        return vehicleService.evaluateVehicle(tripNeeds);
     }
 }

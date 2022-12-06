@@ -6,7 +6,7 @@ public class Evaluation {
     private double score;
     private int trajetTotal;
     private int nbTrajetSansRecharge;
-    private Vehicle vehicle;
+    private Vehicle vehicle = new Vehicle();
 
     public Evaluation() {
         Random r = new Random();
@@ -55,6 +55,14 @@ public class Evaluation {
 
     public void setNbTrajetSansRecharge(int nbTrajetSansRecharge) {
         this.nbTrajetSansRecharge = nbTrajetSansRecharge;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
 }
