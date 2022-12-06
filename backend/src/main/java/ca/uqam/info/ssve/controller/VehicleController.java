@@ -69,7 +69,6 @@ public class VehicleController {
     @PostMapping("evaluate")
     public @ResponseBody
     List<Evaluation> evaluateVehicle(@RequestBody TripNeeds tripNeeds) throws IOException {
-		System.out.println(tripNeeds.toString());
         return vehicleService.evaluateVehicle(tripNeeds);
     }
 }

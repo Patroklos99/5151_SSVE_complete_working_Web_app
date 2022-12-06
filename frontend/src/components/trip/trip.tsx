@@ -39,6 +39,7 @@ const Trip: React.FC = () => {
           console.log(e);
         });
     }
+    };
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -227,6 +228,5 @@ const Trip: React.FC = () => {
         </div >
     );
 };
-}
 
 export default Trip;
