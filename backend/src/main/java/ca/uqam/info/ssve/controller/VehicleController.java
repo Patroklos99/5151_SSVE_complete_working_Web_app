@@ -8,7 +8,11 @@ import ca.uqam.info.ssve.model.Evaluation;
 import ca.uqam.info.ssve.model.TripNeeds;
 import ca.uqam.info.ssve.model.Vehicle;
 import ca.uqam.info.ssve.service.VehicleService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import ca.uqam.info.ssve.model.TripNeeds;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
