@@ -7,7 +7,7 @@ import BuildIcon from '@mui/icons-material/Build';
 import PersonIcon from '@mui/icons-material/Person';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
-//import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 
 interface ResultDetailsProps {
@@ -89,10 +89,14 @@ const ResultDetails = (props: ResultDetailsProps) => {
                 <div className="title">
                     <h2 className='modele'>{car.brand + " " + car.modelName}</h2>
                     <h3 className='prix'>{car.price}$</h3>
-
-
-
-
+                    <CircularProgressbar className="circular-progress-score" value={car.score} maxValue={10} text={`${score}`}
+                        styles={buildStyles({
+                            textSize: '16px',
+                            pathColor: `rgba(0, 153, 120, ${car.score})`,
+                            trailColor: '#d6d6d6',
+                            textColor: '#000',
+                        })}
+                    />
                 </div>
                 <span>
                     <div className="desc">
