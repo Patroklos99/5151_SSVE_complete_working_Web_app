@@ -69,19 +69,6 @@ public class TripNeeds implements Serializable {
     }
 
     /**
-     * Constructeur
-     * @param list de trips retrait d'un fichier google timeline
-     */
-    public TripNeeds(ArrayList<TimelineData> timelineData) {
-        this.chargeTime = 0;
-        this.autonomy = 0;
-        this.trips = new ArrayList();
-        for (int i = 0; i < timelineData.size(); i++) {
-            addTravel(new Trip(timelineData.get(i)));
-        }
-    }
-
-    /**
      * Permet d'ajouter un déplacement dans la liste de déplacements
      * @param d Le déplacement à ajouter
      */

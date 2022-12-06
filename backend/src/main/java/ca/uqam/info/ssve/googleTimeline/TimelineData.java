@@ -51,7 +51,7 @@ public class TimelineData {
 
     public void setID(long ID){
         this.placeID = ID;
-        //finalizeTripData(ID);
+        finalizeTripData(ID);
     }
 
     public void finalizeTripData(long ID) {
