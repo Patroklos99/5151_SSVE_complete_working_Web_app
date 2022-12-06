@@ -16,16 +16,16 @@ const NavBar: React.FC = () => {
         <Link to="/about">À propos</Link>
         <Button
           className="start"
-          sx={{
-            textTransform: "inherit",
-            fontSize: "calc(10px + 2vmin)",
-          }}
           variant="contained"
           color="success"
           size="small"
           disableElevation
           component={Link}
           to="/dashboard"
+          sx={{
+            textTransform: "inherit",
+            fontSize: "calc(10px + 2vmin)",
+          }}
         >
           Faire le test
         </Button>
@@ -37,7 +37,7 @@ const NavBar: React.FC = () => {
 const Header: React.FC = () => {
   return (
     <header className="App-header" data-testid="header">
-      <NavBar />
+      <NavBar/>
     </header>
   );
 };

@@ -1,5 +1,5 @@
+import ICar from "../types/Car";
 import axios from "../http-commons";
-import Icar from "../types/Car";
 
 /**
  * These are all examples of services, if you need more complex
@@ -9,10 +9,12 @@ import Icar from "../types/Car";
  */
 const getAllCars = async () => {
   try {
-    console.log(process.env.NODE_ENV);
-    const res = await axios.get<Array<Icar>>("/vehicle/evaluate");
+    const res = await axios.get("/vehicle/tempDummy");
     const data = res.data;
-    return data;
+    data.forEach((car: ICar) => {
+      car.imgLink = car.imgLink.substring(car.imgLink.lastIndexOf('/') + 1)
+    });
+    return await data;
   } catch (err) {
     console.log(err);
     return [];
