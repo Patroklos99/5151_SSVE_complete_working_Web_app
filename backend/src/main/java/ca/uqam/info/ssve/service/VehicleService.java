@@ -162,8 +162,7 @@ public class VehicleService {
             route.setWeight(getPercentage(route.getFrequence(), frequenceTotale));
         }
 
-        // --------Évaluation de chaque route pour chaque voiture et calcule de la
-        // note
+        // --------Évaluation de chaque route pour chaque voiture et calcule de la note
         List<Vehicle> allVehicle = getAllVehicle();
         allVehicle.sort(Comparator.comparing(Vehicle::getElectricalCapacity));
 
@@ -178,9 +177,8 @@ public class VehicleService {
                     if (indexStop + 1 >= route.getTrip().getStops().size())
                         break;
 
-                    String data = adveConnection
-                            .doRequest(requeteString(route, indexStop) + allVehicle.get(i).getElectricalCapacity() *
-                                    1000);
+                    String data = adveConnection.doRequest(requeteString(route, indexStop) + allVehicle.get(i).getElectricalCapacity() * 1000);
+                    System.out.println("data --> " + data);
                     stringToRoute(route, data);
 
                     if (route.getChargingTime() != 0)
@@ -191,11 +189,11 @@ public class VehicleService {
                     nbTrajetSansRecharge++;
 
                 evaluateRoute(route, allVehicle, i);
-                score = score + (route.getWeight() * route.getScore());
+                score = score +((route.getWeight()/100) * route.getScore());
+                score = round(score, 2);
             }
 
-            // --------Ajoute le score final a la voiture et l'ajoute dans la liste a
-            // retourner
+            // --------Ajoute le score final a la voiture et l'ajoute dans la liste a retourner
             Evaluation evaluation = new Evaluation(allVehicle.get(i));
             evaluation.setScore(score / 100);
             evaluation.setNbTrajetSansRecharge(nbTrajetSansRecharge);
@@ -219,7 +217,7 @@ public class VehicleService {
 
     /**
      * Méthode pour arrondire un nombre
-     * 
+     *
      * @param value:  valeur a arrondire
      * @param places: nombre de chiffre après la virgule
      * @return
