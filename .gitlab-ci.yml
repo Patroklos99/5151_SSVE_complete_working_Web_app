@@ -102,6 +102,6 @@ deploy-develop:
       done
       
     # on override la config globale avec une url qui pointe vers notre backend sur le port 666 (et non sur le port 420 par défaut)
-    - echo "REACT_APP_BASE_URL=http://dev.uqam.info" > env.production.local 
+    - echo "REACT_APP_BASE_URL=dev.api.uqam.info" > env.production.local 
     - docker run -itd -p 1337:3000 --name deployreactdevelop ssve-react
     - docker run -itd -p 666:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspringdevelop ssve-spring
