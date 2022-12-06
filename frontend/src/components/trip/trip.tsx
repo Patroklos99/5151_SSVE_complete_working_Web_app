@@ -40,43 +40,13 @@ const Trip: React.FC = () => {
 
       TripService.postTripNeeds(dataTripNeeds)
         .then((response: any) => {
-          setTripNeeds({
-            trips: response.trips,
-          });
           setSubmitted(true);
+          console.log(response.data);
           label.innerHTML = "Soumis!";
         })
         .catch((e: Error) => {
           console.log(e);
         });
-    }
-  };
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "trip.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  const handleGeoPointAdd = () => {
-    const stop = document.getElementById("search") as HTMLInputElement;
-
-    const vStops = stop?.value;
-
-    if (vStops !== null && vStops !== "") {
-      var splitStop = vStops.split("\\");
-
-      var geoPointStop: GeoPoint = {
-        name: splitStop[0],
-        lat: +splitStop[1],
-        lgt: +splitStop[2],
-      };
-
-      setGeoPointList([...GeoPointList, geoPointStop]);
     }
   };
 

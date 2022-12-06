@@ -5,7 +5,7 @@ import TripNeeds from "../types/tripNeeds";
 
 const postTripNeeds = async (data: TripNeeds) => {
 
-    return http.post<TripNeeds>("/tripneeds", data);
+    return http.post<TripNeeds>("/vehicle/evaluate", data);
 
 };
 
