@@ -1,0 +1,16 @@
+.logoTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  height: 1em;
+}
+
+.title1 {
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px;
+  color: #ffffff;
+}
+.logo {
+  width: 20%;
+}
