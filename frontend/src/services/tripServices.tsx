@@ -19,8 +19,7 @@ const postTripNeeds = async (data: TripNeeds) => {
             evaluation.vehicle.imgLink = 
                 evaluation.vehicle.imgLink.substring(evaluation.vehicle.imgLink.lastIndexOf('/') + 1);
         });
-        console.log(resData);
-        return await data;
+        return resData;
     } catch (err) {
         console.log(err);
         return [];

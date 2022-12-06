@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import "./trip.css";
 import TripData from "../../types/trip";
 import TripService from "../../services/tripServices";
@@ -18,8 +18,11 @@ import {
 import { Add } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import GeoPoint from "../../types/geoPoint";
-
-const Trip: React.FC = () => {
+import ICar from "../../types/Car";
+interface TripProps{
+  handleEvaluateRes: (res: ICar[]) => void;
+}
+const Trip = (props: TripProps) => {
   const tripNeedsState = {
     trips: [],
   };
@@ -40,9 +43,12 @@ const Trip: React.FC = () => {
 
       TripService.postTripNeeds(dataTripNeeds)
         .then((response: any) => {
+          props.handleEvaluateRes(response);
           setTripNeeds({
-            trips: response.trips,
-          });
+            trips: response,
+          })
+          
+
           setSubmitted(true);
           label.innerHTML = "Soumis!";
         })

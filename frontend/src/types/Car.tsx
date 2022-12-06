@@ -12,7 +12,8 @@ export default interface ICar {
     range?: number | null;
     refLink: string;
     description: string;
-    score?: number | null;
+    //score?: number | null;
+    score: number;
 
     maintainCosts: number;
     electricalCapacity: number;

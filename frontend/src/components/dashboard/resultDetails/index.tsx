@@ -20,7 +20,7 @@ const distanceIcon = require('../../../assets/icons/distance.png');
 
 const ResultDetails = (props: ResultDetailsProps) => {
     const { car } = props;
-    const score = (car.score * 10).toFixed(2);
+    const score = (car.score).toFixed(2);
 
     const getRange = (capacity: number, consumption: number) => {
         return Math.round(capacity / consumption * 100);

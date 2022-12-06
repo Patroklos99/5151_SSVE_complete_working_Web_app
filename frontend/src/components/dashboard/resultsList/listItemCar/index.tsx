@@ -46,7 +46,7 @@ const ListItemCar = (props: ListItemCarProps) => {
             />
             <LinearProgressWithLabel
               variant="determinate"
-              value={props.car.score * 10}
+              value={props.car.score}
             />
           </div>
         </ListItem>
