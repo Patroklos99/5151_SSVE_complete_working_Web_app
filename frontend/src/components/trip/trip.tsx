@@ -10,38 +10,36 @@ import GeoPoint from '../../types/geoPoint';
 
 const Trip: React.FC = () => {
 
-    const tripNeedsState = {
-        trips: []
-    };
+  const tripNeedsState = {
+    trips: []
+  };
 
-    const [submitted, setSubmitted] = useState<boolean>(false);
-    const [TripList, setTripList] = useState<TripData[]>([]);
-    const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
-    const [GeoPointList, setGeoPointList] = useState<GeoPoint[]>([]);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [TripList, setTripList] = useState<TripData[]>([]);
+  const [tripNeeds, setTripNeeds] = useState<TripNeeds>(tripNeedsState);
+  const [GeoPointList, setGeoPointList] = useState<GeoPoint[]>([]);
 
-    const submitForm = () => {
+  const submitForm = () => {
 
-        if (TripList.length > 0) {
-            const label = document.getElementById('submitted') as HTMLLabelElement;
+    if (TripList.length > 0) {
+      const label = document.getElementById('submitted') as HTMLLabelElement;
 
-            var dataTripNeeds = {
-                id: null,
-                trips: tripNeeds.trips
-            };
+      var dataTripNeeds = {
+        id: null,
+        trips: tripNeeds.trips
+      };
 
-            TripService.postTripNeeds(dataTripNeeds)
-                .then((response: any) => {
-                    setTripNeeds({
-                        trips: response.trips
-                    });
-                    setSubmitted(true);
-                    label.innerHTML = "Soumis!";
-                })
-                .catch((e: Error) => {
-                    console.log(e);
-                });
-        }
+      TripService.postTripNeeds(dataTripNeeds)
+        .then((response: any) => {
+          setSubmitted(true);
+          console.log(response.data);
+          label.innerHTML = "Soumis!";
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
     }
+    };
 
     useEffect(() => {
         const script = document.createElement('script');
