@@ -14,21 +14,14 @@ const About = () => {
     <Container maxWidth="xl">
       <h1>À propos</h1>
       <Typography color="inherit" variant="h5">
-        <CustomIcon
-          sx={{
-            marginRight: "18px",
-          }}
-          color="warning"
-          fontSize="inherit"
-        />
-        Désolé cette page est en cours de construction
-        <CustomIcon
-          sx={{
-            marginLeft: "18px",
-          }}
-          color="warning"
-          fontSize="inherit"
-        />
+        <h2>Historique</h2>
+        <text>Notre équipe a développé ce programme dans le but de faciliter la location d'automobiles pour les usages qui sont fatigués des autres systèmes archaiques et peu pratiques.</text>
+        <h2>Clientèles</h2>
+        <text>Les clients desservies recherchent à trouver une automobile qui corresponde à leurs besoins et qui veulent un service de qualité.</text>
+        <h2>Modèle d'affaire</h2>
+        <text>Le programme conçus est le produit que nous offrons à notre clientèle.</text>
+        <h2>Membres de l'équipe</h2>
+        <text>Tous les membres de l'équipe sont des étudiants de l'UQAM en informatique et génie logiciel</text>
       </Typography>
     </Container>
   );
