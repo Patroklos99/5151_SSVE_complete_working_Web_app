@@ -99,6 +99,6 @@ deploy-develop:
         if [ $exit_code -ne 1 ]; then docker container rm -f $containerName; echo REMOVED $containerName; fi;
       done
       
-    - echo REACT_APP_BASE_URL=mon_url > env.production.local
+    - echo "REACT_APP_BASE_URL=http://dev.uqam.info" > env.production.local
     - docker run -itd -p 1337:3000 --name deployreactdevelop ssve-react
     - docker run -itd -p 666:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name deployspringdevelop ssve-spring
