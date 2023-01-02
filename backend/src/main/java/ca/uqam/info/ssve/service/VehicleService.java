@@ -29,26 +29,7 @@ public class VehicleService {
      * @return
      */
     public Vehicle addVehicle(Vehicle vehicle) {
-        if (validateBrand(vehicle.getBrand())
-                && validateModelName(vehicle.getModelName())
-                && validatePrice(vehicle.getPrice())
-                && validateNbPlaces(vehicle.getNbPlaces())
-                && validateType(vehicle.getType())
-                && validateMaintainCosts(vehicle.getMaintainCosts())
-                && validateElectricalCapacity(vehicle.getElectricalCapacity())
-                && validateElectricalConsumption(vehicle.getElectricalStreetConsumption())
-                && validateElectricalConsumption(vehicle.getElectricalHighwayConsumption())
-                && validateGasCapacity(vehicle.getGasCapacity())
-                && validateGasConsumption(vehicle.getGasStreetConsumption())
-                && validateGasConsumption(vehicle.getGasHighwayConsumption())
-                && validateLoadCapacity(vehicle.getLoadCapacity())
-                && validateSafetyScore(vehicle.getSafetyScore())
-                && validateRefLink(vehicle.getRefLink())
-                && validateImgLink(vehicle.getImgLink())
-                && validateDescription(vehicle.getDescription())) {
-            return vehicleRepository.save(vehicle);
-        }
-        throw new IllegalArgumentException();
+        return vehicleRepository.save(vehicle);
     }
 
     public List<Vehicle> getAllVehicle() {
@@ -56,88 +37,13 @@ public class VehicleService {
     }
 
     public Vehicle modifyVehicle(Vehicle vehicle) {
-        if (validateBrand(vehicle.getBrand())
-                && validateModelName(vehicle.getModelName())
-                && validatePrice(vehicle.getPrice())
-                && validateNbPlaces(vehicle.getNbPlaces())
-                && validateType(vehicle.getType())
-                && validateMaintainCosts(vehicle.getMaintainCosts())
-                && validateElectricalCapacity(vehicle.getElectricalCapacity())
-                && validateElectricalConsumption(vehicle.getElectricalStreetConsumption())
-                && validateElectricalConsumption(vehicle.getElectricalHighwayConsumption())
-                && validateGasCapacity(vehicle.getGasCapacity())
-                && validateGasConsumption(vehicle.getGasStreetConsumption())
-                && validateGasConsumption(vehicle.getGasHighwayConsumption())
-                && validateLoadCapacity(vehicle.getLoadCapacity())
-                && validateSafetyScore(vehicle.getSafetyScore())
-                && validateRefLink(vehicle.getRefLink())
-                && validateImgLink(vehicle.getImgLink())
-                && validateDescription(vehicle.getDescription())
-                && vehicleRepository.findById(vehicle.getId()).isPresent()) {
+        if (vehicleRepository.findById(vehicle.getId()).isPresent())
             return vehicleRepository.save(vehicle);
-        }
         throw new IllegalArgumentException();
-    }
-
-    // ----------------------------------------------------
-    private boolean validateBrand(String brand) {
-        return brand.matches("[a-zA-Z]+");
-    }
-
-    private boolean validateModelName(String modelName) {
-        return modelName.matches("[A-Za-z\s0-9]+");
-    }
-
-    private boolean validateNbPlaces(int nbDoors) {
-        return nbDoors > 0 && nbDoors < 10;
-    }
-
-    private boolean validateElectricalCapacity(int electricalCapacity) {
-        return electricalCapacity > 0 && electricalCapacity < 500;
-    }
-
-    private boolean validateElectricalConsumption(double electricalConsumption) {
-        return electricalConsumption > 0 && electricalConsumption < 100;
-    }
-
-    private boolean validateGasCapacity(int gasCapacity) {
-        return gasCapacity > 0 && gasCapacity < 500;
-    }
-
-    private boolean validateGasConsumption(double gasConsumption) {
-        return gasConsumption > 0 && gasConsumption < 100;
-    }
-
-    private boolean validateLoadCapacity(int loadCapacity) {
-        return loadCapacity > 0 && loadCapacity < 500;
-    }
-
-    private boolean validateType(String type) {
-        return type.matches("[a-zA-Z]+");
-    }
-
-    private boolean validatePrice(int price) {
-        return price > 0 && price < Integer.MAX_VALUE;
-    }
-
-    private boolean validateMaintainCosts(double maintainCosts) {
-        return maintainCosts > 0 && maintainCosts < 1000;
-    }
-
-    private boolean validateSafetyScore(int safetyScore) {
-        return safetyScore >= 0 && safetyScore <= 5;
-    }
-
-    private boolean validateRefLink(String refLink) {
-        return refLink.matches("(\\b(https?|ftp|file)://)?[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
     }
 
     private boolean validateImgLink(String imgLink) {
         return imgLink.matches("(\\b(https?|ftp|file)://)?[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
-    }
-
-    private boolean validateDescription(String description) {
-        return description.length() >= 0 && description.length() < 1000;
     }
 
     // --------------------------------- ---------------------------------------
