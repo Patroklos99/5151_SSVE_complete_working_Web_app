@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -20,29 +21,30 @@ public class Vehicle {
     private String brand;
     @NotEmpty
     private String modelName;
-    @NotEmpty
+    @NotNull
     private int nbPlaces;
     @NotEmpty
     private String type;
-    @NotEmpty
+    @NotNull
     private int price;
-    @NotEmpty
+    @NotNull
     private double maintainCosts;
-    @NotEmpty
+    @NotNull
     private int electricalCapacity;
-    @NotEmpty
+    @NotNull
     private double electricalStreetConsumption;
-    @NotEmpty
+    @NotNull
     private double electricalHighwayConsumption;
-    @NotEmpty
+    @NotNull
     private int gasCapacity;
-    @NotEmpty
+    @NotNull
     private double gasStreetConsumption;
-    @NotEmpty
+
+    @NotNull
     private double gasHighwayConsumption;
-    @NotEmpty
+    @NotNull
     private int loadCapacity;
-    @NotEmpty
+    @NotNull
     private int safetyScore;
     @NotEmpty
     private String refLink;
@@ -57,7 +59,7 @@ public class Vehicle {
             int nbPlaces,
             String type,
             int price,
-            int maintainCosts,
+            double maintainCosts,
             int electricalCapacity,
             double electricalStreetConsumption,
             double electricalHighwayConsumption,
